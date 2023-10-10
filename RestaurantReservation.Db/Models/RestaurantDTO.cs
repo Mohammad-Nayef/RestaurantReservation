@@ -19,5 +19,13 @@ namespace RestaurantReservation.Db.Models
 
         [Column("opening_hours")]
         public string OpeningHours { get; set; }
+
+        public List<ReservationDTO> Reservations { get; set; } = new List<ReservationDTO>();
+
+        public List<TableDTO> Tables { get; set; } = new List<TableDTO>();
+
+        public List<EmployeeDTO> Employees { get; set; } = new List<EmployeeDTO>();
+
+        public List<MenuItemDTO> MenuItems { get; set; } = new List<MenuItemDTO>();
     }
 }

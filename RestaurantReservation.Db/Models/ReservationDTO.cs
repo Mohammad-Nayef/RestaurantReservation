@@ -22,5 +22,7 @@ namespace RestaurantReservation.Db.Models
 
         [Column("party_size")]
         public int PartySize { get; set; }
+
+        public List<OrderDTO> Reservations { get; set; } = new List<OrderDTO>();
     }
 }

@@ -19,5 +19,7 @@ namespace RestaurantReservation.Db.Models
 
         [Column("price")]
         public decimal Price { get; set; }
+
+        public List<OrderItemDTO> OrderItems { get; set; } = new List<OrderItemDTO>();
     }
 }

@@ -19,5 +19,7 @@ namespace RestaurantReservation.Db.Models
 
         [Column("position")]
         public string Position { get; set; }
+
+        public List<OrderDTO> OrderItems { get; set; } = new List<OrderDTO>();
     }
 }

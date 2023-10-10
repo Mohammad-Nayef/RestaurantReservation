@@ -13,5 +13,7 @@ namespace RestaurantReservation.Db.Models
 
         [Column("capacity")]
         public int Capacity { get; set; }
+
+        public List<ReservationDTO> Reservations { get; set; } = new List<ReservationDTO>();
     }
 }

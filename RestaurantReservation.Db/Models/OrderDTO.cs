@@ -19,5 +19,7 @@ namespace RestaurantReservation.Db.Models
 
         [Column("total_amount")]
         public int TotalAmount { get; set; }
+
+        public List<OrderItemDTO> OrderItems { get; set; } = new List<OrderItemDTO>();
     }
 }

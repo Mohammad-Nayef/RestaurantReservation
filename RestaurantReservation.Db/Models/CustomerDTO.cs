@@ -19,5 +19,7 @@ namespace RestaurantReservation.Db.Models
 
         [Column("phone_number")]
         public string PhoneNumber { get; set; }
+
+        public List<ReservationDTO> Reservations { get; set; } = new List<ReservationDTO>();
     }
 }
