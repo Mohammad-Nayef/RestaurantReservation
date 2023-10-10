@@ -15,7 +15,8 @@ namespace RestaurantReservation.Db
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
-            
+            optionsBuilder.UseSqlServer("Data Source = MOHAMMAD;" +
+                "Initial Catalog = RestaurantReservationCore;");
         }
     }
 }
