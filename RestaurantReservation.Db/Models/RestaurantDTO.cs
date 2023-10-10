@@ -6,7 +6,7 @@ namespace RestaurantReservation.Db.Models
     public class RestaurantDTO
     {
         [Column("restaurant_id")]
-        public int RestaurantId { get; set; }
+        public int Id { get; set; }
 
         [Column("name")]
         public string Name { get; set; }
