@@ -3,7 +3,7 @@
 namespace RestaurantReservation.Db.Models
 {
     [Table("OrderItems")]
-    public class OrderItemDTO
+    public class OrderItem
     {
         [Column("order_item_id")]
         public int Id { get; set; }

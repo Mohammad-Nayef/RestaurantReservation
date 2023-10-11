@@ -3,7 +3,7 @@
 namespace RestaurantReservation.Db.Models
 {
     [Table("Customers")]
-    public class CustomerDTO
+    public class Customer
     {
         [Column("customer_id")]
         public int Id { get; set; }
@@ -20,6 +20,6 @@ namespace RestaurantReservation.Db.Models
         [Column("phone_number")]
         public string PhoneNumber { get; set; }
 
-        public List<ReservationDTO> Reservations { get; set; } = new List<ReservationDTO>();
+        public List<Reservation> Reservations { get; set; } = new List<Reservation>();
     }
 }

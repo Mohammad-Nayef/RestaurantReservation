@@ -3,7 +3,7 @@
 namespace RestaurantReservation.Db.Models
 {
     [Table("Restaurants")]
-    public class RestaurantDTO
+    public class Restaurant
     {
         [Column("restaurant_id")]
         public int Id { get; set; }
@@ -20,12 +20,12 @@ namespace RestaurantReservation.Db.Models
         [Column("opening_hours")]
         public string OpeningHours { get; set; }
 
-        public List<ReservationDTO> Reservations { get; set; } = new List<ReservationDTO>();
+        public List<Reservation> Reservations { get; set; } = new List<Reservation>();
 
-        public List<TableDTO> Tables { get; set; } = new List<TableDTO>();
+        public List<Table> Tables { get; set; } = new List<Table>();
 
-        public List<EmployeeDTO> Employees { get; set; } = new List<EmployeeDTO>();
+        public List<Employee> Employees { get; set; } = new List<Employee>();
 
-        public List<MenuItemDTO> MenuItems { get; set; } = new List<MenuItemDTO>();
+        public List<MenuItem> MenuItems { get; set; } = new List<MenuItem>();
     }
 }

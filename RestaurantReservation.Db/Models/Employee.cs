@@ -3,7 +3,7 @@
 namespace RestaurantReservation.Db.Models
 {
     [Table("Employees")]
-    public class EmployeeDTO
+    public class Employee
     {
         [Column("employee_id")]
         public int Id { get; set; }
@@ -20,6 +20,6 @@ namespace RestaurantReservation.Db.Models
         [Column("position")]
         public string Position { get; set; }
 
-        public List<OrderDTO> OrderItems { get; set; } = new List<OrderDTO>();
+        public List<Order> OrderItems { get; set; } = new List<Order>();
     }
 }

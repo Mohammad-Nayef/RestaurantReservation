@@ -3,7 +3,7 @@
 namespace RestaurantReservation.Db.Models
 {
     [Table("Tables")]
-    public class TableDTO
+    public class Table
     {
         [Column("table_id")]
         public int Id { get; set; }
@@ -14,6 +14,6 @@ namespace RestaurantReservation.Db.Models
         [Column("capacity")]
         public int Capacity { get; set; }
 
-        public List<ReservationDTO> Reservations { get; set; } = new List<ReservationDTO>();
+        public List<Reservation> Reservations { get; set; } = new List<Reservation>();
     }
 }
