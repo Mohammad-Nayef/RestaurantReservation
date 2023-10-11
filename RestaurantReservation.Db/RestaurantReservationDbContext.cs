@@ -64,11 +64,11 @@ namespace RestaurantReservation.Db
         private static void OrderItemsSeeding(ModelBuilder modelBuilder)
         {
             modelBuilder.Entity<OrderItemDTO>().HasData(
-                            new OrderItemDTO { Id = 1, OrderId = 2, ItemId = 3, Quantity = 2 },
-                            new OrderItemDTO { Id = 2, OrderId = 2, ItemId = 1, Quantity = 3 },
-                            new OrderItemDTO { Id = 3, OrderId = 5, ItemId = 3, Quantity = 5 },
-                            new OrderItemDTO { Id = 4, OrderId = 4, ItemId = 3, Quantity = 1 },
-                            new OrderItemDTO { Id = 5, OrderId = 3, ItemId = 3, Quantity = 2 });
+                            new OrderItemDTO { Id = 1, OrderId = 2, MenuItemId = 3, Quantity = 2 },
+                            new OrderItemDTO { Id = 2, OrderId = 2, MenuItemId = 1, Quantity = 3 },
+                            new OrderItemDTO { Id = 3, OrderId = 5, MenuItemId = 3, Quantity = 5 },
+                            new OrderItemDTO { Id = 4, OrderId = 4, MenuItemId = 3, Quantity = 1 },
+                            new OrderItemDTO { Id = 5, OrderId = 3, MenuItemId = 3, Quantity = 2 });
         }
 
         private static void OrdersSeeding(ModelBuilder modelBuilder)

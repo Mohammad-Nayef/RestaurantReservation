@@ -12,7 +12,7 @@ namespace RestaurantReservation.Db.Models
         public int OrderId { get; set; }
 
         [Column("item_id")]
-        public int ItemId { get; set; }
+        public int MenuItemId { get; set; }
 
         [Column("quantity")]
         public int Quantity { get; set; }
