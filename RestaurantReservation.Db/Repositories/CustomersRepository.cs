@@ -13,5 +13,13 @@ namespace RestaurantReservation.Db.Repositories
                     .SingleOrDefaultAsync(customer => customer.Id == customerId);
             }
         }
+
+        public static async Task<List<Customer>> GetAllAsync()
+        {
+            using (var context = new RestaurantReservationDbContext())
+            {
+                return await context.Customers.ToListAsync();
+            }
+        }
     }
 }
