@@ -5,6 +5,17 @@ namespace RestaurantReservation.Db.Repositories
 {
     public static class CustomersRepository
     {
+        /// <returns>The ID of the created object.</returns>
+        public static async Task<int> CreateAsync(Customer newCustomer)
+        {
+            using (var context = new RestaurantReservationDbContext())
+            {
+                var customer = await context.Customers.AddAsync(newCustomer);
+                await context.SaveChangesAsync();
+                return customer.Entity.Id;
+            }
+        }
+
         public static async Task<Customer?> GetAsync(int customerId)
         {
             using (var context = new RestaurantReservationDbContext())
