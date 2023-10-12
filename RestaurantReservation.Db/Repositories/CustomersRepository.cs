@@ -3,34 +3,33 @@ using RestaurantReservation.Db.Models;
 
 namespace RestaurantReservation.Db.Repositories
 {
-    public static class CustomersRepository
+    public class CustomersRepository
     {
+        private RestaurantReservationDbContext _context;
+
+        public CustomersRepository(RestaurantReservationDbContext context)
+        {
+            _context = context;
+            _context.Database.EnsureCreatedAsync().Wait();
+        }
+
         /// <returns>The ID of the created object.</returns>
-        public static async Task<int> CreateAsync(Customer newCustomer)
+        public async Task<int> CreateAsync(Customer newCustomer)
         {
-            using (var context = new RestaurantReservationDbContext())
-            {
-                var customer = await context.Customers.AddAsync(newCustomer);
-                await context.SaveChangesAsync();
-                return customer.Entity.Id;
-            }
+            var customer = await _context.Customers.AddAsync(newCustomer);
+            await _context.SaveChangesAsync();
+            return customer.Entity.Id;
         }
 
-        public static async Task<Customer?> GetAsync(int customerId)
+        public async Task<Customer?> GetAsync(int customerId)
         {
-            using (var context = new RestaurantReservationDbContext())
-            {
-                return await context.Customers
-                    .SingleOrDefaultAsync(customer => customer.Id == customerId);
-            }
+            return await _context.Customers
+                .SingleOrDefaultAsync(customer => customer.Id == customerId);
         }
 
-        public static async Task<List<Customer>> GetAllAsync()
+        public async Task<List<Customer>> GetAllAsync()
         {
-            using (var context = new RestaurantReservationDbContext())
-            {
-                return await context.Customers.ToListAsync();
-            }
+            return await _context.Customers.ToListAsync();
         }
     }
 }
