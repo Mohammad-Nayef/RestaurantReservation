@@ -14,6 +14,6 @@
 
         public int PartySize { get; set; }
 
-        public List<Order> Reservations { get; set; } = new List<Order>();
+        public List<Order> Orders { get; set; } = new List<Order>();
     }
 }
