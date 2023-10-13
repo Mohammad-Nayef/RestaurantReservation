@@ -1,4 +1,5 @@
-﻿using RestaurantReservation.Db.Models;
+﻿using Microsoft.EntityFrameworkCore;
+using RestaurantReservation.Db.Models;
 using RestaurantReservation.Db.Repositories;
 
 namespace RestaurantReservation.Db.Services
@@ -11,6 +12,11 @@ namespace RestaurantReservation.Db.Services
         public EmployeeService()
         {
             employeesRepository = new(_context);
+        }
+
+        ~EmployeeService()
+        {
+            _context.DisposeAsync();
         }
 
         public async Task<List<Employee>> ListManagersAsync()
