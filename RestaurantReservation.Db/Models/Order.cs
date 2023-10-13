@@ -6,7 +6,11 @@
 
         public int? ReservationId { get; set; }
 
+        public Reservation? Reservation { get; set; }
+
         public int? EmployeeId { get; set; }
+
+        public Employee? Employee { get; set; }
 
         public DateTime OrderDate { get; set; }
 
