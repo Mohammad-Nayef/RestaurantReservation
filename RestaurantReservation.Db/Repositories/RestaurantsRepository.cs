@@ -1,0 +1,56 @@
+﻿using Microsoft.EntityFrameworkCore;
+using RestaurantReservation.Db.Models;
+
+namespace RestaurantReservation.Db.Repositories
+{
+    public class RestaurantsRepository
+    {
+        private RestaurantReservationDbContext _context;
+
+        public RestaurantsRepository(RestaurantReservationDbContext context)
+        {
+            _context = context;
+            _context.Database.EnsureCreatedAsync().Wait();
+        }
+
+        public async Task<int> CreateAsync(Restaurant newRestaurant)
+        {
+            var restaurant = await _context.Restaurants.AddAsync(newRestaurant);
+            await _context.SaveChangesAsync();
+            return restaurant.Entity.Id;
+        }
+
+        public async Task<Restaurant> GetAsync(int restaurantId)
+        {
+            var restaurant = await _context.Restaurants
+                .SingleOrDefaultAsync(r => r.Id == restaurantId);
+
+            if (restaurant != null)
+            {
+                return restaurant;
+            }
+            else
+            {
+                throw new KeyNotFoundException($"Restaurant with ID = {restaurantId} does not exist.");
+            }
+        }
+
+        public async Task<List<Restaurant>> GetAllAsync()
+        {
+            return await _context.Restaurants.ToListAsync();
+        }
+
+        public async Task UpdateAsync(Restaurant updatedRestaurant)
+        {
+            _context.Restaurants.Update(updatedRestaurant);
+            await _context.SaveChangesAsync();
+        }
+
+        public async Task DeleteAsync(int restaurantId)
+        {
+            var restaurant = await GetAsync(restaurantId);
+            _context.Restaurants.Remove(restaurant);
+            await _context.SaveChangesAsync();
+        }
+    }
+}
