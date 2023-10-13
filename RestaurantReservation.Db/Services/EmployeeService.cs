@@ -12,5 +12,12 @@ namespace RestaurantReservation.Db.Services
         {
             employeesRepository = new(_context);
         }
+
+        public async Task<List<Employee>> ListManagersAsync()
+        {
+            var employees = await employeesRepository.GetAllAsync();
+            return employees.Where(employee => employee.Position == "Manager")
+                .ToList();
+        }
     }
 }
