@@ -31,5 +31,11 @@ namespace RestaurantReservation.Db.Repositories
         {
             return await _context.Customers.ToListAsync();
         }
+
+        public async Task UpdateAsync(Customer updatedCustomer)
+        {
+            _context.Customers.Update(updatedCustomer);
+            await _context.SaveChangesAsync();
+        }
     }
 }
