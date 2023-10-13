@@ -21,10 +21,19 @@ namespace RestaurantReservation.Db.Repositories
             return customer.Entity.Id;
         }
 
-        public async Task<Customer?> GetAsync(int customerId)
+        public async Task<Customer> GetAsync(int customerId)
         {
-            return await _context.Customers
+            var customer = await _context.Customers
                 .SingleOrDefaultAsync(customer => customer.Id == customerId);
+
+            if (customer != null)
+            {
+                return customer;
+            }
+            else
+            {
+                throw new KeyNotFoundException($"Customer with ID = {customerId} does not exist.");
+            }
         }
 
         public async Task<List<Customer>> GetAllAsync()
