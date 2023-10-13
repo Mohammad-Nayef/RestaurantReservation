@@ -22,6 +22,66 @@ namespace RestaurantReservation.Db
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
+            modelBuilder.Entity<Customer>()
+                .HasMany(customer => customer.Reservations)
+                .WithOne(reservation => reservation.Customer)
+                .HasForeignKey(reservation => reservation.CustomerId)
+                .OnDelete(DeleteBehavior.SetNull);
+
+            modelBuilder.Entity<Table>()
+                .HasMany(a => a.Reservations)
+                .WithOne(reservation => reservation.Table)
+                .HasForeignKey(reservation => reservation.TableId)
+                .OnDelete(DeleteBehavior.SetNull);
+
+            modelBuilder.Entity<Reservation>()
+                .HasMany(reservation => reservation.Orders)
+                .WithOne(a => a.Reservation)
+                .HasForeignKey(a => a.ReservationId)
+                .OnDelete(DeleteBehavior.SetNull);
+
+            modelBuilder.Entity<Restaurant>()
+                .HasMany(restaurant => restaurant.Reservations)
+                .WithOne(reservation => reservation.Restaurant)
+                .HasForeignKey(reservation => reservation.RestaurantId)
+                .OnDelete(DeleteBehavior.SetNull);
+
+            modelBuilder.Entity<Restaurant>()
+                .HasMany(restaurant => restaurant.Tables)
+                .WithOne(a => a.Restaurant)
+                .HasForeignKey(a => a.RestaurantId)
+                .OnDelete(DeleteBehavior.SetNull);
+
+            modelBuilder.Entity<Restaurant>()
+                .HasMany(restaurant => restaurant.Employees)
+                .WithOne(a => a.Restaurant)
+                .HasForeignKey(a => a.RestaurantId)
+                .OnDelete(DeleteBehavior.SetNull);
+
+            modelBuilder.Entity<Restaurant>()
+                .HasMany(restaurant => restaurant.MenuItems)
+                .WithOne(a => a.Restaurant)
+                .HasForeignKey(a => a.RestaurantId)
+                .OnDelete(DeleteBehavior.SetNull);
+
+            modelBuilder.Entity<MenuItem>()
+                .HasMany(a => a.OrderItems)
+                .WithOne(a => a.MenuItem)
+                .HasForeignKey(a => a.MenuItemId)
+                .OnDelete(DeleteBehavior.SetNull);
+
+            modelBuilder.Entity<Order>()
+                .HasMany(a => a.OrderItems)
+                .WithOne(a => a.Order)
+                .HasForeignKey(a => a.OrderId)
+                .OnDelete(DeleteBehavior.SetNull);
+
+            modelBuilder.Entity<Employee>()
+                .HasMany(a => a.Orders)
+                .WithOne(a => a.Employee)
+                .HasForeignKey(a => a.EmployeeId)
+                .OnDelete(DeleteBehavior.SetNull);
+
             CustomersSeeding(modelBuilder);
             EmployeesSeeding(modelBuilder);
             MenuItemsSeeding(modelBuilder);
