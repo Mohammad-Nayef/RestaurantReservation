@@ -1,4 +1,5 @@
-﻿using Microsoft.EntityFrameworkCore.Migrations;
+﻿using System;
+using Microsoft.EntityFrameworkCore.Migrations;
 
 #nullable disable
 
@@ -62,7 +63,8 @@ namespace RestaurantReservation.Db.Migrations
                         name: "FK_Employees_Restaurants_RestaurantId",
                         column: x => x.RestaurantId,
                         principalTable: "Restaurants",
-                        principalColumn: "Id");
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.SetNull);
                 });
 
             migrationBuilder.CreateTable(
@@ -83,7 +85,8 @@ namespace RestaurantReservation.Db.Migrations
                         name: "FK_MenuItems_Restaurants_RestaurantId",
                         column: x => x.RestaurantId,
                         principalTable: "Restaurants",
-                        principalColumn: "Id");
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.SetNull);
                 });
 
             migrationBuilder.CreateTable(
@@ -102,7 +105,8 @@ namespace RestaurantReservation.Db.Migrations
                         name: "FK_Tables_Restaurants_RestaurantId",
                         column: x => x.RestaurantId,
                         principalTable: "Restaurants",
-                        principalColumn: "Id");
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.SetNull);
                 });
 
             migrationBuilder.CreateTable(
@@ -124,17 +128,20 @@ namespace RestaurantReservation.Db.Migrations
                         name: "FK_Reservations_Customers_CustomerId",
                         column: x => x.CustomerId,
                         principalTable: "Customers",
-                        principalColumn: "Id");
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.SetNull);
                     table.ForeignKey(
                         name: "FK_Reservations_Restaurants_RestaurantId",
                         column: x => x.RestaurantId,
                         principalTable: "Restaurants",
-                        principalColumn: "Id");
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.SetNull);
                     table.ForeignKey(
                         name: "FK_Reservations_Tables_TableId",
                         column: x => x.TableId,
                         principalTable: "Tables",
-                        principalColumn: "Id");
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.SetNull);
                 });
 
             migrationBuilder.CreateTable(
@@ -155,12 +162,14 @@ namespace RestaurantReservation.Db.Migrations
                         name: "FK_Orders_Employees_EmployeeId",
                         column: x => x.EmployeeId,
                         principalTable: "Employees",
-                        principalColumn: "Id");
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.SetNull);
                     table.ForeignKey(
                         name: "FK_Orders_Reservations_ReservationId",
                         column: x => x.ReservationId,
                         principalTable: "Reservations",
-                        principalColumn: "Id");
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.SetNull);
                 });
 
             migrationBuilder.CreateTable(
@@ -180,12 +189,14 @@ namespace RestaurantReservation.Db.Migrations
                         name: "FK_OrderItems_MenuItems_MenuItemId",
                         column: x => x.MenuItemId,
                         principalTable: "MenuItems",
-                        principalColumn: "Id");
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.SetNull);
                     table.ForeignKey(
                         name: "FK_OrderItems_Orders_OrderId",
                         column: x => x.OrderId,
                         principalTable: "Orders",
-                        principalColumn: "Id");
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.SetNull);
                 });
 
             migrationBuilder.InsertData(
@@ -253,11 +264,11 @@ namespace RestaurantReservation.Db.Migrations
                 columns: new[] { "Id", "CustomerId", "PartySize", "ReservationDate", "RestaurantId", "TableId" },
                 values: new object[,]
                 {
-                    { 1, 2, 1, new DateTime(2023, 10, 13, 10, 38, 39, 287, DateTimeKind.Local).AddTicks(8814), 1, 1 },
-                    { 2, 3, 2, new DateTime(2023, 10, 13, 10, 38, 39, 287, DateTimeKind.Local).AddTicks(8819), 1, 2 },
-                    { 3, 5, 3, new DateTime(2023, 10, 13, 10, 38, 39, 287, DateTimeKind.Local).AddTicks(8823), 2, 2 },
-                    { 4, 2, 4, new DateTime(2023, 10, 13, 10, 38, 39, 287, DateTimeKind.Local).AddTicks(8827), 2, 1 },
-                    { 5, 1, 5, new DateTime(2023, 10, 13, 10, 38, 39, 287, DateTimeKind.Local).AddTicks(8832), 1, 1 }
+                    { 1, 2, 1, new DateTime(2023, 10, 13, 16, 50, 19, 841, DateTimeKind.Local).AddTicks(8992), 1, 1 },
+                    { 2, 3, 2, new DateTime(2023, 10, 13, 16, 50, 19, 841, DateTimeKind.Local).AddTicks(8997), 1, 2 },
+                    { 3, 5, 3, new DateTime(2023, 10, 13, 16, 50, 19, 841, DateTimeKind.Local).AddTicks(9000), 2, 2 },
+                    { 4, 2, 4, new DateTime(2023, 10, 13, 16, 50, 19, 841, DateTimeKind.Local).AddTicks(9004), 2, 1 },
+                    { 5, 1, 5, new DateTime(2023, 10, 13, 16, 50, 19, 841, DateTimeKind.Local).AddTicks(9007), 1, 1 }
                 });
 
             migrationBuilder.InsertData(
@@ -265,11 +276,11 @@ namespace RestaurantReservation.Db.Migrations
                 columns: new[] { "Id", "EmployeeId", "OrderDate", "ReservationId", "TotalAmount" },
                 values: new object[,]
                 {
-                    { 1, 2, new DateTime(2023, 10, 13, 10, 38, 39, 287, DateTimeKind.Local).AddTicks(8697), 1, 2 },
-                    { 2, 2, new DateTime(2023, 10, 13, 10, 38, 39, 287, DateTimeKind.Local).AddTicks(8736), 1, 2 },
-                    { 3, 2, new DateTime(2023, 10, 13, 10, 38, 39, 287, DateTimeKind.Local).AddTicks(8740), 1, 2 },
-                    { 4, 2, new DateTime(2023, 10, 13, 10, 38, 39, 287, DateTimeKind.Local).AddTicks(8744), 1, 2 },
-                    { 5, 2, new DateTime(2023, 10, 13, 10, 38, 39, 287, DateTimeKind.Local).AddTicks(8748), 1, 2 }
+                    { 1, 2, new DateTime(2023, 10, 13, 16, 50, 19, 841, DateTimeKind.Local).AddTicks(8894), 1, 2 },
+                    { 2, 2, new DateTime(2023, 10, 13, 16, 50, 19, 841, DateTimeKind.Local).AddTicks(8934), 1, 2 },
+                    { 3, 2, new DateTime(2023, 10, 13, 16, 50, 19, 841, DateTimeKind.Local).AddTicks(8938), 1, 2 },
+                    { 4, 2, new DateTime(2023, 10, 13, 16, 50, 19, 841, DateTimeKind.Local).AddTicks(8942), 1, 2 },
+                    { 5, 2, new DateTime(2023, 10, 13, 16, 50, 19, 841, DateTimeKind.Local).AddTicks(8945), 1, 2 }
                 });
 
             migrationBuilder.InsertData(
