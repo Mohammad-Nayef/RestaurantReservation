@@ -44,5 +44,22 @@ namespace RestaurantReservation.Db.Services
         {
             await menuItemsRepository.DeleteAsync(menuItemId);
         }
+
+        public async Task<List<MenuItemDTO>> ListOrderedMenuItemsAsync(int reservationId)
+        {
+            var orderService = new OrderService(_context);
+            var orders = await orderService.ListOrdersAndMenuItemsAsync(reservationId);
+            var menuItems = new List<MenuItemDTO>();
+            
+            foreach (var order in orders)
+            {
+                foreach (var orderItem in order.OrderItems)
+                {
+                    menuItems.Add(orderItem.MenuItem);
+                }
+            }
+
+            return menuItems;
+        }
     }
 }
