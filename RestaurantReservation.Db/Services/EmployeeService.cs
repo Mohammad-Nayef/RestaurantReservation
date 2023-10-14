@@ -9,8 +9,9 @@ namespace RestaurantReservation.Db.Services
         private RestaurantReservationDbContext _context = new();
         private EmployeesRepository employeesRepository;
 
-        public EmployeeService()
+        public EmployeeService(RestaurantReservationDbContext context = null)
         {
+            _context = context ?? new();
             employeesRepository = new(_context);
         }
 
