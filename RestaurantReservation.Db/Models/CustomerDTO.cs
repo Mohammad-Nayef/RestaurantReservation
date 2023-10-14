@@ -1,6 +1,6 @@
 ﻿namespace RestaurantReservation.Db.Models
 {
-    public class Customer
+    public class CustomerDTO
     {
         public int Id { get; set; }
 
@@ -12,6 +12,6 @@
 
         public string PhoneNumber { get; set; }
 
-        public List<Reservation> Reservations { get; set; } = new List<Reservation>();
+        public List<ReservationDTO> Reservations { get; set; } = new List<ReservationDTO>();
     }
 }

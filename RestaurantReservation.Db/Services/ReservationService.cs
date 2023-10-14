@@ -18,7 +18,7 @@ namespace RestaurantReservation.Db.Services
             _context.DisposeAsync();
         }
 
-        public async Task<List<Reservation>> GetReservationsByCustomerAsync(int customerId)
+        public async Task<List<ReservationDTO>> GetReservationsByCustomerAsync(int customerId)
         {
             var reservations = await reservationsRepository.GetAllAsync();
             return reservations.Where(reservation => reservation.CustomerId == customerId)

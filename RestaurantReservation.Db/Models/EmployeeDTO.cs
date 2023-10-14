@@ -1,12 +1,12 @@
 ﻿namespace RestaurantReservation.Db.Models
 {
-    public class Employee
+    public class EmployeeDTO
     {
         public int Id { get; set; }
 
         public int? RestaurantId { get; set; }
 
-        public Restaurant? Restaurant { get; set; }
+        public RestaurantDTO? Restaurant { get; set; }
 
         public string FirstName { get; set; }
 
@@ -14,6 +14,6 @@
 
         public string Position { get; set; }
 
-        public List<Order> Orders { get; set; } = new List<Order>();
+        public List<OrderDTO> Orders { get; set; } = new List<OrderDTO>();
     }
 }

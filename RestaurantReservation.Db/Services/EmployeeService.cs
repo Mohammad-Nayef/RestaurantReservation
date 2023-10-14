@@ -18,7 +18,7 @@ namespace RestaurantReservation.Db.Services
             _context.DisposeAsync();
         }
 
-        public async Task<List<Employee>> ListManagersAsync()
+        public async Task<List<EmployeeDTO>> ListManagersAsync()
         {
             var employees = await employeesRepository.GetAllAsync();
             return employees.Where(employee => employee.Position == "Manager")

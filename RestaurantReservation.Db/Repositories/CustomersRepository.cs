@@ -14,14 +14,14 @@ namespace RestaurantReservation.Db.Repositories
         }
 
         /// <returns>The ID of the created object.</returns>
-        public async Task<int> CreateAsync(Customer newCustomer)
+        public async Task<int> CreateAsync(CustomerDTO newCustomer)
         {
             var customer = await _context.Customers.AddAsync(newCustomer);
             await _context.SaveChangesAsync();
             return customer.Entity.Id;
         }
 
-        public async Task<Customer> GetAsync(int customerId)
+        public async Task<CustomerDTO> GetAsync(int customerId)
         {
             var customer = await _context.Customers
                 .SingleOrDefaultAsync(customer => customer.Id == customerId);
@@ -36,12 +36,12 @@ namespace RestaurantReservation.Db.Repositories
             }
         }
 
-        public async Task<List<Customer>> GetAllAsync()
+        public async Task<List<CustomerDTO>> GetAllAsync()
         {
             return await _context.Customers.ToListAsync();
         }
 
-        public async Task UpdateAsync(Customer updatedCustomer)
+        public async Task UpdateAsync(CustomerDTO updatedCustomer)
         {
             _context.Customers.Update(updatedCustomer);
             await _context.SaveChangesAsync();

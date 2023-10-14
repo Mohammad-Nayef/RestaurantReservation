@@ -13,14 +13,14 @@ namespace RestaurantReservation.Db.Repositories
             _context.Database.EnsureCreatedAsync().Wait();
         }
 
-        public async Task<int> CreateAsync(Restaurant newRestaurant)
+        public async Task<int> CreateAsync(RestaurantDTO newRestaurant)
         {
             var restaurant = await _context.Restaurants.AddAsync(newRestaurant);
             await _context.SaveChangesAsync();
             return restaurant.Entity.Id;
         }
 
-        public async Task<Restaurant> GetAsync(int restaurantId)
+        public async Task<RestaurantDTO> GetAsync(int restaurantId)
         {
             var restaurant = await _context.Restaurants
                 .SingleOrDefaultAsync(r => r.Id == restaurantId);
@@ -35,12 +35,12 @@ namespace RestaurantReservation.Db.Repositories
             }
         }
 
-        public async Task<List<Restaurant>> GetAllAsync()
+        public async Task<List<RestaurantDTO>> GetAllAsync()
         {
             return await _context.Restaurants.ToListAsync();
         }
 
-        public async Task UpdateAsync(Restaurant updatedRestaurant)
+        public async Task UpdateAsync(RestaurantDTO updatedRestaurant)
         {
             _context.Restaurants.Update(updatedRestaurant);
             await _context.SaveChangesAsync();
