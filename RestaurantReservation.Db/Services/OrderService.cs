@@ -8,7 +8,7 @@ namespace RestaurantReservation.Db.Services
     {
         private RestaurantReservationDbContext _context = new();
         private OrdersRepository ordersRepository;
-        
+
         public OrderService(RestaurantReservationDbContext context = null)
         {
             _context = context ?? new();
@@ -55,9 +55,10 @@ namespace RestaurantReservation.Db.Services
 
         public async Task<List<OrderDTO>> ListOrdersAndMenuItemsAsync(int reservationId)
         {
-            return await ordersRepository.DbSet.Where(x => x.ReservationId == reservationId)
-                .Include(x => x.OrderItems)
-                .ThenInclude(x => x.MenuItem)
+            return await ordersRepository.DbSet
+                .Where(order => order.ReservationId == reservationId)
+                .Include(order => order.OrderItems)
+                .ThenInclude(orderItem => orderItem.MenuItem)
                 .ToListAsync();
         }
     }
