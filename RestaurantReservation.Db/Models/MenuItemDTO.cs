@@ -6,7 +6,7 @@
 
         public int? RestaurantId { get; set; }
 
-        public RestaurantDTO? Restaurant { get; set; }
+        public RestaurantDTO Restaurant { get; set; }
 
         public string Name { get; set; }
 
