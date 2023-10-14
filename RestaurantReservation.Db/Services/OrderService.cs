@@ -1,4 +1,5 @@
-﻿using RestaurantReservation.Db.Models;
+﻿using Microsoft.EntityFrameworkCore;
+using RestaurantReservation.Db.Models;
 using RestaurantReservation.Db.Repositories;
 
 namespace RestaurantReservation.Db.Services
@@ -7,7 +8,7 @@ namespace RestaurantReservation.Db.Services
     {
         private RestaurantReservationDbContext _context = new();
         private OrdersRepository ordersRepository;
-
+        
         public OrderService(RestaurantReservationDbContext context = null)
         {
             _context = context ?? new();
@@ -50,6 +51,14 @@ namespace RestaurantReservation.Db.Services
             var orders = await GetAllAsync();
             return orders.Where(order => order.EmployeeId == employeeId)
                 .Average(order => order.TotalAmount);
+        }
+
+        public async Task<List<OrderDTO>> ListOrdersAndMenuItemsAsync(int reservationId)
+        {
+            return await ordersRepository.DbSet.Where(x => x.ReservationId == reservationId)
+                .Include(x => x.OrderItems)
+                .ThenInclude(x => x.MenuItem)
+                .ToListAsync();
         }
     }
 }
