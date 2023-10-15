@@ -1,4 +1,5 @@
-﻿using Microsoft.EntityFrameworkCore.Migrations;
+﻿using System;
+using Microsoft.EntityFrameworkCore.Migrations;
 
 #nullable disable
 
@@ -263,11 +264,11 @@ namespace RestaurantReservation.Db.Migrations
                 columns: new[] { "Id", "CustomerId", "PartySize", "ReservationDate", "RestaurantId", "TableId" },
                 values: new object[,]
                 {
-                    { 1, 2, 1, new DateTime(2023, 10, 15, 19, 25, 29, 817, DateTimeKind.Local).AddTicks(258), 1, 1 },
-                    { 2, 3, 2, new DateTime(2023, 10, 15, 19, 25, 29, 817, DateTimeKind.Local).AddTicks(261), 1, 2 },
-                    { 3, 5, 3, new DateTime(2023, 10, 15, 19, 25, 29, 817, DateTimeKind.Local).AddTicks(264), 2, 2 },
-                    { 4, 2, 4, new DateTime(2023, 10, 15, 19, 25, 29, 817, DateTimeKind.Local).AddTicks(267), 2, 1 },
-                    { 5, 1, 5, new DateTime(2023, 10, 15, 19, 25, 29, 817, DateTimeKind.Local).AddTicks(269), 1, 1 }
+                    { 1, 2, 1, new DateTime(2000, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), 1, 1 },
+                    { 2, 3, 2, new DateTime(2000, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), 1, 2 },
+                    { 3, 5, 3, new DateTime(2000, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), 2, 2 },
+                    { 4, 2, 4, new DateTime(2000, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), 2, 1 },
+                    { 5, 1, 5, new DateTime(2000, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), 1, 1 }
                 });
 
             migrationBuilder.InsertData(
@@ -275,11 +276,11 @@ namespace RestaurantReservation.Db.Migrations
                 columns: new[] { "Id", "EmployeeId", "OrderDate", "ReservationId", "TotalAmount" },
                 values: new object[,]
                 {
-                    { 1, 2, new DateTime(2023, 10, 15, 19, 25, 29, 817, DateTimeKind.Local).AddTicks(174), 1, 2 },
-                    { 2, 2, new DateTime(2023, 10, 15, 19, 25, 29, 817, DateTimeKind.Local).AddTicks(209), 1, 2 },
-                    { 3, 2, new DateTime(2023, 10, 15, 19, 25, 29, 817, DateTimeKind.Local).AddTicks(219), 1, 2 },
-                    { 4, 2, new DateTime(2023, 10, 15, 19, 25, 29, 817, DateTimeKind.Local).AddTicks(221), 1, 2 },
-                    { 5, 2, new DateTime(2023, 10, 15, 19, 25, 29, 817, DateTimeKind.Local).AddTicks(223), 1, 2 }
+                    { 1, 2, new DateTime(2000, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), 1, 2 },
+                    { 2, 2, new DateTime(2000, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), 1, 2 },
+                    { 3, 2, new DateTime(2000, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), 1, 2 },
+                    { 4, 2, new DateTime(2000, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), 1, 2 },
+                    { 5, 2, new DateTime(2000, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), 1, 2 }
                 });
 
             migrationBuilder.InsertData(

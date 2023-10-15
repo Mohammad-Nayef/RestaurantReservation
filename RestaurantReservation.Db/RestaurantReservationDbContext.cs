@@ -120,11 +120,11 @@ namespace RestaurantReservation.Db
         private static void ReservationsSeeding(ModelBuilder modelBuilder)
         {
             modelBuilder.Entity<ReservationDTO>().HasData(
-                            new ReservationDTO { Id = 1, CustomerId = 2, RestaurantId = 1, TableId = 1, ReservationDate = DateTime.Now, PartySize = 1 },
-                            new ReservationDTO { Id = 2, CustomerId = 3, RestaurantId = 1, TableId = 2, ReservationDate = DateTime.Now, PartySize = 2 },
-                            new ReservationDTO { Id = 3, CustomerId = 5, RestaurantId = 2, TableId = 2, ReservationDate = DateTime.Now, PartySize = 3 },
-                            new ReservationDTO { Id = 4, CustomerId = 2, RestaurantId = 2, TableId = 1, ReservationDate = DateTime.Now, PartySize = 4 },
-                            new ReservationDTO { Id = 5, CustomerId = 1, RestaurantId = 1, TableId = 1, ReservationDate = DateTime.Now, PartySize = 5 });
+                            new ReservationDTO { Id = 1, CustomerId = 2, RestaurantId = 1, TableId = 1, ReservationDate = DateTime.Parse("1-1-2000"), PartySize = 1 },
+                            new ReservationDTO { Id = 2, CustomerId = 3, RestaurantId = 1, TableId = 2, ReservationDate = DateTime.Parse("1-1-2000"), PartySize = 2 },
+                            new ReservationDTO { Id = 3, CustomerId = 5, RestaurantId = 2, TableId = 2, ReservationDate = DateTime.Parse("1-1-2000"), PartySize = 3 },
+                            new ReservationDTO { Id = 4, CustomerId = 2, RestaurantId = 2, TableId = 1, ReservationDate = DateTime.Parse("1-1-2000"), PartySize = 4 },
+                            new ReservationDTO { Id = 5, CustomerId = 1, RestaurantId = 1, TableId = 1, ReservationDate = DateTime.Parse("1-1-2000"), PartySize = 5 });
         }
 
         private static void OrderItemsSeeding(ModelBuilder modelBuilder)
@@ -140,11 +140,11 @@ namespace RestaurantReservation.Db
         private static void OrdersSeeding(ModelBuilder modelBuilder)
         {
             modelBuilder.Entity<OrderDTO>().HasData(
-                            new OrderDTO { Id = 1, ReservationId = 1, EmployeeId = 2, OrderDate = DateTime.Now, TotalAmount = 2 },
-                            new OrderDTO { Id = 2, ReservationId = 1, EmployeeId = 2, OrderDate = DateTime.Now, TotalAmount = 2 },
-                            new OrderDTO { Id = 3, ReservationId = 1, EmployeeId = 2, OrderDate = DateTime.Now, TotalAmount = 2 },
-                            new OrderDTO { Id = 4, ReservationId = 1, EmployeeId = 2, OrderDate = DateTime.Now, TotalAmount = 2 },
-                            new OrderDTO { Id = 5, ReservationId = 1, EmployeeId = 2, OrderDate = DateTime.Now, TotalAmount = 2 });
+                            new OrderDTO { Id = 1, ReservationId = 1, EmployeeId = 2, OrderDate = DateTime.Parse("1-1-2000"), TotalAmount = 2 },
+                            new OrderDTO { Id = 2, ReservationId = 1, EmployeeId = 2, OrderDate = DateTime.Parse("1-1-2000"), TotalAmount = 2 },
+                            new OrderDTO { Id = 3, ReservationId = 1, EmployeeId = 2, OrderDate = DateTime.Parse("1-1-2000"), TotalAmount = 2 },
+                            new OrderDTO { Id = 4, ReservationId = 1, EmployeeId = 2, OrderDate = DateTime.Parse("1-1-2000"), TotalAmount = 2 },
+                            new OrderDTO { Id = 5, ReservationId = 1, EmployeeId = 2, OrderDate = DateTime.Parse("1-1-2000"), TotalAmount = 2 });
         }
 
         private static void MenuItemsSeeding(ModelBuilder modelBuilder)
