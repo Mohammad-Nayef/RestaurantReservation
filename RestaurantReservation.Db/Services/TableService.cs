@@ -5,12 +5,12 @@ namespace RestaurantReservation.Db.Services
 {
     public class TableService
     {
-        private RestaurantReservationDbContext _context = new();
+        private RestaurantReservationDbContext _context;
         private TablesRepository tablesRepository;
 
-        public TableService(RestaurantReservationDbContext context = null)
+        public TableService(RestaurantReservationDbContext context)
         {
-            _context = context ?? new();
+            _context = context;
             tablesRepository = new(_context);
         }
 

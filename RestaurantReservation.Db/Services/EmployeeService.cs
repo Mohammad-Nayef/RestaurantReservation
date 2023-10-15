@@ -6,12 +6,12 @@ namespace RestaurantReservation.Db.Services
 {
     public class EmployeeService
     {
-        private RestaurantReservationDbContext _context = new();
+        private RestaurantReservationDbContext _context;
         private EmployeesRepository employeesRepository;
 
-        public EmployeeService(RestaurantReservationDbContext context = null)
+        public EmployeeService(RestaurantReservationDbContext context)
         {
-            _context = context ?? new();
+            _context = context;
             employeesRepository = new(_context);
         }
 
