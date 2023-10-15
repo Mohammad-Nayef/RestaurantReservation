@@ -22,6 +22,20 @@ namespace RestaurantReservation.Db
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
+            OnDeleteSetNullForForeignKeys(modelBuilder);
+
+            CustomersSeeding(modelBuilder);
+            EmployeesSeeding(modelBuilder);
+            MenuItemsSeeding(modelBuilder);
+            OrdersSeeding(modelBuilder);
+            OrderItemsSeeding(modelBuilder);
+            ReservationsSeeding(modelBuilder);
+            RestaurantsSeeding(modelBuilder);
+            TablesSeeding(modelBuilder);
+        }
+
+        private static void OnDeleteSetNullForForeignKeys(ModelBuilder modelBuilder)
+        {
             modelBuilder.Entity<CustomerDTO>()
                 .HasMany(customer => customer.Reservations)
                 .WithOne(reservation => reservation.Customer)
@@ -81,15 +95,6 @@ namespace RestaurantReservation.Db
                 .WithOne(a => a.Employee)
                 .HasForeignKey(a => a.EmployeeId)
                 .OnDelete(DeleteBehavior.SetNull);
-
-            CustomersSeeding(modelBuilder);
-            EmployeesSeeding(modelBuilder);
-            MenuItemsSeeding(modelBuilder);
-            OrdersSeeding(modelBuilder);
-            OrderItemsSeeding(modelBuilder);
-            ReservationsSeeding(modelBuilder);
-            RestaurantsSeeding(modelBuilder);
-            TablesSeeding(modelBuilder);
         }
 
         private static void TablesSeeding(ModelBuilder modelBuilder)
