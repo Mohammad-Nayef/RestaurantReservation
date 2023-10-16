@@ -46,5 +46,10 @@ namespace RestaurantReservation.Db.Services
         {
             await restaurantsRepository.DeleteAsync(restaurantId);
         }
+
+        public async Task<int> TotalRevenueAsync(int restaurantId)
+        {
+            return await restaurantsRepository.GetTotalRevenueAsync(restaurantId);
+        }
     }
 }
