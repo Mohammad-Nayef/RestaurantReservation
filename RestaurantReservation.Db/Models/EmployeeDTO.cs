@@ -15,5 +15,10 @@
         public string Position { get; set; }
 
         public List<OrderDTO> Orders { get; set; } = new List<OrderDTO>();
+
+        public override string ToString()
+        {
+            return $"Id: {Id}, Name: {FirstName} {LastName}, Restaurant Id: {RestaurantId} Position: {Position}";
+        }
     }
 }

@@ -13,5 +13,11 @@
         public string PhoneNumber { get; set; }
 
         public List<ReservationDTO> Reservations { get; set; } = new List<ReservationDTO>();
+
+        public override string ToString()
+        {
+            return $"Id: {Id}, Name: {FirstName} {LastName}, " +
+                $"Email: {Email}, Phone: {PhoneNumber}";
+        }
     }
 }

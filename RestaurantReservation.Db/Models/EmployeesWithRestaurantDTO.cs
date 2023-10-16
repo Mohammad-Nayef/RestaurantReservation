@@ -19,5 +19,14 @@
         public string RestaurantPhoneNumber { get; set; } = null!;
 
         public string RestaurantOpeningHours { get; set; } = null!;
+
+        public override string ToString()
+        {
+            return $"Id: {EmployeeId}, EmployeeFirstName: {EmployeeFirstName}, " +
+                $"EmployeeLastName: {EmployeeLastName}, EmployeePosition: {EmployeePosition}, " +
+                $"RestaurantId: {RestaurantId}, RestaurantName: {RestaurantName}, " +
+                $"RestaurantAddress: {RestaurantAddress}, RestaurantPhoneNumber: " +
+                $"{RestaurantPhoneNumber}, RestaurantOpeningHours: {RestaurantOpeningHours}";
+        }
     }
 }

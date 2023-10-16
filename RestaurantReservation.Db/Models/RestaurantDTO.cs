@@ -19,5 +19,11 @@
         public List<EmployeeDTO> Employees { get; set; } = new List<EmployeeDTO>();
 
         public List<MenuItemDTO> MenuItems { get; set; } = new List<MenuItemDTO>();
+
+        public override string ToString()
+        {
+            return $"Id: {Id}, Name: {Name}, Address: {Address}, PhoneNumber: {PhoneNumber}, " +
+                $"OpeningHours: {OpeningHours}";
+        }
     }
 }

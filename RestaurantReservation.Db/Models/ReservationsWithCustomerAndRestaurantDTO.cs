@@ -29,5 +29,17 @@
         public string RestaurantPhoneNumber { get; set; } = null!;
 
         public string RestaurantOpeningHours { get; set; } = null!;
+
+        public override string ToString()
+        {
+            return $"ReservationId: {ReservationId}, TableId: {TableId}, " +
+                $"ReservationDate: {ReservationDate}, PartySize: {PartySize}, " +
+                $"CustomerId: {CustomerId}, CustomerFirstName: {CustomerFirstName}, " +
+                $"CustomerLastName: {CustomerLastName}, CustomerEmail: {CustomerEmail}, " +
+                $"CustomerPhoneNumber: {CustomerPhoneNumber}, RestaurantId: {RestaurantId}, " +
+                $"RestaurantName: {RestaurantName}, RestaurantAddress: {RestaurantAddress}, " +
+                $"RestaurantPhoneNumber: {RestaurantPhoneNumber}, " +
+                $"RestaurantOpeningHours: {RestaurantOpeningHours}";
+        }
     }
 }

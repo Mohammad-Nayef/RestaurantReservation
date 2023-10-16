@@ -21,5 +21,11 @@
         public int PartySize { get; set; }
 
         public List<OrderDTO> Orders { get; set; } = new List<OrderDTO>();
+
+        public override string ToString()
+        {
+            return $"Id: {Id}, CustomerId: {CustomerId}, RestaurantId: {RestaurantId}, " +
+                $"TableId: {TableId}, ReservationDate: {ReservationDate}, PartySize: {PartySize}";
+        }
     }
 }

@@ -17,5 +17,11 @@
         public int TotalAmount { get; set; }
 
         public List<OrderItemDTO> OrderItems { get; set; } = new List<OrderItemDTO>();
+
+        public override string ToString()
+        {
+            return $"Id: {Id}, ReservationId: {ReservationId}, EmployeeId: {EmployeeId}, " +
+                $"OrderDate: {OrderDate}, TotalAmount: {TotalAmount}";
+        }
     }
 }

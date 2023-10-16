@@ -11,5 +11,10 @@
         public int Capacity { get; set; }
 
         public List<ReservationDTO> Reservations { get; set; } = new List<ReservationDTO>();
+
+        public override string ToString()
+        {
+            return $"Id: {Id}, RestaurantId: {RestaurantId}, Capacity: {Capacity}";
+        }
     }
 }

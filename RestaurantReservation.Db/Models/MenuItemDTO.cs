@@ -15,5 +15,11 @@
         public decimal Price { get; set; }
 
         public List<OrderItemDTO> OrderItems { get; set; } = new List<OrderItemDTO>();
+
+        public override string ToString()
+        {
+            return $"Id: {Id}, RestaurantId: {RestaurantId}, Name: {Name}, " +
+                $"Description: {Description}, Price: {Price}";
+        }
     }
 }
