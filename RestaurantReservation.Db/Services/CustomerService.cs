@@ -44,5 +44,10 @@ namespace RestaurantReservation.Db.Services
         {
             await customersRepository.DeleteAsync(customerId);
         }
+
+        public async Task<List<CustomerDTO>> GetCustomersWithPartySizeGreaterThanValueAsync(int value)
+        {
+            return await customersRepository.GetCustomersWithPartySizeGreaterThanValueAsync(value);
+        }
     }
 }

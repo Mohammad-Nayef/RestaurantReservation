@@ -34,7 +34,8 @@ namespace RestaurantReservation.Db.Repositories
             }
             else
             {
-                throw new KeyNotFoundException($"Customer with ID = {customerId} does not exist.");
+                throw new KeyNotFoundException(
+                    $"Customer with ID = {customerId} does not exist.");
             }
         }
 
@@ -54,6 +55,13 @@ namespace RestaurantReservation.Db.Repositories
             var customer = await GetAsync(customerId);
             _context.Customers.Remove(customer);
             await _context.SaveChangesAsync();
+        }
+
+        public async Task<List<CustomerDTO>> GetCustomersWithPartySizeGreaterThanValueAsync(int value)
+        {
+            return await _context.Customers
+                .FromSql($"EXEC sp_GetCustomersWithPartySizeGreaterThanValue {value}")
+                .ToListAsync();
         }
     }
 }
