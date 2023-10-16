@@ -48,6 +48,15 @@ namespace RestaurantReservation.Db
                     .HasNoKey()
                     .ToView("vw_EmployeesWithRestaurant");
             });
+
+            modelBuilder.HasDbFunction(typeof(RestaurantReservationDbContext)
+                .GetMethod(nameof(TotalRevenueByRestaurant), new[] { typeof(int) }))
+                .HasName("fn_TotalRevenue");
+        }
+
+        public int TotalRevenueByRestaurant(int restaurantId)
+        {
+            throw new NotSupportedException();
         }
 
         private static void OnDeleteSetNullForForeignKeys(ModelBuilder modelBuilder)
