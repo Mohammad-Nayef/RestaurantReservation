@@ -13,6 +13,8 @@ namespace RestaurantReservation.Db
         public DbSet<RestaurantDTO> Restaurants { get; set; }
         public DbSet<TableDTO> Tables { get; set; }
         public DbSet<ReservationDTO> Reservations { get; set; }
+        public DbSet<ReservationsWithCustomerAndRestaurantDTO> ReservationsWithCustomerAndRestaurant { get; set; }
+        public DbSet<EmployeesWithRestaurantDTO> EmployeesWithRestaurant { get; set; }
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
@@ -32,6 +34,20 @@ namespace RestaurantReservation.Db
             ReservationsSeeding(modelBuilder);
             RestaurantsSeeding(modelBuilder);
             TablesSeeding(modelBuilder);
+
+            modelBuilder.Entity<ReservationsWithCustomerAndRestaurantDTO>(entity =>
+            {
+                entity
+                    .HasNoKey()
+                    .ToView("vw_ReservationsWithCustomerAndRestaurant");
+            });
+
+            modelBuilder.Entity<EmployeesWithRestaurantDTO>(entity =>
+            {
+                entity
+                    .HasNoKey()
+                    .ToView("vw_EmployeesWithRestaurant");
+            });
         }
 
         private static void OnDeleteSetNullForForeignKeys(ModelBuilder modelBuilder)
@@ -142,9 +158,9 @@ namespace RestaurantReservation.Db
             modelBuilder.Entity<OrderDTO>().HasData(
                             new OrderDTO { Id = 1, ReservationId = 1, EmployeeId = 2, OrderDate = DateTime.Parse("1-1-2000"), TotalAmount = 2 },
                             new OrderDTO { Id = 2, ReservationId = 1, EmployeeId = 2, OrderDate = DateTime.Parse("1-1-2000"), TotalAmount = 2 },
-                            new OrderDTO { Id = 3, ReservationId = 1, EmployeeId = 2, OrderDate = DateTime.Parse("1-1-2000"), TotalAmount = 2 },
-                            new OrderDTO { Id = 4, ReservationId = 1, EmployeeId = 2, OrderDate = DateTime.Parse("1-1-2000"), TotalAmount = 2 },
-                            new OrderDTO { Id = 5, ReservationId = 1, EmployeeId = 2, OrderDate = DateTime.Parse("1-1-2000"), TotalAmount = 2 });
+                            new OrderDTO { Id = 3, ReservationId = 3, EmployeeId = 2, OrderDate = DateTime.Parse("1-1-2000"), TotalAmount = 2 },
+                            new OrderDTO { Id = 4, ReservationId = 3, EmployeeId = 2, OrderDate = DateTime.Parse("1-1-2000"), TotalAmount = 2 },
+                            new OrderDTO { Id = 5, ReservationId = 4, EmployeeId = 2, OrderDate = DateTime.Parse("1-1-2000"), TotalAmount = 2 });
         }
 
         private static void MenuItemsSeeding(ModelBuilder modelBuilder)

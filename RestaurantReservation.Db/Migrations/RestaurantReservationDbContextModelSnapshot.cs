@@ -165,6 +165,47 @@ namespace RestaurantReservation.Db.Migrations
                         });
                 });
 
+            modelBuilder.Entity("RestaurantReservation.Db.Models.EmployeesWithRestaurantDTO", b =>
+                {
+                    b.Property<string>("EmployeeFirstName")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("EmployeeId")
+                        .HasColumnType("int");
+
+                    b.Property<string>("EmployeeLastName")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("EmployeePosition")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("RestaurantAddress")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int?>("RestaurantId")
+                        .HasColumnType("int");
+
+                    b.Property<string>("RestaurantName")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("RestaurantOpeningHours")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("RestaurantPhoneNumber")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.ToTable((string)null);
+
+                    b.ToView("vw_EmployeesWithRestaurant", (string)null);
+                });
+
             modelBuilder.Entity("RestaurantReservation.Db.Models.MenuItemDTO", b =>
                 {
                     b.Property<int>("Id")
@@ -285,7 +326,7 @@ namespace RestaurantReservation.Db.Migrations
                             Id = 3,
                             EmployeeId = 2,
                             OrderDate = new DateTime(2000, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            ReservationId = 1,
+                            ReservationId = 3,
                             TotalAmount = 2
                         },
                         new
@@ -293,7 +334,7 @@ namespace RestaurantReservation.Db.Migrations
                             Id = 4,
                             EmployeeId = 2,
                             OrderDate = new DateTime(2000, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            ReservationId = 1,
+                            ReservationId = 3,
                             TotalAmount = 2
                         },
                         new
@@ -301,7 +342,7 @@ namespace RestaurantReservation.Db.Migrations
                             Id = 5,
                             EmployeeId = 2,
                             OrderDate = new DateTime(2000, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            ReservationId = 1,
+                            ReservationId = 4,
                             TotalAmount = 2
                         });
                 });
@@ -448,6 +489,63 @@ namespace RestaurantReservation.Db.Migrations
                             RestaurantId = 1,
                             TableId = 1
                         });
+                });
+
+            modelBuilder.Entity("RestaurantReservation.Db.Models.ReservationsWithCustomerAndRestaurantDTO", b =>
+                {
+                    b.Property<string>("CustomerEmail")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("CustomerFirstName")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int?>("CustomerId")
+                        .HasColumnType("int");
+
+                    b.Property<string>("CustomerLastName")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("CustomerPhoneNumber")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("PartySize")
+                        .HasColumnType("int");
+
+                    b.Property<DateTime>("ReservationDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<int>("ReservationId")
+                        .HasColumnType("int");
+
+                    b.Property<string>("RestaurantAddress")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int?>("RestaurantId")
+                        .HasColumnType("int");
+
+                    b.Property<string>("RestaurantName")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("RestaurantOpeningHours")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("RestaurantPhoneNumber")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int?>("TableId")
+                        .HasColumnType("int");
+
+                    b.ToTable((string)null);
+
+                    b.ToView("vw_ReservationsWithCustomerAndRestaurant", (string)null);
                 });
 
             modelBuilder.Entity("RestaurantReservation.Db.Models.RestaurantDTO", b =>
