@@ -229,9 +229,9 @@ namespace RestaurantReservation.Db.Migrations
                 {
                     { 1, "Yousef", "Iyad", "Accountant", 2 },
                     { 2, "Iyad", "Yousef", "Accountant", 1 },
-                    { 3, "Owais", "Ibrahim", "Accountant", 4 },
+                    { 3, "Owais", "Ibrahim", "Manager", 4 },
                     { 4, "Ibrahim", "Owais", "Accountant", 5 },
-                    { 5, "Mohammad", "Ahmad", "Accountant", 3 }
+                    { 5, "Mohammad", "Ahmad", "Manager", 3 }
                 });
 
             migrationBuilder.InsertData(

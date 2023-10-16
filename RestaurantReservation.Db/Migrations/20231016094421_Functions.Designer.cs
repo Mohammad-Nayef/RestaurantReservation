@@ -147,7 +147,7 @@ namespace RestaurantReservation.Db.Migrations
                             Id = 3,
                             FirstName = "Owais",
                             LastName = "Ibrahim",
-                            Position = "Accountant",
+                            Position = "Manager",
                             RestaurantId = 4
                         },
                         new
@@ -163,7 +163,7 @@ namespace RestaurantReservation.Db.Migrations
                             Id = 5,
                             FirstName = "Mohammad",
                             LastName = "Ahmad",
-                            Position = "Accountant",
+                            Position = "Manager",
                             RestaurantId = 3
                         });
                 });
