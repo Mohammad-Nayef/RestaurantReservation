@@ -277,7 +277,7 @@ namespace RestaurantReservation.Db.Migrations
                             EmployeeId = 2,
                             OrderDate = new DateTime(2000, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             ReservationId = 1,
-                            TotalAmount = 2
+                            TotalAmount = 3
                         },
                         new
                         {
@@ -285,7 +285,7 @@ namespace RestaurantReservation.Db.Migrations
                             EmployeeId = 2,
                             OrderDate = new DateTime(2000, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             ReservationId = 3,
-                            TotalAmount = 2
+                            TotalAmount = 7
                         },
                         new
                         {
@@ -293,7 +293,7 @@ namespace RestaurantReservation.Db.Migrations
                             EmployeeId = 2,
                             OrderDate = new DateTime(2000, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             ReservationId = 3,
-                            TotalAmount = 2
+                            TotalAmount = 1
                         },
                         new
                         {
@@ -301,7 +301,7 @@ namespace RestaurantReservation.Db.Migrations
                             EmployeeId = 2,
                             OrderDate = new DateTime(2000, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             ReservationId = 4,
-                            TotalAmount = 2
+                            TotalAmount = 1
                         });
                 });
 

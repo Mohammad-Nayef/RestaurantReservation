@@ -166,10 +166,10 @@ namespace RestaurantReservation.Db
         {
             modelBuilder.Entity<OrderDTO>().HasData(
                             new OrderDTO { Id = 1, ReservationId = 1, EmployeeId = 2, OrderDate = DateTime.Parse("1-1-2000"), TotalAmount = 2 },
-                            new OrderDTO { Id = 2, ReservationId = 1, EmployeeId = 2, OrderDate = DateTime.Parse("1-1-2000"), TotalAmount = 2 },
-                            new OrderDTO { Id = 3, ReservationId = 3, EmployeeId = 2, OrderDate = DateTime.Parse("1-1-2000"), TotalAmount = 2 },
-                            new OrderDTO { Id = 4, ReservationId = 3, EmployeeId = 2, OrderDate = DateTime.Parse("1-1-2000"), TotalAmount = 2 },
-                            new OrderDTO { Id = 5, ReservationId = 4, EmployeeId = 2, OrderDate = DateTime.Parse("1-1-2000"), TotalAmount = 2 });
+                            new OrderDTO { Id = 2, ReservationId = 1, EmployeeId = 2, OrderDate = DateTime.Parse("1-1-2000"), TotalAmount = 3 },
+                            new OrderDTO { Id = 3, ReservationId = 3, EmployeeId = 2, OrderDate = DateTime.Parse("1-1-2000"), TotalAmount = 7 },
+                            new OrderDTO { Id = 4, ReservationId = 3, EmployeeId = 2, OrderDate = DateTime.Parse("1-1-2000"), TotalAmount = 1 },
+                            new OrderDTO { Id = 5, ReservationId = 4, EmployeeId = 2, OrderDate = DateTime.Parse("1-1-2000"), TotalAmount = 1 });
         }
 
         private static void MenuItemsSeeding(ModelBuilder modelBuilder)
