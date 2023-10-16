@@ -187,9 +187,9 @@ namespace RestaurantReservation.Db
             modelBuilder.Entity<EmployeeDTO>().HasData(
                 new EmployeeDTO { Id = 1, RestaurantId = 2, FirstName = "Yousef", LastName = "Iyad", Position = "Accountant" },
                 new EmployeeDTO { Id = 2, RestaurantId = 1, FirstName = "Iyad", LastName = "Yousef", Position = "Accountant" },
-                new EmployeeDTO { Id = 3, RestaurantId = 4, FirstName = "Owais", LastName = "Ibrahim", Position = "Accountant" },
+                new EmployeeDTO { Id = 3, RestaurantId = 4, FirstName = "Owais", LastName = "Ibrahim", Position = "Manager" },
                 new EmployeeDTO { Id = 4, RestaurantId = 5, FirstName = "Ibrahim", LastName = "Owais", Position = "Accountant" },
-                new EmployeeDTO { Id = 5, RestaurantId = 3, FirstName = "Mohammad", LastName = "Ahmad", Position = "Accountant" });
+                new EmployeeDTO { Id = 5, RestaurantId = 3, FirstName = "Mohammad", LastName = "Ahmad", Position = "Manager" });
         }
 
         private static void CustomersSeeding(ModelBuilder modelBuilder)
