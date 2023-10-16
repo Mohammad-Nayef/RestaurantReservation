@@ -25,6 +25,7 @@ namespace RestaurantReservation.Db.Services
             return await restaurantsRepository.CreateAsync(newRestaurant);
         }
 
+        /// <exception cref="KeyNotFoundException"></exception>
         public async Task<RestaurantDTO> GetAsync(int restaurantId)
         {
             return await restaurantsRepository.GetAsync(restaurantId);
@@ -40,6 +41,7 @@ namespace RestaurantReservation.Db.Services
             await restaurantsRepository.UpdateAsync(updatedRestaurant);
         }
 
+        /// <exception cref="KeyNotFoundException"></exception>
         public async Task DeleteAsync(int restaurantId)
         {
             await restaurantsRepository.DeleteAsync(restaurantId);

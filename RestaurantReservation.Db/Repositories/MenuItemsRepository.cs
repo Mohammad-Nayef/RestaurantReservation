@@ -23,6 +23,7 @@ namespace RestaurantReservation.Db.Repositories
             return menuItem.Entity.Id;
         }
 
+        /// <exception cref="KeyNotFoundException"></exception>
         public async Task<MenuItemDTO> GetAsync(int menuItemId)
         {
             var menuItem = await _context.MenuItems
@@ -49,6 +50,7 @@ namespace RestaurantReservation.Db.Repositories
             await _context.SaveChangesAsync();
         }
 
+        /// <exception cref="KeyNotFoundException"></exception>
         public async Task DeleteAsync(int menuItemId)
         {
             var menuItem = await GetAsync(menuItemId);
