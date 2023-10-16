@@ -29,7 +29,7 @@ namespace RestaurantReservation.Db.Migrations
         /// <inheritdoc />
         protected override void Down(MigrationBuilder migrationBuilder)
         {
-            migrationBuilder.Sql("DROP FUNCTION fn_TotalRevenue");
+            migrationBuilder.Sql("DROP FUNCTION dbo.fn_TotalRevenue");
         }
     }
 }
