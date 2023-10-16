@@ -51,8 +51,15 @@ namespace RestaurantReservation.Db.Services
         public async Task<double> CalculateAverageOrderAmountAsync(int employeeId)
         {
             var orders = await GetAllAsync();
-            return orders.Where(order => order.EmployeeId == employeeId)
-                .Average(order => order.TotalAmount);
+            orders = orders.Where(order => order.EmployeeId == employeeId)
+                .ToList();
+
+            if (orders.Count > 0)
+            {
+                return orders.Average(order => order.TotalAmount);
+            }
+
+            return 0;
         }
 
         public async Task<List<OrderDTO>> ListOrdersAndMenuItemsAsync(int reservationId)
