@@ -14,11 +14,6 @@ namespace RestaurantReservation.Db.Services
             menuItemsRepository = new(_context);
         }
 
-        ~MenuItemService()
-        {
-            _context.DisposeAsync();
-        }
-
         /// <returns>The ID of the created object.</returns>
         public async Task<int> CreateAsync(MenuItemDTO newMenuItem)
         {
