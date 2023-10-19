@@ -13,8 +13,6 @@ namespace RestaurantReservation.Db.Repositories
             _context.Database.EnsureCreatedAsync().Wait();
         }
 
-        public DbSet<CustomerDTO> DbSet => _context.Customers;
-
         /// <returns>The ID of the created object.</returns>
         public async Task<int> CreateAsync(CustomerDTO newCustomer)
         {
