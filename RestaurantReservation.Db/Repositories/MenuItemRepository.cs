@@ -3,7 +3,7 @@ using RestaurantReservation.Db.Models;
 
 namespace RestaurantReservation.Db.Repositories
 {
-    public class MenuItemRepository
+    public class MenuItemRepository : IMenuItemRepository
     {
         private RestaurantReservationDbContext _context;
 
@@ -13,7 +13,6 @@ namespace RestaurantReservation.Db.Repositories
             _context.Database.EnsureCreatedAsync().Wait();
         }
 
-        /// <returns>The ID of the created object.</returns>
         public async Task<int> CreateAsync(MenuItemDTO newMenuItem)
         {
             var menuItem = await _context.MenuItems.AddAsync(newMenuItem);
@@ -21,7 +20,6 @@ namespace RestaurantReservation.Db.Repositories
             return menuItem.Entity.Id;
         }
 
-        /// <exception cref="KeyNotFoundException"></exception>
         public async Task<MenuItemDTO> GetAsync(int menuItemId)
         {
             var menuItem = await _context.MenuItems
@@ -48,7 +46,6 @@ namespace RestaurantReservation.Db.Repositories
             await _context.SaveChangesAsync();
         }
 
-        /// <exception cref="KeyNotFoundException"></exception>
         public async Task DeleteAsync(int menuItemId)
         {
             var menuItem = await GetAsync(menuItemId);
