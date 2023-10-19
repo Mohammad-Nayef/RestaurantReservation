@@ -7,11 +7,13 @@ namespace RestaurantReservation.Db.Services
     {
         private RestaurantReservationDbContext _context;
         private MenuItemRepository menuItemsRepository;
+        private OrderService _orderService;
 
         public MenuItemService(RestaurantReservationDbContext context)
         {
             _context = context ;
             menuItemsRepository = new(_context);
+            _orderService = new OrderService(_context);
         }
 
         /// <returns>The ID of the created object.</returns>
@@ -44,8 +46,7 @@ namespace RestaurantReservation.Db.Services
 
         public async Task<List<MenuItemDTO>> ListOrderedMenuItemsAsync(int reservationId)
         {
-            var orderService = new OrderService(_context);
-            var x = await orderService.ListOrdersAndMenuItemsAsync(reservationId);
+            var x = await _orderService.ListOrdersAndMenuItemsAsync(reservationId);
             var menuItems = new List<MenuItemDTO>();
             
             foreach (var order in x)
