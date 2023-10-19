@@ -12,23 +12,23 @@
 
         public int? CustomerId { get; set; }
 
-        public string CustomerFirstName { get; set; } = null!;
+        public string? CustomerFirstName { get; set; }
 
-        public string CustomerLastName { get; set; } = null!;
+        public string? CustomerLastName { get; set; }
 
-        public string CustomerEmail { get; set; } = null!;
+        public string? CustomerEmail { get; set; }
 
-        public string CustomerPhoneNumber { get; set; } = null!;
+        public string? CustomerPhoneNumber { get; set; }
 
         public int? RestaurantId { get; set; }
 
-        public string RestaurantName { get; set; } = null!;
+        public string? RestaurantName { get; set; }
 
-        public string RestaurantAddress { get; set; } = null!;
+        public string? RestaurantAddress { get; set; }
 
-        public string RestaurantPhoneNumber { get; set; } = null!;
+        public string? RestaurantPhoneNumber { get; set; }
 
-        public string RestaurantOpeningHours { get; set; } = null!;
+        public string? RestaurantOpeningHours { get; set; }
 
         public override string ToString()
         {
