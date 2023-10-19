@@ -26,14 +26,14 @@ namespace RestaurantReservation.Db
         {
             OnDeleteSetNullForForeignKeys(modelBuilder);
 
-            CustomersSeeding(modelBuilder);
-            EmployeesSeeding(modelBuilder);
-            MenuItemsSeeding(modelBuilder);
-            OrdersSeeding(modelBuilder);
-            OrderItemsSeeding(modelBuilder);
-            ReservationsSeeding(modelBuilder);
-            RestaurantsSeeding(modelBuilder);
-            TablesSeeding(modelBuilder);
+            SeedCustomers(modelBuilder);
+            SeedEmployees(modelBuilder);
+            SeedMenuItems(modelBuilder);
+            SeedOrders(modelBuilder);
+            SeedOrderItems(modelBuilder);
+            SeedReservations(modelBuilder);
+            SeedRestaurants(modelBuilder);
+            SeedTables(modelBuilder);
 
             modelBuilder.Entity<ReservationsWithCustomerAndRestaurant>(entity =>
             {
@@ -122,7 +122,7 @@ namespace RestaurantReservation.Db
                 .OnDelete(DeleteBehavior.SetNull);
         }
 
-        private static void TablesSeeding(ModelBuilder modelBuilder)
+        private static void SeedTables(ModelBuilder modelBuilder)
         {
             modelBuilder.Entity<TableDTO>().HasData(
                             new TableDTO { Id = 1, RestaurantId = 1, Capacity = 3 },
@@ -132,7 +132,7 @@ namespace RestaurantReservation.Db
                             new TableDTO { Id = 5, RestaurantId = 1, Capacity = 7 });
         }
 
-        private static void RestaurantsSeeding(ModelBuilder modelBuilder)
+        private static void SeedRestaurants(ModelBuilder modelBuilder)
         {
             modelBuilder.Entity<RestaurantDTO>().HasData(
                             new RestaurantDTO { Id = 1, Name = "Maxicano", Address = "Dura", PhoneNumber = "+123456788", OpeningHours = "9:00 - 22:00" },
@@ -142,7 +142,7 @@ namespace RestaurantReservation.Db
                             new RestaurantDTO { Id = 5, Name = "KFC", Address = "Dura", PhoneNumber = "+123456788", OpeningHours = "9:00 - 22:00" });
         }
 
-        private static void ReservationsSeeding(ModelBuilder modelBuilder)
+        private static void SeedReservations(ModelBuilder modelBuilder)
         {
             modelBuilder.Entity<ReservationDTO>().HasData(
                             new ReservationDTO { Id = 1, CustomerId = 2, RestaurantId = 1, TableId = 1, ReservationDate = DateTime.Parse("1-1-2000"), PartySize = 1 },
@@ -152,7 +152,7 @@ namespace RestaurantReservation.Db
                             new ReservationDTO { Id = 5, CustomerId = 1, RestaurantId = 1, TableId = 1, ReservationDate = DateTime.Parse("1-1-2000"), PartySize = 5 });
         }
 
-        private static void OrderItemsSeeding(ModelBuilder modelBuilder)
+        private static void SeedOrderItems(ModelBuilder modelBuilder)
         {
             modelBuilder.Entity<OrderItemDTO>().HasData(
                             new OrderItemDTO { Id = 1, OrderId = 2, MenuItemId = 3, Quantity = 2 },
@@ -162,7 +162,7 @@ namespace RestaurantReservation.Db
                             new OrderItemDTO { Id = 5, OrderId = 3, MenuItemId = 3, Quantity = 2 });
         }
 
-        private static void OrdersSeeding(ModelBuilder modelBuilder)
+        private static void SeedOrders(ModelBuilder modelBuilder)
         {
             modelBuilder.Entity<OrderDTO>().HasData(
                             new OrderDTO { Id = 1, ReservationId = 1, EmployeeId = 2, OrderDate = DateTime.Parse("1-1-2000"), TotalAmount = 2 },
@@ -172,7 +172,7 @@ namespace RestaurantReservation.Db
                             new OrderDTO { Id = 5, ReservationId = 4, EmployeeId = 2, OrderDate = DateTime.Parse("1-1-2000"), TotalAmount = 1 });
         }
 
-        private static void MenuItemsSeeding(ModelBuilder modelBuilder)
+        private static void SeedMenuItems(ModelBuilder modelBuilder)
         {
             modelBuilder.Entity<MenuItemDTO>().HasData(
                             new MenuItemDTO { Id = 1, RestaurantId = 2, Name = "Maqloba", Description = "Chicken with rice", Price = 15 },
@@ -182,7 +182,7 @@ namespace RestaurantReservation.Db
                             new MenuItemDTO { Id = 5, RestaurantId = 3, Name = "Salad", Description = "Tomato and cucumber", Price = 5 });
         }
 
-        private static void EmployeesSeeding(ModelBuilder modelBuilder)
+        private static void SeedEmployees(ModelBuilder modelBuilder)
         {
             modelBuilder.Entity<EmployeeDTO>().HasData(
                 new EmployeeDTO { Id = 1, RestaurantId = 2, FirstName = "Yousef", LastName = "Iyad", Position = "Accountant" },
@@ -192,7 +192,7 @@ namespace RestaurantReservation.Db
                 new EmployeeDTO { Id = 5, RestaurantId = 3, FirstName = "Mohammad", LastName = "Ahmad", Position = "Manager" });
         }
 
-        private static void CustomersSeeding(ModelBuilder modelBuilder)
+        private static void SeedCustomers(ModelBuilder modelBuilder)
         {
             modelBuilder.Entity<CustomerDTO>().HasData(
                 new CustomerDTO { Id = 1, FirstName = "Ali", LastName = "Ahmad", Email = "sample@gmail.com", PhoneNumber = "+123456789" },
