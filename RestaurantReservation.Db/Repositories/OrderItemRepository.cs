@@ -3,11 +3,11 @@ using RestaurantReservation.Db.Models;
 
 namespace RestaurantReservation.Db.Repositories
 {
-    public class OrderItemsRepository
+    public class OrderItemRepository
     {
         private RestaurantReservationDbContext _context;
 
-        public OrderItemsRepository(RestaurantReservationDbContext context)
+        public OrderItemRepository(RestaurantReservationDbContext context)
         {
             _context = context;
             _context.Database.EnsureCreatedAsync().Wait();

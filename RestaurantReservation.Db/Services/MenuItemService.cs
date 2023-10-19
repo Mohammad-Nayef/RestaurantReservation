@@ -6,7 +6,7 @@ namespace RestaurantReservation.Db.Services
     public class MenuItemService
     {
         private RestaurantReservationDbContext _context;
-        private MenuItemsRepository menuItemsRepository;
+        private MenuItemRepository menuItemsRepository;
 
         public MenuItemService(RestaurantReservationDbContext context)
         {

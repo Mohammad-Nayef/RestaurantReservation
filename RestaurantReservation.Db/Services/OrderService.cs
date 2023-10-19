@@ -7,7 +7,7 @@ namespace RestaurantReservation.Db.Services
     public class OrderService
     {
         private RestaurantReservationDbContext _context;
-        private OrdersRepository ordersRepository;
+        private OrderRepository ordersRepository;
 
         public OrderService(RestaurantReservationDbContext context)
         {
