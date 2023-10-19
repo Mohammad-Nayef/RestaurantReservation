@@ -13,8 +13,8 @@ namespace RestaurantReservation.Db
         public DbSet<RestaurantDTO> Restaurants { get; set; }
         public DbSet<TableDTO> Tables { get; set; }
         public DbSet<ReservationDTO> Reservations { get; set; }
-        public DbSet<ReservationsWithCustomerAndRestaurantDTO> ReservationsWithCustomerAndRestaurant { get; set; }
-        public DbSet<EmployeesWithRestaurantDTO> EmployeesWithRestaurant { get; set; }
+        public DbSet<ReservationsWithCustomerAndRestaurant> ReservationsWithCustomerAndRestaurant { get; set; }
+        public DbSet<EmployeesWithRestaurant> EmployeesWithRestaurant { get; set; }
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
@@ -35,14 +35,14 @@ namespace RestaurantReservation.Db
             RestaurantsSeeding(modelBuilder);
             TablesSeeding(modelBuilder);
 
-            modelBuilder.Entity<ReservationsWithCustomerAndRestaurantDTO>(entity =>
+            modelBuilder.Entity<ReservationsWithCustomerAndRestaurant>(entity =>
             {
                 entity
                     .HasNoKey()
                     .ToView("vw_ReservationsWithCustomerAndRestaurant");
             });
 
-            modelBuilder.Entity<EmployeesWithRestaurantDTO>(entity =>
+            modelBuilder.Entity<EmployeesWithRestaurant>(entity =>
             {
                 entity
                     .HasNoKey()
