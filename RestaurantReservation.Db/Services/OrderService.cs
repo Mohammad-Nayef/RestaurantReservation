@@ -1,5 +1,4 @@
-﻿using Microsoft.EntityFrameworkCore;
-using RestaurantReservation.Db.Models;
+﻿using RestaurantReservation.Db.Models;
 using RestaurantReservation.Db.Repositories;
 
 namespace RestaurantReservation.Db.Services
@@ -59,11 +58,7 @@ namespace RestaurantReservation.Db.Services
 
         public async Task<List<OrderDTO>> ListOrdersAndMenuItemsAsync(int reservationId)
         {
-            return await ordersRepository.DbSet
-                .Where(order => order.ReservationId == reservationId)
-                .Include(order => order.OrderItems)
-                .ThenInclude(orderItem => orderItem.MenuItem)
-                .ToListAsync();
+            return await ordersRepository.ListOrdersAndMenuItemsAsync(reservationId);
         }
     }
 }
