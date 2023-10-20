@@ -1,10 +1,9 @@
-﻿using Microsoft.EntityFrameworkCore;
-using RestaurantReservation.Db.Models;
+﻿using RestaurantReservation.Db.Models;
 using RestaurantReservation.Db.Repositories;
 
 namespace RestaurantReservation.Db.Services
 {
-    public class EmployeeService
+    public class EmployeeService : IEmployeeService
     {
         private RestaurantReservationDbContext _context;
         private EmployeeRepository employeesRepository;
@@ -15,13 +14,11 @@ namespace RestaurantReservation.Db.Services
             employeesRepository = new(_context);
         }
 
-        /// <returns>The ID of the created object.</returns>
         public async Task<int> CreateAsync(EmployeeDTO newEmployee)
         {
             return await employeesRepository.CreateAsync(newEmployee);
         }
 
-        /// <exception cref="KeyNotFoundException"></exception>
         public async Task<EmployeeDTO> GetAsync(int employeeId)
         {
             return await employeesRepository.GetAsync(employeeId);
@@ -37,7 +34,6 @@ namespace RestaurantReservation.Db.Services
             await employeesRepository.UpdateAsync(updatedEmployee);
         }
 
-        /// <exception cref="KeyNotFoundException"></exception>
         public async Task DeleteAsync(int employeeId)
         {
             await employeesRepository.DeleteAsync(employeeId);

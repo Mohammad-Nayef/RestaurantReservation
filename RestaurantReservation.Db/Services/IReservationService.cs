@@ -1,8 +1,8 @@
 ﻿using RestaurantReservation.Db.Models;
 
-namespace RestaurantReservation.Db.Repositories
+namespace RestaurantReservation.Db.Services
 {
-    public interface IReservationRepository
+    public interface IReservationService
     {
         /// <returns>The ID of the created object.</returns>
         public Task<int> CreateAsync(ReservationDTO newReservation);
@@ -16,5 +16,7 @@ namespace RestaurantReservation.Db.Repositories
 
         /// <exception cref="KeyNotFoundException"></exception>
         public Task DeleteAsync(int reservationId);
+
+        public Task<List<ReservationDTO>> GetReservationsByCustomerAsync(int customerId);
     }
 }

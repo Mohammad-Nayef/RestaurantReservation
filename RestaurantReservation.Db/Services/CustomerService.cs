@@ -3,7 +3,7 @@ using RestaurantReservation.Db.Repositories;
 
 namespace RestaurantReservation.Db.Services
 {
-    public class CustomerService
+    public class CustomerService : ICustomerService
     {
         private RestaurantReservationDbContext _context;
         private CustomerRepository customersRepository;
@@ -14,13 +14,11 @@ namespace RestaurantReservation.Db.Services
             customersRepository = new(_context);
         }
 
-        /// <returns>The ID of the created object.</returns>
         public async Task<int> CreateAsync(CustomerDTO newCustomer)
         {
             return await customersRepository.CreateAsync(newCustomer);
         }
 
-        /// <exception cref="KeyNotFoundException"></exception>
         public async Task<CustomerDTO> GetAsync(int customerId)
         {
             return await customersRepository.GetAsync(customerId);
@@ -36,7 +34,6 @@ namespace RestaurantReservation.Db.Services
             await customersRepository.UpdateAsync(updatedCustomer);
         }
 
-        /// <exception cref="KeyNotFoundException"></exception>
         public async Task DeleteAsync(int customerId)
         {
             await customersRepository.DeleteAsync(customerId);
