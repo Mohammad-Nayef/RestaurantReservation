@@ -15,6 +15,15 @@ namespace RestaurantReservation.Db.Repositories
         
         public async Task<int> CreateAsync(EmployeeDTO newEmployee)
         {
+            if (newEmployee.Id < 0)
+            {
+                throw new Exception("Id property can't be negative.");
+            }
+            else if (await EmployeeExistsAsync(newEmployee.Id))
+            {
+                throw new Exception($"The employee Id {newEmployee.Id} already exists.");
+            }
+
             var employee = await _context.Employees.AddAsync(newEmployee);
             await _context.SaveChangesAsync();
             return employee.Entity.Id;
@@ -25,13 +34,13 @@ namespace RestaurantReservation.Db.Repositories
             var employee = await _context.Employees
                 .SingleOrDefaultAsync(e => e.Id == employeeId);
 
-            if (employee != null)
+            if (employee == null)
             {
-                return employee;
+                throw new KeyNotFoundException($"Employee with ID = {employeeId} does not exist.");
             }
             else
             {
-                throw new KeyNotFoundException($"Employee with ID = {employeeId} does not exist.");
+                return employee;
             }
         }
 
@@ -42,6 +51,11 @@ namespace RestaurantReservation.Db.Repositories
 
         public async Task UpdateAsync(EmployeeDTO updatedEmployee)
         {
+            if (!(await EmployeeExistsAsync(updatedEmployee.Id)))
+            {
+                throw new KeyNotFoundException($"Employee with ID = {updatedEmployee.Id} does not exist.");
+            }
+
             _context.Employees.Update(updatedEmployee);
             await _context.SaveChangesAsync();
         }
@@ -51,6 +65,11 @@ namespace RestaurantReservation.Db.Repositories
             var employee = await GetAsync(employeeId);
             _context.Employees.Remove(employee);
             await _context.SaveChangesAsync();
+        }
+
+        private async Task<bool> EmployeeExistsAsync(int employeeId)
+        {
+            return await _context.Employees.FindAsync(employeeId) != null;
         }
     }
 }

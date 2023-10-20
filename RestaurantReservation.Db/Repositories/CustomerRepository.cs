@@ -15,6 +15,15 @@ namespace RestaurantReservation.Db.Repositories
 
         public async Task<int> CreateAsync(CustomerDTO newCustomer)
         {
+            if (newCustomer.Id < 0)
+            {
+                throw new Exception("Id property can't be negative.");
+            }
+            else if (await CustomerExistsAsync(newCustomer.Id))
+            {
+                throw new Exception($"The customer Id {newCustomer.Id} already exists.");
+            }
+
             var customer = await _context.Customers.AddAsync(newCustomer);
             await _context.SaveChangesAsync();
             return customer.Entity.Id;
@@ -25,14 +34,13 @@ namespace RestaurantReservation.Db.Repositories
             var customer = await _context.Customers
                 .SingleOrDefaultAsync(customer => customer.Id == customerId);
 
-            if (customer != null)
+            if (customer == null)
             {
-                return customer;
+                throw new KeyNotFoundException($"Customer with ID = {customerId} does not exist.");
             }
             else
             {
-                throw new KeyNotFoundException(
-                    $"Customer with ID = {customerId} does not exist.");
+                return customer;
             }
         }
 
@@ -43,6 +51,11 @@ namespace RestaurantReservation.Db.Repositories
 
         public async Task UpdateAsync(CustomerDTO updatedCustomer)
         {
+            if (!(await CustomerExistsAsync(updatedCustomer.Id)))
+            {
+                throw new KeyNotFoundException($"Customer with ID = {updatedCustomer.Id} does not exist.");
+            }
+
             _context.Customers.Update(updatedCustomer);
             await _context.SaveChangesAsync();
         }
@@ -59,6 +72,11 @@ namespace RestaurantReservation.Db.Repositories
             return await _context.Customers
                 .FromSql($"EXEC sp_GetCustomersWithPartySizeGreaterThanValue {value}")
                 .ToListAsync();
+        }
+
+        private async Task<bool> CustomerExistsAsync(int customerId)
+        {
+            return await _context.Customers.FindAsync(customerId) != null;
         }
     }
 }

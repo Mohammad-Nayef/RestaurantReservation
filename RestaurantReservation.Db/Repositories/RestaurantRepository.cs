@@ -16,6 +16,15 @@ namespace RestaurantReservation.Db.Repositories
 
         public async Task<int> CreateAsync(RestaurantDTO newRestaurant)
         {
+            if (newRestaurant.Id < 0)
+            {
+                throw new Exception("Id property can't be negative.");
+            }
+            else if (await RestaurantExistsAsync(newRestaurant.Id))
+            {
+                throw new Exception($"The restaurant Id {newRestaurant.Id} already exists.");
+            }
+
             var restaurant = await _context.Restaurants.AddAsync(newRestaurant);
             await _context.SaveChangesAsync();
             return restaurant.Entity.Id;
@@ -26,13 +35,13 @@ namespace RestaurantReservation.Db.Repositories
             var restaurant = await _context.Restaurants
                 .SingleOrDefaultAsync(r => r.Id == restaurantId);
 
-            if (restaurant != null)
+            if (restaurant == null)
             {
-                return restaurant;
+                throw new KeyNotFoundException($"Restaurant with ID = {restaurantId} does not exist.");
             }
             else
             {
-                throw new KeyNotFoundException($"Restaurant with ID = {restaurantId} does not exist.");
+                return restaurant;
             }
         }
 
@@ -43,6 +52,11 @@ namespace RestaurantReservation.Db.Repositories
 
         public async Task UpdateAsync(RestaurantDTO updatedRestaurant)
         {
+            if (!(await RestaurantExistsAsync(updatedRestaurant.Id)))
+            {
+                throw new KeyNotFoundException($"Restaurant with ID = {updatedRestaurant.Id} does not exist.");
+            }
+
             _context.Restaurants.Update(updatedRestaurant);
             await _context.SaveChangesAsync();
         }
@@ -70,6 +84,11 @@ namespace RestaurantReservation.Db.Repositories
                 await _context.Database.CloseConnectionAsync();
                 return revenue;
             }
+        }
+
+        private async Task<bool> RestaurantExistsAsync(int restaurantId)
+        {
+            return await _context.Restaurants.FindAsync(restaurantId) != null;
         }
     }
 }

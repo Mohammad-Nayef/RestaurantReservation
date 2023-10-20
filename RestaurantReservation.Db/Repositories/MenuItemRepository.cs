@@ -15,6 +15,15 @@ namespace RestaurantReservation.Db.Repositories
 
         public async Task<int> CreateAsync(MenuItemDTO newMenuItem)
         {
+            if (newMenuItem.Id < 0)
+            {
+                throw new Exception("Id property can't be negative.");
+            }
+            else if (await MenuItemExistsAsync(newMenuItem.Id))
+            {
+                throw new Exception($"The menu item Id {newMenuItem.Id} already exists.");
+            }
+
             var menuItem = await _context.MenuItems.AddAsync(newMenuItem);
             await _context.SaveChangesAsync();
             return menuItem.Entity.Id;
@@ -25,13 +34,13 @@ namespace RestaurantReservation.Db.Repositories
             var menuItem = await _context.MenuItems
                 .SingleOrDefaultAsync(item => item.Id == menuItemId);
 
-            if (menuItem != null)
+            if (menuItem == null)
             {
-                return menuItem;
+                throw new KeyNotFoundException($"Menu item with ID = {menuItemId} does not exist.");
             }
             else
             {
-                throw new KeyNotFoundException($"Menu item with ID = {menuItemId} does not exist.");
+                return menuItem;
             }
         }
 
@@ -42,6 +51,11 @@ namespace RestaurantReservation.Db.Repositories
 
         public async Task UpdateAsync(MenuItemDTO updatedMenuItem)
         {
+            if (!(await MenuItemExistsAsync(updatedMenuItem.Id)))
+            {
+                throw new KeyNotFoundException($"MenuItem with ID = {updatedMenuItem.Id} does not exist.");
+            }
+
             _context.MenuItems.Update(updatedMenuItem);
             await _context.SaveChangesAsync();
         }
@@ -51,6 +65,11 @@ namespace RestaurantReservation.Db.Repositories
             var menuItem = await GetAsync(menuItemId);
             _context.MenuItems.Remove(menuItem);
             await _context.SaveChangesAsync();
+        }
+
+        private async Task<bool> MenuItemExistsAsync(int menuItemId)
+        {
+            return await _context.MenuItems.FindAsync(menuItemId) != null;
         }
     }
 }

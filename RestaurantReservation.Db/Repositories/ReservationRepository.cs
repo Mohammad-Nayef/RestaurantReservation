@@ -15,6 +15,15 @@ namespace RestaurantReservation.Db.Repositories
 
         public async Task<int> CreateAsync(ReservationDTO newReservation)
         {
+            if (newReservation.Id < 0)
+            {
+                throw new Exception("Id property can't be negative.");
+            }
+            else if (await ReservationExistsAsync(newReservation.Id))
+            {
+                throw new Exception($"The reservation Id {newReservation.Id} already exists.");
+            }
+
             var reservation = await _context.Reservations.AddAsync(newReservation);
             await _context.SaveChangesAsync();
             return reservation.Entity.Id;
@@ -25,13 +34,13 @@ namespace RestaurantReservation.Db.Repositories
             var reservation = await _context.Reservations
                 .SingleOrDefaultAsync(r => r.Id == reservationId);
 
-            if (reservation != null)
+            if (reservation == null)
             {
-                return reservation;
+                throw new KeyNotFoundException($"Reservation with ID = {reservationId} does not exist.");
             }
             else
             {
-                throw new KeyNotFoundException($"Reservation with ID = {reservationId} does not exist.");
+                return reservation;
             }
         }
 
@@ -42,6 +51,11 @@ namespace RestaurantReservation.Db.Repositories
 
         public async Task UpdateAsync(ReservationDTO updatedReservation)
         {
+            if (!(await ReservationExistsAsync(updatedReservation.Id)))
+            {
+                throw new KeyNotFoundException($"Reservation with ID = {updatedReservation.Id} does not exist.");
+            }
+
             _context.Reservations.Update(updatedReservation);
             await _context.SaveChangesAsync();
         }
@@ -51,6 +65,11 @@ namespace RestaurantReservation.Db.Repositories
             var reservation = await GetAsync(reservationId);
             _context.Reservations.Remove(reservation);
             await _context.SaveChangesAsync();
+        }
+
+        private async Task<bool> ReservationExistsAsync(int reservationId)
+        {
+            return await _context.Reservations.FindAsync(reservationId) != null;
         }
     }
 }

@@ -15,6 +15,15 @@ namespace RestaurantReservation.Db.Repositories
 
         public async Task<int> CreateAsync(TableDTO newTable)
         {
+            if (newTable.Id < 0)
+            {
+                throw new Exception("Id property can't be negative.");
+            }
+            else if (await TableExistsAsync(newTable.Id))
+            {
+                throw new Exception($"The table Id {newTable.Id} already exists.");
+            }
+
             var table = await _context.Tables.AddAsync(newTable);
             await _context.SaveChangesAsync();
             return table.Entity.Id;
@@ -25,13 +34,13 @@ namespace RestaurantReservation.Db.Repositories
             var table = await _context.Tables
                 .SingleOrDefaultAsync(t => t.Id == tableId);
 
-            if (table != null)
+            if (table == null)
             {
-                return table;
+                throw new KeyNotFoundException($"Table with ID = {tableId} does not exist.");
             }
             else
             {
-                throw new KeyNotFoundException($"Table with ID = {tableId} does not exist.");
+                return table;
             }
         }
 
@@ -42,6 +51,11 @@ namespace RestaurantReservation.Db.Repositories
 
         public async Task UpdateAsync(TableDTO updatedTable)
         {
+            if (!(await TableExistsAsync(updatedTable.Id)))
+            {
+                throw new KeyNotFoundException($"Table with ID = {updatedTable.Id} does not exist.");
+            }
+
             _context.Tables.Update(updatedTable);
             await _context.SaveChangesAsync();
         }
@@ -51,6 +65,11 @@ namespace RestaurantReservation.Db.Repositories
             var table = await GetAsync(tableId);
             _context.Tables.Remove(table);
             await _context.SaveChangesAsync();
+        }
+
+        private async Task<bool> TableExistsAsync(int tableId)
+        {
+            return await _context.Tables.FindAsync(tableId) != null;
         }
     }
 }
