@@ -6,37 +6,37 @@ namespace RestaurantReservation.Db.Services
     public class TableService : ITableService
     {
         private RestaurantReservationDbContext _context;
-        private TableRepository tablesRepository;
+        private TableRepository _tablesRepository;
 
         public TableService(RestaurantReservationDbContext context)
         {
             _context = context;
-            tablesRepository = new(_context);
+            _tablesRepository = new(_context);
         }
 
         public async Task<int> CreateAsync(TableDTO newTable)
         {
-            return await tablesRepository.CreateAsync(newTable);
+            return await _tablesRepository.CreateAsync(newTable);
         }
 
         public async Task<TableDTO> GetAsync(int tableId)
         {
-            return await tablesRepository.GetAsync(tableId);
+            return await _tablesRepository.GetAsync(tableId);
         }
 
         public async Task<List<TableDTO>> GetAllAsync()
         {
-            return await tablesRepository.GetAllAsync();
+            return await _tablesRepository.GetAllAsync();
         }
 
         public async Task UpdateAsync(TableDTO updatedTable)
         {
-            await tablesRepository.UpdateAsync(updatedTable);
+            await _tablesRepository.UpdateAsync(updatedTable);
         }
 
         public async Task DeleteAsync(int tableId)
         {
-            await tablesRepository.DeleteAsync(tableId);
+            await _tablesRepository.DeleteAsync(tableId);
         }
     }
 }

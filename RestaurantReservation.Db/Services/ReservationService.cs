@@ -6,37 +6,37 @@ namespace RestaurantReservation.Db.Services
     public class ReservationService : IReservationService
     {
         private RestaurantReservationDbContext _context;
-        private ReservationRepository reservationsRepository;
+        private ReservationRepository _reservationsRepository;
 
         public ReservationService(RestaurantReservationDbContext context)
         {
             _context = context;
-            reservationsRepository = new(_context);
+            _reservationsRepository = new(_context);
         }
 
         public async Task<int> CreateAsync(ReservationDTO newReservation)
         {
-            return await reservationsRepository.CreateAsync(newReservation);
+            return await _reservationsRepository.CreateAsync(newReservation);
         }
 
         public async Task<ReservationDTO> GetAsync(int reservationId)
         {
-            return await reservationsRepository.GetAsync(reservationId);
+            return await _reservationsRepository.GetAsync(reservationId);
         }
 
         public async Task<List<ReservationDTO>> GetAllAsync()
         {
-            return await reservationsRepository.GetAllAsync();
+            return await _reservationsRepository.GetAllAsync();
         }
 
         public async Task UpdateAsync(ReservationDTO updatedReservation)
         {
-            await reservationsRepository.UpdateAsync(updatedReservation);
+            await _reservationsRepository.UpdateAsync(updatedReservation);
         }
 
         public async Task DeleteAsync(int reservationId)
         {
-            await reservationsRepository.DeleteAsync(reservationId);
+            await _reservationsRepository.DeleteAsync(reservationId);
         }
 
         public async Task<List<ReservationDTO>> GetReservationsByCustomerAsync(int customerId)

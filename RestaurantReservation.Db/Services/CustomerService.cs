@@ -6,42 +6,42 @@ namespace RestaurantReservation.Db.Services
     public class CustomerService : ICustomerService
     {
         private RestaurantReservationDbContext _context;
-        private CustomerRepository customersRepository;
+        private CustomerRepository _customersRepository;
 
         public CustomerService(RestaurantReservationDbContext context)
         {
             _context = context;
-            customersRepository = new(_context);
+            _customersRepository = new(_context);
         }
 
         public async Task<int> CreateAsync(CustomerDTO newCustomer)
         {
-            return await customersRepository.CreateAsync(newCustomer);
+            return await _customersRepository.CreateAsync(newCustomer);
         }
 
         public async Task<CustomerDTO> GetAsync(int customerId)
         {
-            return await customersRepository.GetAsync(customerId);
+            return await _customersRepository.GetAsync(customerId);
         }
 
         public async Task<List<CustomerDTO>> GetAllAsync()
         {
-            return await customersRepository.GetAllAsync();
+            return await _customersRepository.GetAllAsync();
         }
 
         public async Task UpdateAsync(CustomerDTO updatedCustomer)
         {
-            await customersRepository.UpdateAsync(updatedCustomer);
+            await _customersRepository.UpdateAsync(updatedCustomer);
         }
 
         public async Task DeleteAsync(int customerId)
         {
-            await customersRepository.DeleteAsync(customerId);
+            await _customersRepository.DeleteAsync(customerId);
         }
 
         public async Task<List<CustomerDTO>> GetCustomersWithPartySizeGreaterThanValueAsync(int value)
         {
-            return await customersRepository.GetCustomersWithPartySizeGreaterThanValueAsync(value);
+            return await _customersRepository.GetCustomersWithPartySizeGreaterThanValueAsync(value);
         }
     }
 }

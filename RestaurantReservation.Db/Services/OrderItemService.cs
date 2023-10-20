@@ -6,37 +6,37 @@ namespace RestaurantReservation.Db.Services
     public class OrderItemService : IOrderItemService
     {
         private RestaurantReservationDbContext _context;
-        private OrderItemRepository orderItemsRepository;
+        private OrderItemRepository _orderItemsRepository;
 
         public OrderItemService(RestaurantReservationDbContext context)
         {
             _context = context;
-            orderItemsRepository = new(_context);
+            _orderItemsRepository = new(_context);
         }
 
         public async Task<int> CreateAsync(OrderItemDTO newOrderItem)
         {
-            return await orderItemsRepository.CreateAsync(newOrderItem);
+            return await _orderItemsRepository.CreateAsync(newOrderItem);
         }
 
         public async Task<OrderItemDTO> GetAsync(int orderItemId)
         {
-            return await orderItemsRepository.GetAsync(orderItemId);
+            return await _orderItemsRepository.GetAsync(orderItemId);
         }
 
         public async Task<List<OrderItemDTO>> GetAllAsync()
         {
-            return await orderItemsRepository.GetAllAsync();
+            return await _orderItemsRepository.GetAllAsync();
         }
 
         public async Task UpdateAsync(OrderItemDTO updatedOrderItem)
         {
-            await orderItemsRepository.UpdateAsync(updatedOrderItem);
+            await _orderItemsRepository.UpdateAsync(updatedOrderItem);
         }
 
         public async Task DeleteAsync(int orderItemId)
         {
-            await orderItemsRepository.DeleteAsync(orderItemId);
+            await _orderItemsRepository.DeleteAsync(orderItemId);
         }
     }
 }

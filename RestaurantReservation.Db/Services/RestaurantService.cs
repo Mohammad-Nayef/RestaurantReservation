@@ -6,42 +6,42 @@ namespace RestaurantReservation.Db.Services
     public class RestaurantService : IRestaurantService
     {
         private RestaurantReservationDbContext _context;
-        private RestaurantRepository restaurantsRepository;
+        private RestaurantRepository _restaurantsRepository;
 
         public RestaurantService(RestaurantReservationDbContext context)
         {
             _context = context;
-            restaurantsRepository = new(_context);
+            _restaurantsRepository = new(_context);
         }
 
         public async Task<int> CreateAsync(RestaurantDTO newRestaurant)
         {
-            return await restaurantsRepository.CreateAsync(newRestaurant);
+            return await _restaurantsRepository.CreateAsync(newRestaurant);
         }
 
         public async Task<RestaurantDTO> GetAsync(int restaurantId)
         {
-            return await restaurantsRepository.GetAsync(restaurantId);
+            return await _restaurantsRepository.GetAsync(restaurantId);
         }
 
         public async Task<List<RestaurantDTO>> GetAllAsync()
         {
-            return await restaurantsRepository.GetAllAsync();
+            return await _restaurantsRepository.GetAllAsync();
         }
 
         public async Task UpdateAsync(RestaurantDTO updatedRestaurant)
         {
-            await restaurantsRepository.UpdateAsync(updatedRestaurant);
+            await _restaurantsRepository.UpdateAsync(updatedRestaurant);
         }
 
         public async Task DeleteAsync(int restaurantId)
         {
-            await restaurantsRepository.DeleteAsync(restaurantId);
+            await _restaurantsRepository.DeleteAsync(restaurantId);
         }
 
         public async Task<int> TotalRevenueAsync(int restaurantId)
         {
-            return await restaurantsRepository.GetTotalRevenueAsync(restaurantId);
+            return await _restaurantsRepository.GetTotalRevenueAsync(restaurantId);
         }
     }
 }
