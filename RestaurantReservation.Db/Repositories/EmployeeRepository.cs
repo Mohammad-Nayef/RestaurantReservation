@@ -67,7 +67,7 @@ namespace RestaurantReservation.Db.Repositories
 
         private async Task<bool> EmployeeExistsAsync(int employeeId)
         {
-            return await _context.Employees.FindAsync(employeeId) != null;
+            return await _context.Employees.AnyAsync(employee => employee.Id == employeeId);
         }
     }
 }
