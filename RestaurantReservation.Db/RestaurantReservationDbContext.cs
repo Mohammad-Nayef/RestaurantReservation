@@ -185,11 +185,11 @@ namespace RestaurantReservation.Db
         private static void SeedEmployees(ModelBuilder modelBuilder)
         {
             modelBuilder.Entity<EmployeeDTO>().HasData(
-                new EmployeeDTO { Id = 1, RestaurantId = 2, FirstName = "Yousef", LastName = "Iyad", Position = "Accountant" },
-                new EmployeeDTO { Id = 2, RestaurantId = 1, FirstName = "Iyad", LastName = "Yousef", Position = "Accountant" },
-                new EmployeeDTO { Id = 3, RestaurantId = 4, FirstName = "Owais", LastName = "Ibrahim", Position = "Manager" },
-                new EmployeeDTO { Id = 4, RestaurantId = 5, FirstName = "Ibrahim", LastName = "Owais", Position = "Accountant" },
-                new EmployeeDTO { Id = 5, RestaurantId = 3, FirstName = "Mohammad", LastName = "Ahmad", Position = "Manager" });
+                new EmployeeDTO { Id = 1, RestaurantId = 2, FirstName = "Yousef", LastName = "Iyad", Position = EmployeePositions.Accountant },
+                new EmployeeDTO { Id = 2, RestaurantId = 1, FirstName = "Iyad", LastName = "Yousef", Position = EmployeePositions.Accountant },
+                new EmployeeDTO { Id = 3, RestaurantId = 4, FirstName = "Owais", LastName = "Ibrahim", Position = EmployeePositions.Manager },
+                new EmployeeDTO { Id = 4, RestaurantId = 5, FirstName = "Ibrahim", LastName = "Owais", Position = EmployeePositions.Accountant },
+                new EmployeeDTO { Id = 5, RestaurantId = 3, FirstName = "Mohammad", LastName = "Ahmad", Position = EmployeePositions.Manager });
         }
 
         private static void SeedCustomers(ModelBuilder modelBuilder)

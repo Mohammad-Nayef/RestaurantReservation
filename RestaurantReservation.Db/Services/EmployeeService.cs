@@ -42,7 +42,7 @@ namespace RestaurantReservation.Db.Services
         public async Task<List<EmployeeDTO>> ListManagersAsync()
         {
             var employees = await GetAllAsync();
-            return employees.Where(employee => employee.Position == "Manager")
+            return employees.Where(employee => employee.Position == EmployeePositions.Manager)
                 .ToList();
         }
     }
