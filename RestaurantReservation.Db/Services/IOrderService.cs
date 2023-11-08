@@ -4,7 +4,11 @@ namespace RestaurantReservation.Db.Services
 {
     public interface IOrderService
     {
-        /// <returns>The ID of the created object.</returns>
+        /// <summary>
+        /// Adds a new order to the database.
+        /// </summary>
+        /// <param name="newOrder"></param>
+        /// <returns>The ID of the added order.</returns>
         public Task<int> CreateAsync(OrderDTO newOrder);
 
         /// <exception cref="KeyNotFoundException"></exception>

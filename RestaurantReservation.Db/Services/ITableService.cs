@@ -4,7 +4,11 @@ namespace RestaurantReservation.Db.Services
 {
     public interface ITableService
     {
-        /// <returns>The ID of the created object.</returns>
+        /// <summary>
+        /// Adds a new table to the database.
+        /// </summary>
+        /// <param name="newTable"></param>
+        /// <returns>The ID of the added table.</returns>
         public Task<int> CreateAsync(TableDTO newTable);
 
         /// <exception cref="KeyNotFoundException"></exception>
