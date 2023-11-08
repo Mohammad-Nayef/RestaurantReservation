@@ -19,7 +19,7 @@ namespace RestaurantReservation.Db.Repositories
             {
                 throw new Exception("Id property can't be negative.");
             }
-            else if (await OrderExistsAsync(newOrder.Id))
+            if (await OrderExistsAsync(newOrder.Id))
             {
                 throw new Exception($"The order Id {newOrder.Id} already exists.");
             }
@@ -38,10 +38,8 @@ namespace RestaurantReservation.Db.Repositories
             {
                 throw new KeyNotFoundException($"Order with ID = {orderId} does not exist.");
             }
-            else
-            {
-                return order;
-            }
+            
+            return order;
         }
 
         public async Task<List<OrderDTO>> GetAllAsync()
