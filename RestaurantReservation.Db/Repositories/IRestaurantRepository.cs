@@ -4,7 +4,11 @@ namespace RestaurantReservation.Db.Repositories
 {
     public interface IRestaurantRepository
     {
-        /// <returns>The ID of the created object.</returns>
+        /// <summary>
+        /// Adds a new restaurant to the database.
+        /// </summary>
+        /// <param name="newRestaurant"></param>
+        /// <returns>The ID of the added restaurant.</returns>
         public Task<int> CreateAsync(RestaurantDTO newRestaurant);
 
         /// <exception cref="KeyNotFoundException"></exception>
