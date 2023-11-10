@@ -1,5 +1,5 @@
-﻿public static class EmployeePositions
+﻿public class EmployeePositions
 {
-    public static string Manager = "Manager";
-    public static string Accountant = "Accountant";
+    public const string Manager = "Manager";
+    public const string Accountant = "Accountant";
 }
