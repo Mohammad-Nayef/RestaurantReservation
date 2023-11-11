@@ -72,16 +72,11 @@ namespace RestaurantReservation.Db.Repositories
             // context class: TotalRevenueByRestaurant().
             // However, because it can't be used as a single statement, I had to execute it using
             // raw Sql. For more info check out this issue: https://github.com/dotnet/efcore/issues/32056
-            using (DbCommand command = _context.Database.GetDbConnection().CreateCommand())
-            {
-                command.CommandText = $"SELECT dbo.fn_TotalRevenue({restaurantId})";
-                await _context.Database.OpenConnectionAsync();
 
-                var revenue = (int)await command.ExecuteScalarAsync();
-
-                await _context.Database.CloseConnectionAsync();
-                return revenue;
-            }
+            return (await _context.Database
+                .SqlQuery<int>($"SELECT dbo.fn_TotalRevenue({restaurantId})")
+                .ToListAsync())
+                .FirstOrDefault();
         }
 
         private async Task<bool> RestaurantExistsAsync(int restaurantId)
