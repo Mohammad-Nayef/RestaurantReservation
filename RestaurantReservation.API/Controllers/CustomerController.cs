@@ -80,5 +80,24 @@ namespace RestaurantReservation.API.Controllers
 
             return Ok(_mapper.Map<CustomerDTO>(customer));
         }
+
+        /// <summary>
+        /// Create and store a new customer.
+        /// </summary>
+        /// <param name="newCustomer">Properties of the new customer.</param>
+        /// <response code="201">Returns the customer with a new Id and his URI is in the headers.</response>
+        [HttpPost]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        [ProducesResponseType(typeof(CustomerDTO), StatusCodes.Status201Created)]
+        public async Task<IActionResult> Post(CustomerCreationDTO newCustomer)
+        {
+            var newId = await _customerService.
+                CreateAsync(_mapper.Map<Customer>(newCustomer));
+
+            var responseCustomer = _mapper.Map<CustomerDTO>(newCustomer);
+            responseCustomer.Id = newId;
+
+            return Created($"api/customers/{newId}", responseCustomer);
+        }
     }
 }
