@@ -1,0 +1,31 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>RestaurantReservation.API</name>
+    </assembly>
+    <members>
+        <member name="M:RestaurantReservation.API.Controllers.CustomerController.Get(System.Int32,System.Int32)">
+            <summary>
+            Gets customers partitioned into pages.
+            </summary>
+            <param name="pageNumber">Number of the page that contains the needed customers.</param>
+            <param name="pageSize">The size of the needed page.</param>
+            <response code="200">Returns list of the requested customers with pagination metadata in the headers.</response>
+        </member>
+        <member name="M:RestaurantReservation.API.Controllers.CustomerController.Get(System.Int32)">
+            <summary>
+            Gets a customer by his Id.
+            </summary>
+            <param name="id"></param>
+            <response code="200">Returns the requested customer.</response>
+            <response code="404">The customer with the given Id doesn't exist.</response>
+        </member>
+        <member name="M:RestaurantReservation.API.Controllers.CustomerController.Post(RestaurantReservation.API.Models.CustomerCreationDTO)">
+            <summary>
+            Create and store a new customer.
+            </summary>
+            <param name="newCustomer">Properties of the new customer.</param>
+            <response code="201">Returns the customer with a new Id and his URI is in the headers.</response>
+        </member>
+    </members>
+</doc>
