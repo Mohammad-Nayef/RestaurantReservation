@@ -2,14 +2,14 @@
 {
     public class PaginationMetadataDTO
     {
-        public int TotalItemsCount { get; set; }
+        public int TotalItems { get; set; }
         public int PageSize { get; set; }
         public int CurrentPage { get; set; }
-        public int TotalPagesCount => (int)Math.Ceiling((double)TotalItemsCount / PageSize);
+        public int TotalPages => (int)Math.Ceiling((double)TotalItems / PageSize);
 
         public PaginationMetadataDTO(int totalItemCount, int pageSize, int currentPage)
         {
-            TotalItemsCount = totalItemCount;
+            TotalItems = totalItemCount;
             PageSize = pageSize;
             CurrentPage = currentPage;
         }
