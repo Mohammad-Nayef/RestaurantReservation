@@ -2,6 +2,7 @@
 using AutoMapper;
 using Microsoft.AspNetCore.Mvc;
 using RestaurantReservation.API.Models;
+using RestaurantReservation.Db.Entities;
 using RestaurantReservation.Db.Services;
 
 namespace RestaurantReservation.API.Controllers
@@ -30,7 +31,7 @@ namespace RestaurantReservation.API.Controllers
         /// </summary>
         /// <param name="pageNumber">Number of the page that contains the needed customers.</param>
         /// <param name="pageSize">The size of the needed page.</param>
-        /// <response code="200">String message</response>
+        /// <response code="200">List of requested customers with pagination metadata in the headers</response>
         [HttpGet]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [ProducesResponseType(StatusCodes.Status200OK)]
