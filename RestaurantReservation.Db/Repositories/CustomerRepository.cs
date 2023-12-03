@@ -86,5 +86,7 @@ namespace RestaurantReservation.Db.Repositories
         {
             return await _context.Customers.AnyAsync(customer => customer.Id == customerId);
         }
+
+        public int GetCustomersCount() => _context.Customers.Count();
     }
 }

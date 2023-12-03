@@ -30,5 +30,7 @@ namespace RestaurantReservation.Db.Repositories
         Task DeleteAsync(int customerId);
 
         Task<List<CustomerDTO>> GetCustomersWithPartySizeGreaterThanValueAsync(int value);
+
+        int GetCustomersCount();
     }
 }
