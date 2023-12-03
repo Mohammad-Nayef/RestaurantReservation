@@ -47,6 +47,16 @@ namespace RestaurantReservation.Db.Repositories
             return await _context.Customers.ToListAsync();
         }
 
+        public async Task<List<CustomerDTO>> GetAllAsync(int skipCount, int takeCount)
+        {
+            return await _context.Customers
+                .OrderBy(customer => customer.FirstName)
+                .ThenBy(customer => customer.LastName)
+                .Skip(skipCount)
+                .Take(takeCount)
+                .ToListAsync();
+        }
+
         public async Task UpdateAsync(CustomerDTO updatedCustomer)
         {
             if (!(await CustomerExistsAsync(updatedCustomer.Id)))

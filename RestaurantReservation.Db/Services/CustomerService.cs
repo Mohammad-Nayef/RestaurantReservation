@@ -29,6 +29,12 @@ namespace RestaurantReservation.Db.Services
             return await _customersRepository.GetAllAsync();
         }
 
+        public async Task<List<CustomerDTO>> GetAllAsync(int pageNumber, int pageSize)
+        {
+            return await _customersRepository.GetAllAsync(
+                (pageNumber - 1) * pageSize, pageSize);
+        }
+
         public async Task UpdateAsync(CustomerDTO updatedCustomer)
         {
             await _customersRepository.UpdateAsync(updatedCustomer);
@@ -39,9 +45,11 @@ namespace RestaurantReservation.Db.Services
             await _customersRepository.DeleteAsync(customerId);
         }
 
-        public async Task<List<CustomerDTO>> GetCustomersWithPartySizeGreaterThanValueAsync(int value)
+        public async Task<List<CustomerDTO>> GetCustomersWithPartySizeGreaterThanValueAsync(
+            int value)
         {
-            return await _customersRepository.GetCustomersWithPartySizeGreaterThanValueAsync(value);
+            return await _customersRepository.
+                GetCustomersWithPartySizeGreaterThanValueAsync(value);
         }
     }
 }

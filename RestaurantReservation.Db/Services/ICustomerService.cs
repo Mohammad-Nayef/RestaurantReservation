@@ -9,18 +9,26 @@ namespace RestaurantReservation.Db.Services
         /// </summary>
         /// <param name="newCustomer"></param>
         /// <returns>The ID of the added customer.</returns>
-        public Task<int> CreateAsync(CustomerDTO newCustomer);
+        Task<int> CreateAsync(CustomerDTO newCustomer);
 
         /// <exception cref="KeyNotFoundException"></exception>
-        public Task<CustomerDTO> GetAsync(int customerId);
+        Task<CustomerDTO> GetAsync(int customerId);
 
-        public Task<List<CustomerDTO>> GetAllAsync();
+        Task<List<CustomerDTO>> GetAllAsync();
+        
+        /// <summary>
+        /// Gets a page of the collection ordered by the name.
+        /// </summary>
+        /// <param name="pageNumber">Number of the needed page.</param>
+        /// <param name="pageSize">Number of elements the page contains.</param>
+        /// <returns></returns>
+        Task<List<CustomerDTO>> GetAllAsync(int pageNumber, int pageSize);
 
-        public Task UpdateAsync(CustomerDTO updatedCustomer);
+        Task UpdateAsync(CustomerDTO updatedCustomer);
 
         /// <exception cref="KeyNotFoundException"></exception>
-        public Task DeleteAsync(int customerId);
+        Task DeleteAsync(int customerId);
 
-        public Task<List<CustomerDTO>> GetCustomersWithPartySizeGreaterThanValueAsync(int value);
+        Task<List<CustomerDTO>> GetCustomersWithPartySizeGreaterThanValueAsync(int value);
     }
 }
