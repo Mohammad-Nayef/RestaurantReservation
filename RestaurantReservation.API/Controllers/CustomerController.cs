@@ -30,8 +30,10 @@ namespace RestaurantReservation.API.Controllers
         /// </summary>
         /// <param name="pageNumber">Number of the page that contains the needed customers.</param>
         /// <param name="pageSize">The size of the needed page.</param>
-        /// <returns></returns>
+        /// <response code="200">String message</response>
         [HttpGet]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        [ProducesResponseType(StatusCodes.Status200OK)]
         public async Task<IActionResult> Get(int pageNumber = 1, int pageSize = 10)
         {
             if (pageSize > _pageSizeLimit)
