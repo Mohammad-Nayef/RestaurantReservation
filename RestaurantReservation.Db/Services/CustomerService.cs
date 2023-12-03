@@ -1,4 +1,4 @@
-﻿using RestaurantReservation.Db.Models;
+﻿using RestaurantReservation.Db.Entities;
 using RestaurantReservation.Db.Repositories;
 
 namespace RestaurantReservation.Db.Services
@@ -14,28 +14,28 @@ namespace RestaurantReservation.Db.Services
             _customersRepository = new(_context);
         }
 
-        public async Task<int> CreateAsync(CustomerDTO newCustomer)
+        public async Task<int> CreateAsync(Customer newCustomer)
         {
             return await _customersRepository.CreateAsync(newCustomer);
         }
 
-        public async Task<CustomerDTO> GetAsync(int customerId)
+        public async Task<Customer> GetAsync(int customerId)
         {
             return await _customersRepository.GetAsync(customerId);
         }
 
-        public async Task<List<CustomerDTO>> GetAllAsync()
+        public async Task<List<Customer>> GetAllAsync()
         {
             return await _customersRepository.GetAllAsync();
         }
 
-        public async Task<List<CustomerDTO>> GetAllAsync(int pageNumber, int pageSize)
+        public async Task<List<Customer>> GetAllAsync(int pageNumber, int pageSize)
         {
             return await _customersRepository.GetAllAsync(
                 (pageNumber - 1) * pageSize, pageSize);
         }
 
-        public async Task UpdateAsync(CustomerDTO updatedCustomer)
+        public async Task UpdateAsync(Customer updatedCustomer)
         {
             await _customersRepository.UpdateAsync(updatedCustomer);
         }
@@ -45,7 +45,7 @@ namespace RestaurantReservation.Db.Services
             await _customersRepository.DeleteAsync(customerId);
         }
 
-        public async Task<List<CustomerDTO>> GetCustomersWithPartySizeGreaterThanValueAsync(
+        public async Task<List<Customer>> GetCustomersWithPartySizeGreaterThanValueAsync(
             int value)
         {
             return await _customersRepository.

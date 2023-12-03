@@ -1,4 +1,4 @@
-﻿using RestaurantReservation.Db.Models;
+﻿using RestaurantReservation.Db.Entities;
 
 namespace RestaurantReservation.Db.Repositories
 {
@@ -9,14 +9,14 @@ namespace RestaurantReservation.Db.Repositories
         /// </summary>
         /// <param name="newEmployee"></param>
         /// <returns>The ID of the added employee.</returns>
-        public Task<int> CreateAsync(EmployeeDTO newEmployee);
+        public Task<int> CreateAsync(Employee newEmployee);
 
         /// <exception cref="KeyNotFoundException"></exception>
-        public Task<EmployeeDTO> GetAsync(int employeeId);
+        public Task<Employee> GetAsync(int employeeId);
 
-        public Task<List<EmployeeDTO>> GetAllAsync();
+        public Task<List<Employee>> GetAllAsync();
 
-        public Task UpdateAsync(EmployeeDTO updatedEmployee);
+        public Task UpdateAsync(Employee updatedEmployee);
 
         /// <exception cref="KeyNotFoundException"></exception>
         public Task DeleteAsync(int employeeId);

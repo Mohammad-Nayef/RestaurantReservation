@@ -1,4 +1,4 @@
-﻿using RestaurantReservation.Db.Models;
+﻿using RestaurantReservation.Db.Entities;
 using RestaurantReservation.Db.Repositories;
 
 namespace RestaurantReservation.Db.Services
@@ -14,22 +14,22 @@ namespace RestaurantReservation.Db.Services
             _reservationsRepository = new(_context);
         }
 
-        public async Task<int> CreateAsync(ReservationDTO newReservation)
+        public async Task<int> CreateAsync(Reservation newReservation)
         {
             return await _reservationsRepository.CreateAsync(newReservation);
         }
 
-        public async Task<ReservationDTO> GetAsync(int reservationId)
+        public async Task<Reservation> GetAsync(int reservationId)
         {
             return await _reservationsRepository.GetAsync(reservationId);
         }
 
-        public async Task<List<ReservationDTO>> GetAllAsync()
+        public async Task<List<Reservation>> GetAllAsync()
         {
             return await _reservationsRepository.GetAllAsync();
         }
 
-        public async Task UpdateAsync(ReservationDTO updatedReservation)
+        public async Task UpdateAsync(Reservation updatedReservation)
         {
             await _reservationsRepository.UpdateAsync(updatedReservation);
         }
@@ -39,7 +39,7 @@ namespace RestaurantReservation.Db.Services
             await _reservationsRepository.DeleteAsync(reservationId);
         }
 
-        public async Task<List<ReservationDTO>> GetReservationsByCustomerAsync(int customerId)
+        public async Task<List<Reservation>> GetReservationsByCustomerAsync(int customerId)
         {
             var reservations = await GetAllAsync();
             return reservations.Where(reservation => reservation.CustomerId == customerId)

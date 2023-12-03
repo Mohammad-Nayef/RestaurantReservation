@@ -1,5 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using RestaurantReservation.Db.Models;
+using RestaurantReservation.Db.Entities;
 
 namespace RestaurantReservation.Db.Repositories
 {
@@ -13,7 +13,7 @@ namespace RestaurantReservation.Db.Repositories
             _context.Database.EnsureCreatedAsync().Wait();
         }
 
-        public async Task<int> CreateAsync(OrderDTO newOrder)
+        public async Task<int> CreateAsync(Order newOrder)
         {
             if (newOrder.Id < 0)
             {
@@ -29,7 +29,7 @@ namespace RestaurantReservation.Db.Repositories
             return order.Entity.Id;
         }
 
-        public async Task<OrderDTO> GetAsync(int orderId)
+        public async Task<Order> GetAsync(int orderId)
         {
             var order = await _context.Orders
                 .SingleOrDefaultAsync(o => o.Id == orderId);
@@ -42,12 +42,12 @@ namespace RestaurantReservation.Db.Repositories
             return order;
         }
 
-        public async Task<List<OrderDTO>> GetAllAsync()
+        public async Task<List<Order>> GetAllAsync()
         {
             return await _context.Orders.ToListAsync();
         }
 
-        public async Task UpdateAsync(OrderDTO updatedOrder)
+        public async Task UpdateAsync(Order updatedOrder)
         {
             if (!(await OrderExistsAsync(updatedOrder.Id)))
             {
@@ -65,7 +65,7 @@ namespace RestaurantReservation.Db.Repositories
             await _context.SaveChangesAsync();
         }
 
-        public async Task<List<OrderDTO>> ListOrdersAndMenuItemsAsync(int reservationId)
+        public async Task<List<Order>> ListOrdersAndMenuItemsAsync(int reservationId)
         {
             return await _context.Orders
                 .Where(order => order.ReservationId == reservationId)

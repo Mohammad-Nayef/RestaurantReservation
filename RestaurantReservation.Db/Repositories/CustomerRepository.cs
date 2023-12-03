@@ -1,5 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using RestaurantReservation.Db.Models;
+using RestaurantReservation.Db.Entities;
 
 namespace RestaurantReservation.Db.Repositories
 {
@@ -13,7 +13,7 @@ namespace RestaurantReservation.Db.Repositories
             _context.Database.EnsureCreatedAsync().Wait();
         }
 
-        public async Task<int> CreateAsync(CustomerDTO newCustomer)
+        public async Task<int> CreateAsync(Customer newCustomer)
         {
             if (newCustomer.Id < 0)
             {
@@ -29,7 +29,7 @@ namespace RestaurantReservation.Db.Repositories
             return customer.Entity.Id;
         }
 
-        public async Task<CustomerDTO> GetAsync(int customerId)
+        public async Task<Customer> GetAsync(int customerId)
         {
             var customer = await _context.Customers
                 .SingleOrDefaultAsync(customer => customer.Id == customerId);
@@ -42,12 +42,12 @@ namespace RestaurantReservation.Db.Repositories
             return customer;
         }
 
-        public async Task<List<CustomerDTO>> GetAllAsync()
+        public async Task<List<Customer>> GetAllAsync()
         {
             return await _context.Customers.ToListAsync();
         }
 
-        public async Task<List<CustomerDTO>> GetAllAsync(int skipCount, int takeCount)
+        public async Task<List<Customer>> GetAllAsync(int skipCount, int takeCount)
         {
             return await _context.Customers
                 .OrderBy(customer => customer.FirstName)
@@ -57,7 +57,7 @@ namespace RestaurantReservation.Db.Repositories
                 .ToListAsync();
         }
 
-        public async Task UpdateAsync(CustomerDTO updatedCustomer)
+        public async Task UpdateAsync(Customer updatedCustomer)
         {
             if (!(await CustomerExistsAsync(updatedCustomer.Id)))
             {
@@ -75,7 +75,7 @@ namespace RestaurantReservation.Db.Repositories
             await _context.SaveChangesAsync();
         }
 
-        public async Task<List<CustomerDTO>> GetCustomersWithPartySizeGreaterThanValueAsync(int value)
+        public async Task<List<Customer>> GetCustomersWithPartySizeGreaterThanValueAsync(int value)
         {
             return await _context.Customers
                 .FromSql($"EXEC sp_GetCustomersWithPartySizeGreaterThanValue {value}")

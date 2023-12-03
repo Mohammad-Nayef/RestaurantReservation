@@ -1,4 +1,4 @@
-﻿using RestaurantReservation.Db.Models;
+﻿using RestaurantReservation.Db.Entities;
 using RestaurantReservation.Db.Repositories;
 
 namespace RestaurantReservation.Db.Services
@@ -14,22 +14,22 @@ namespace RestaurantReservation.Db.Services
             _employeesRepository = new(_context);
         }
 
-        public async Task<int> CreateAsync(EmployeeDTO newEmployee)
+        public async Task<int> CreateAsync(Employee newEmployee)
         {
             return await _employeesRepository.CreateAsync(newEmployee);
         }
 
-        public async Task<EmployeeDTO> GetAsync(int employeeId)
+        public async Task<Employee> GetAsync(int employeeId)
         {
             return await _employeesRepository.GetAsync(employeeId);
         }
 
-        public async Task<List<EmployeeDTO>> GetAllAsync()
+        public async Task<List<Employee>> GetAllAsync()
         {
             return await _employeesRepository.GetAllAsync();
         }
 
-        public async Task UpdateAsync(EmployeeDTO updatedEmployee)
+        public async Task UpdateAsync(Employee updatedEmployee)
         {
             await _employeesRepository.UpdateAsync(updatedEmployee);
         }
@@ -39,7 +39,7 @@ namespace RestaurantReservation.Db.Services
             await _employeesRepository.DeleteAsync(employeeId);
         }
 
-        public async Task<List<EmployeeDTO>> ListManagersAsync()
+        public async Task<List<Employee>> ListManagersAsync()
         {
             var employees = await GetAllAsync();
             return employees.Where(employee => employee.Position == EmployeePositions.Manager)

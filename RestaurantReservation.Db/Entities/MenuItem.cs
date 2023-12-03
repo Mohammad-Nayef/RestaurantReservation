@@ -1,12 +1,12 @@
-﻿namespace RestaurantReservation.Db.Models
+﻿namespace RestaurantReservation.Db.Entities
 {
-    public class MenuItemDTO
+    public class MenuItem
     {
         public int Id { get; set; }
 
         public int? RestaurantId { get; set; }
 
-        public RestaurantDTO? Restaurant { get; set; }
+        public Restaurant? Restaurant { get; set; }
 
         public string Name { get; set; }
 
@@ -14,7 +14,7 @@
 
         public decimal Price { get; set; }
 
-        public List<OrderItemDTO> OrderItems { get; set; } = new List<OrderItemDTO>();
+        public List<OrderItem> OrderItems { get; set; } = new List<OrderItem>();
 
         public override string ToString()
         {
