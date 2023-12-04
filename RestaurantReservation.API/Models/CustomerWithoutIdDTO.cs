@@ -3,7 +3,7 @@
     /// <summary>
     /// A customer without Id property for creating a new one.
     /// </summary>
-    public class CustomerCreationDTO
+    public class CustomerWithoutIdDTO
     {
         public string FirstName { get; set; }
         public string LastName { get; set; }
