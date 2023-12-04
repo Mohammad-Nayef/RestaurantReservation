@@ -18,7 +18,8 @@
 
         public override string ToString()
         {
-            return $"Id: {Id}, Name: {FirstName} {LastName}, Restaurant Id: {RestaurantId} Position: {Position}";
+            return $"Id: {Id}, Name: {FirstName} {LastName}, Restaurant Id: " +
+                $"{RestaurantId} Position: {Position}";
         }
     }
 }
