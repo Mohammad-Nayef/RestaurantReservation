@@ -20,7 +20,7 @@ namespace RestaurantReservation.API.Controllers
             IConfiguration config,
             IMapper mapper)
         {
-            _customerService = customerService ?? 
+            _customerService = customerService ??
                 throw new ArgumentNullException(nameof(customerService));
             _mapper = mapper ?? throw new ArgumentNullException(nameof(mapper));
             _pageSizeLimit = config.GetValue<int>("PageSizeLimit");
@@ -73,7 +73,7 @@ namespace RestaurantReservation.API.Controllers
             {
                 customer = await _customerService.GetAsync(customerId);
             }
-            catch (KeyNotFoundException) 
+            catch (KeyNotFoundException)
             {
                 return NotFound();
             }
@@ -103,7 +103,7 @@ namespace RestaurantReservation.API.Controllers
         /// <summary>
         /// Update a customer with a specific Id.
         /// </summary>
-        /// <param name="customerId">The Id property of the needed customer for update.</param>
+        /// <param name="customerId">The Id of the customer to update.</param>
         /// <response code="404">The customer with the given Id doesn't exist.</response>
         /// <response code="204">The customer is updated successfully.</response>
         [HttpPut("{customerId}")]
@@ -120,6 +120,30 @@ namespace RestaurantReservation.API.Controllers
             try
             {
                 await _customerService.UpdateAsync(customerWithId);
+            }
+            catch (KeyNotFoundException)
+            {
+                return NotFound();
+            }
+
+            return NoContent();
+        }
+
+        /// <summary>
+        /// Delete a customer with a specific Id.
+        /// </summary>
+        /// <param name="customerId">The Id of the customer to delete.</param>
+        /// <response code="404">The customer with the given Id doesn't exist.</response>
+        /// <response code="204">The customer is deleted successfully.</response>
+        [HttpDelete("{customerId}")]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
+        [ProducesResponseType(StatusCodes.Status204NoContent)]
+        public async Task<IActionResult> DeleteCustomer(int customerId)
+        {
+            try
+            {
+                await _customerService.DeleteAsync(customerId);
             }
             catch (KeyNotFoundException)
             {

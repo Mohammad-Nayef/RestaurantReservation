@@ -31,9 +31,17 @@
             <summary>
             Update a customer with a specific Id.
             </summary>
-            <param name="customerId">The Id property of the needed customer for update.</param>
+            <param name="customerId">The Id of the customer to update.</param>
             <response code="404">The customer with the given Id doesn't exist.</response>
             <response code="204">The customer is updated successfully.</response>
+        </member>
+        <member name="M:RestaurantReservation.API.Controllers.CustomerController.DeleteCustomer(System.Int32)">
+            <summary>
+            Delete a customer with a specific Id.
+            </summary>
+            <param name="customerId">The Id of the customer to delete.</param>
+            <response code="404">The customer with the given Id doesn't exist.</response>
+            <response code="204">The customer is deleted successfully.</response>
         </member>
         <member name="T:RestaurantReservation.API.Models.CustomerWithoutIdDTO">
             <summary>
