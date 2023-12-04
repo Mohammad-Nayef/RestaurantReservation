@@ -24,6 +24,7 @@ namespace RestaurantReservation.Db.Repositories
         /// <param name="takeCount">Number of values to take after the skipped values.</param>
         Task<List<Customer>> GetAllAsync(int skipCount, int takeCount);
 
+        /// <exception cref="KeyNotFoundException"></exception>
         Task UpdateAsync(Customer updatedCustomer);
 
         /// <exception cref="KeyNotFoundException"></exception>

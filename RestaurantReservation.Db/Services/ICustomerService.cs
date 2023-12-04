@@ -24,6 +24,7 @@ namespace RestaurantReservation.Db.Services
         /// <returns></returns>
         Task<List<Customer>> GetAllAsync(int pageNumber, int pageSize);
 
+        /// <exception cref="KeyNotFoundException"></exception>
         Task UpdateAsync(Customer updatedCustomer);
 
         /// <exception cref="KeyNotFoundException"></exception>
