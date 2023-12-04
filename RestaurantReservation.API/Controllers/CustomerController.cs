@@ -1,6 +1,7 @@
 ﻿using System.Text.Json;
 using AutoMapper;
 using Microsoft.AspNetCore.Mvc;
+using RestaurantReservation.API.Extensions;
 using RestaurantReservation.API.Models;
 using RestaurantReservation.Db.Entities;
 using RestaurantReservation.Db.Services;
@@ -41,18 +42,11 @@ namespace RestaurantReservation.API.Controllers
                 pageSize = _pageSizeLimit;
 
             var customers = await _customerService.GetAllAsync(pageNumber, pageSize);
-            AddPaginationMetadataToHeaders(pageNumber, pageSize);
+
+            Response.Headers.AddPaginationMetadata(
+                _customerService.GetCustomersCount(), pageSize, pageNumber);
 
             return Ok(_mapper.Map<List<CustomerDTO>>(customers));
-        }
-
-        private void AddPaginationMetadataToHeaders(int pageNumber, int pageSize)
-        {
-            var paginationMetadata = new PaginationMetadataDTO(
-                _customerService.GetCustomersCount(), pageSize, pageNumber);
-            var jsonPaginationMetadata = JsonSerializer.Serialize(paginationMetadata);
-
-            Response.Headers.Add("X-Pagination", jsonPaginationMetadata);
         }
 
         /// <summary>

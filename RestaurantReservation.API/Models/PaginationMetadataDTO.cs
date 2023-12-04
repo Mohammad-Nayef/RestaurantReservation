@@ -7,9 +7,9 @@
         public int CurrentPage { get; set; }
         public int TotalPages => (int)Math.Ceiling((double)TotalItems / PageSize);
 
-        public PaginationMetadataDTO(int totalItemCount, int pageSize, int currentPage)
+        public PaginationMetadataDTO(int totalItems, int pageSize, int currentPage)
         {
-            TotalItems = totalItemCount;
+            TotalItems = totalItems;
             PageSize = pageSize;
             CurrentPage = currentPage;
         }
