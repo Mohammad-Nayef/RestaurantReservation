@@ -58,20 +58,20 @@ namespace RestaurantReservation.API.Controllers
         /// <summary>
         /// Gets a customer by his Id.
         /// </summary>
-        /// <param name="id"></param>
+        /// <param name="customerId">The Id property of the needed customer</param>
         /// <response code="200">Returns the requested customer.</response>
         /// <response code="404">The customer with the given Id doesn't exist.</response>
-        [HttpGet("{id}")]
+        [HttpGet("{customerId}")]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         [ProducesResponseType(typeof(CustomerDTO), StatusCodes.Status200OK)]
-        public async Task<IActionResult> Get(int id)
+        public async Task<IActionResult> GetCustomerAsync(int customerId)
         {
             Customer customer;
 
             try
             {
-                customer = await _customerService.GetAsync(id);
+                customer = await _customerService.GetAsync(customerId);
             }
             catch (KeyNotFoundException) 
             {
@@ -89,7 +89,7 @@ namespace RestaurantReservation.API.Controllers
         [HttpPost]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [ProducesResponseType(typeof(CustomerDTO), StatusCodes.Status201Created)]
-        public async Task<IActionResult> Post(CustomerCreationDTO newCustomer)
+        public async Task<IActionResult> CreateCustomerAsync(CustomerWithoutIdDTO newCustomer)
         {
             var newId = await _customerService.
                 CreateAsync(_mapper.Map<Customer>(newCustomer));
@@ -98,6 +98,35 @@ namespace RestaurantReservation.API.Controllers
             responseCustomer.Id = newId;
 
             return Created($"api/customers/{newId}", responseCustomer);
+        }
+
+        /// <summary>
+        /// Update a customer with a specific Id.
+        /// </summary>
+        /// <param name="customerId">The Id property of the needed customer for update.</param>
+        /// <response code="404">The customer with the given Id doesn't exist.</response>
+        /// <response code="204">The customer is updated successfully.</response>
+        [HttpPut("{customerId}")]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
+        [ProducesResponseType(StatusCodes.Status204NoContent)]
+        public async Task<IActionResult> UpdateCustomerAsync(
+            int customerId,
+            CustomerWithoutIdDTO updatedCustomer)
+        {
+            var customerWithId = _mapper.Map<Customer>(updatedCustomer);
+            customerWithId.Id = customerId;
+
+            try
+            {
+                await _customerService.UpdateAsync(customerWithId);
+            }
+            catch (KeyNotFoundException)
+            {
+                return NotFound();
+            }
+
+            return NoContent();
         }
     }
 }

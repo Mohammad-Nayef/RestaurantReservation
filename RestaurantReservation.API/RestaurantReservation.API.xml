@@ -12,20 +12,33 @@
             <param name="pageSize">The size of the needed page.</param>
             <response code="200">Returns list of the requested customers with pagination metadata in the headers.</response>
         </member>
-        <member name="M:RestaurantReservation.API.Controllers.CustomerController.Get(System.Int32)">
+        <member name="M:RestaurantReservation.API.Controllers.CustomerController.GetCustomerAsync(System.Int32)">
             <summary>
             Gets a customer by his Id.
             </summary>
-            <param name="id"></param>
+            <param name="customerId">The Id property of the needed customer</param>
             <response code="200">Returns the requested customer.</response>
             <response code="404">The customer with the given Id doesn't exist.</response>
         </member>
-        <member name="M:RestaurantReservation.API.Controllers.CustomerController.Post(RestaurantReservation.API.Models.CustomerCreationDTO)">
+        <member name="M:RestaurantReservation.API.Controllers.CustomerController.CreateCustomerAsync(RestaurantReservation.API.Models.CustomerWithoutIdDTO)">
             <summary>
             Create and store a new customer.
             </summary>
             <param name="newCustomer">Properties of the new customer.</param>
             <response code="201">Returns the customer with a new Id and his URI is in the headers.</response>
+        </member>
+        <member name="M:RestaurantReservation.API.Controllers.CustomerController.UpdateCustomerAsync(System.Int32,RestaurantReservation.API.Models.CustomerWithoutIdDTO)">
+            <summary>
+            Update a customer with a specific Id.
+            </summary>
+            <param name="customerId">The Id property of the needed customer for update.</param>
+            <response code="404">The customer with the given Id doesn't exist.</response>
+            <response code="204">The customer is updated successfully.</response>
+        </member>
+        <member name="T:RestaurantReservation.API.Models.CustomerWithoutIdDTO">
+            <summary>
+            A customer without Id property for creating a new one.
+            </summary>
         </member>
     </members>
 </doc>
