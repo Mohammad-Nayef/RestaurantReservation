@@ -1,5 +1,8 @@
 ﻿using AutoMapper;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.ModelBinding;
+using Microsoft.Data.SqlClient;
+using Microsoft.EntityFrameworkCore;
 using RestaurantReservation.API.Extensions;
 using RestaurantReservation.API.Models;
 using RestaurantReservation.Db.Entities;
@@ -106,8 +109,18 @@ namespace RestaurantReservation.API.Controllers
         [ProducesResponseType(typeof(EmployeeDTO), StatusCodes.Status201Created)]
         public async Task<IActionResult> CreateEmployeeAsync(EmployeeWithoutIdDTO newEmployee)
         {
-            var newId = await _employeeService.
-                CreateAsync(_mapper.Map<Employee>(newEmployee));
+            int newId = 0;
+
+            try
+            {
+                newId = await _employeeService.
+                    CreateAsync(_mapper.Map<Employee>(newEmployee));
+            }
+            catch (DbUpdateException ex)
+            {
+                return UnprocessableEntity(
+                    $"Invalid foreign key: {ex.InnerException.Message.ExtractForeignKey()}");
+            }
 
             var responseEmployee = _mapper.Map<EmployeeDTO>(newEmployee);
             responseEmployee.Id = newId;
