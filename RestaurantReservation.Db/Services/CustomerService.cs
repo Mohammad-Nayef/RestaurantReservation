@@ -52,6 +52,7 @@ namespace RestaurantReservation.Db.Services
                 GetCustomersWithPartySizeGreaterThanValueAsync(value);
         }
 
-        public int GetCustomersCount() => _customersRepository.GetCustomersCount();
+        public async Task<int> GetCustomersCountAsync() => 
+            await _customersRepository.GetCustomersCountAsync();
     }
 }

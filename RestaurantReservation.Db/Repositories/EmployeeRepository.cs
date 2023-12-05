@@ -47,6 +47,27 @@ namespace RestaurantReservation.Db.Repositories
             return await _context.Employees.ToListAsync();
         }
 
+        public async Task<List<Employee>> GetAllAsync(int skipCount, int takeCount)
+        {
+            return await _context.Employees
+                .OrderBy(employee => employee.FirstName)
+                .ThenBy(employee => employee.LastName)
+                .Skip(skipCount)
+                .Take(takeCount)
+                .ToListAsync();
+        }
+
+        public async Task<List<Employee>> ListManagersAsync(int skipCount, int takeCount)
+        {
+            return await _context.Employees
+                .Where(employee => employee.Position == EmployeePositions.Manager)
+                .OrderBy(employee => employee.FirstName)
+                .ThenBy(employee => employee.LastName)
+                .Skip(skipCount)
+                .Take(takeCount)
+                .ToListAsync();
+        }
+
         public async Task UpdateAsync(Employee updatedEmployee)
         {
             if (!(await EmployeeExistsAsync(updatedEmployee.Id)))
@@ -68,6 +89,15 @@ namespace RestaurantReservation.Db.Repositories
         private async Task<bool> EmployeeExistsAsync(int employeeId)
         {
             return await _context.Employees.AnyAsync(employee => employee.Id == employeeId);
+        }
+
+        public async Task<int> GetEmployeesCountAsync() => await _context.Employees.CountAsync();
+
+        public async Task<int> GetManagersCountAsync()
+        {
+            return await _context.Employees
+                .Where(employee => employee.Position == EmployeePositions.Manager)
+                .CountAsync();
         }
     }
 }

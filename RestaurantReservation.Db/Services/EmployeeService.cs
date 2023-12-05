@@ -29,6 +29,12 @@ namespace RestaurantReservation.Db.Services
             return await _employeesRepository.GetAllAsync();
         }
 
+        public async Task<List<Employee>> GetAllAsync(int pageNumber, int pageSize)
+        {
+            return await _employeesRepository.GetAllAsync(
+                (pageNumber - 1) * pageSize, pageSize);
+        }
+
         public async Task UpdateAsync(Employee updatedEmployee)
         {
             await _employeesRepository.UpdateAsync(updatedEmployee);
@@ -39,11 +45,16 @@ namespace RestaurantReservation.Db.Services
             await _employeesRepository.DeleteAsync(employeeId);
         }
 
-        public async Task<List<Employee>> ListManagersAsync()
+        public async Task<List<Employee>> ListManagersAsync(int pageNumber, int pageSize)
         {
-            var employees = await GetAllAsync();
-            return employees.Where(employee => employee.Position == EmployeePositions.Manager)
-                .ToList();
+            return await _employeesRepository.ListManagersAsync(
+                (pageNumber - 1) * pageSize, pageSize);
         }
+
+        public async Task<int> GetEmployeesCountAsync() => 
+            await _employeesRepository.GetEmployeesCountAsync();
+        
+        public async Task<int> GetManagersCountAsync() => 
+            await _employeesRepository.GetManagersCountAsync();
     }
 }

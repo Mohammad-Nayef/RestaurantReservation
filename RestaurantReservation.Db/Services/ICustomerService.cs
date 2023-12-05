@@ -32,6 +32,6 @@ namespace RestaurantReservation.Db.Services
 
         Task<List<Customer>> GetCustomersWithPartySizeGreaterThanValueAsync(int value);
 
-        int GetCustomersCount();
+        Task<int> GetCustomersCountAsync();
     }
 }

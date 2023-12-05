@@ -9,16 +9,30 @@ namespace RestaurantReservation.Db.Repositories
         /// </summary>
         /// <param name="newEmployee"></param>
         /// <returns>The ID of the added employee.</returns>
-        public Task<int> CreateAsync(Employee newEmployee);
+        Task<int> CreateAsync(Employee newEmployee);
 
         /// <exception cref="KeyNotFoundException"></exception>
-        public Task<Employee> GetAsync(int employeeId);
+        Task<Employee> GetAsync(int employeeId);
 
-        public Task<List<Employee>> GetAllAsync();
+        Task<List<Employee>> GetAllAsync();
 
-        public Task UpdateAsync(Employee updatedEmployee);
+        /// <summary>
+        /// Gets a page of the collection ordered by the name.
+        /// </summary>
+        /// <param name="skipCount">Number of values to skip from the beginning of the collection.</param>
+        /// <param name="takeCount">Number of values to take after the skipped values.</param>
+        Task<List<Employee>> GetAllAsync(int skipCount, int takeCount);
+
+        Task<List<Employee>> ListManagersAsync(int skipCount, int takeCount);
 
         /// <exception cref="KeyNotFoundException"></exception>
-        public Task DeleteAsync(int employeeId);
+        Task UpdateAsync(Employee updatedEmployee);
+
+        /// <exception cref="KeyNotFoundException"></exception>
+        Task DeleteAsync(int employeeId);
+
+        Task<int> GetEmployeesCountAsync();
+
+        Task<int> GetManagersCountAsync();
     }
 }
