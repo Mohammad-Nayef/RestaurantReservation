@@ -40,10 +40,10 @@ namespace RestaurantReservation.API.Controllers
             if (pageSize > _pageSizeLimit)
                 pageSize = _pageSizeLimit;
 
-            var customers = await _customerService.GetAllAsync(pageNumber, pageSize);
             var customersCount = await _customerService.GetCustomersCountAsync();
-
             Response.Headers.AddPaginationMetadata(customersCount, pageSize, pageNumber);
+
+            var customers = await _customerService.GetAllAsync(pageNumber, pageSize);
 
             return Ok(_mapper.Map<List<CustomerDTO>>(customers));
         }

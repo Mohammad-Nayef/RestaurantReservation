@@ -43,10 +43,10 @@ namespace RestaurantReservation.API.Controllers
             if (pageSize > _pageSizeLimit)
                 pageSize = _pageSizeLimit;
 
-            var employees = await _employeeService.GetAllAsync(pageNumber, pageSize);
             var employeesCount = await _employeeService.GetEmployeesCountAsync();
-
             Response.Headers.AddPaginationMetadata(employeesCount, pageSize, pageNumber);
+
+            var employees = await _employeeService.GetAllAsync(pageNumber, pageSize);
 
             return Ok(_mapper.Map<List<EmployeeDTO>>(employees));
         }
@@ -65,10 +65,10 @@ namespace RestaurantReservation.API.Controllers
             if (pageSize > _pageSizeLimit)
                 pageSize = _pageSizeLimit;
 
-            var managers = await _employeeService.ListManagersAsync(pageNumber, pageSize);
             var managersCount = await _employeeService.GetManagersCountAsync();
-
             Response.Headers.AddPaginationMetadata(managersCount, pageSize, pageNumber);
+
+            var managers = await _employeeService.ListManagersAsync(pageNumber, pageSize);
 
             return Ok(_mapper.Map<List<EmployeeDTO>>(managers));
         }
@@ -111,7 +111,7 @@ namespace RestaurantReservation.API.Controllers
         [ProducesResponseType(typeof(EmployeeDTO), StatusCodes.Status201Created)]
         public async Task<IActionResult> CreateEmployeeAsync(EmployeeWithoutIdDTO newEmployee)
         {
-            int newId = 0;
+            int newId;
 
             try
             {
