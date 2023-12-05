@@ -29,5 +29,7 @@ namespace RestaurantReservation.Db.Repositories
         Task DeleteAsync(int reservationId);
 
         Task<int> GetReservationsCountAsync();
+
+        Task<bool> ReservationExistsAsync(int reservationId);
     }
 }

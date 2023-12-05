@@ -56,5 +56,8 @@ namespace RestaurantReservation.Db.Services
         
         public async Task<int> GetManagersCountAsync() => 
             await _employeesRepository.GetManagersCountAsync();
+
+        public async Task<bool> EmployeeExistsAsync(int employeeId) =>
+            await _employeesRepository.EmployeeExistsAsync(employeeId);
     }
 }

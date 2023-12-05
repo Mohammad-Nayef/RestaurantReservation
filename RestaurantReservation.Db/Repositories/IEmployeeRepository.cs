@@ -11,6 +11,8 @@ namespace RestaurantReservation.Db.Repositories
         /// <returns>The ID of the added employee.</returns>
         Task<int> CreateAsync(Employee newEmployee);
 
+        Task<bool> EmployeeExistsAsync(int employeeId);
+
         /// <exception cref="KeyNotFoundException"></exception>
         Task<Employee> GetAsync(int employeeId);
 

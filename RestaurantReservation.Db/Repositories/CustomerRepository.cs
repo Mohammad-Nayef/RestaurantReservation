@@ -61,7 +61,8 @@ namespace RestaurantReservation.Db.Repositories
         {
             if (!(await CustomerExistsAsync(updatedCustomer.Id)))
             {
-                throw new KeyNotFoundException($"Customer with ID = {updatedCustomer.Id} does not exist.");
+                throw new KeyNotFoundException(
+                    $"Customer with ID = {updatedCustomer.Id} does not exist.");
             }
 
             _context.Customers.Update(updatedCustomer);
@@ -87,6 +88,12 @@ namespace RestaurantReservation.Db.Repositories
             return await _context.Customers.AnyAsync(customer => customer.Id == customerId);
         }
 
-        public async Task<int> GetCustomersCountAsync() => await _context.Customers.CountAsync();
+        public async Task<int> GetCustomersCountAsync()
+        {
+            if (_context.Customers.TryGetNonEnumeratedCount(out var fastCount))
+                return fastCount;
+
+            return await _context.Customers.CountAsync();
+        }
     }
 }

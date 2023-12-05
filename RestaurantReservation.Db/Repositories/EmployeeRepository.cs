@@ -86,18 +86,28 @@ namespace RestaurantReservation.Db.Repositories
             await _context.SaveChangesAsync();
         }
 
-        private async Task<bool> EmployeeExistsAsync(int employeeId)
+        public async Task<bool> EmployeeExistsAsync(int employeeId)
         {
             return await _context.Employees.AnyAsync(employee => employee.Id == employeeId);
         }
 
-        public async Task<int> GetEmployeesCountAsync() => await _context.Employees.CountAsync();
+        public async Task<int> GetEmployeesCountAsync()
+        {
+            if (_context.Employees.TryGetNonEnumeratedCount(out var fastCount))
+                return fastCount;
+
+            return await _context.Employees.CountAsync();
+        }
 
         public async Task<int> GetManagersCountAsync()
         {
-            return await _context.Employees
-                .Where(employee => employee.Position == EmployeePositions.Manager)
-                .CountAsync();
+            var managers = _context.Employees
+                .Where(employee => employee.Position == EmployeePositions.Manager);
+
+            if (managers.TryGetNonEnumeratedCount(out var fastCount))
+                return fastCount;
+
+            return await managers.CountAsync();
         }
     }
 }

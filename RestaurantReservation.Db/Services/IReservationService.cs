@@ -33,6 +33,8 @@ namespace RestaurantReservation.Db.Services
 
         Task<int> GetReservationsCountAsync();
 
-        Task<int> GetReservationsCountByCustomerAsync(int customerId);
+        Task<int> GetReservationsByCustomerCountAsync(int customerId);
+
+        Task<bool> ReservationExistsAsync(int reservationId);
     }
 }

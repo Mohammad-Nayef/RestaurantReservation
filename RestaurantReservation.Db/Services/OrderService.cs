@@ -53,9 +53,14 @@ namespace RestaurantReservation.Db.Services
             return 0;
         }
 
-        public async Task<List<Order>> ListOrdersAndMenuItemsAsync(int reservationId)
+        public async Task<List<Order>> ListOrdersAndMenuItemsByReservationAsync(int reservationId)
         {
-            return await _ordersRepository.ListOrdersAndMenuItemsAsync(reservationId);
+            return await _ordersRepository.ListOrdersAndMenuItemsByReservationAsync(reservationId);
+        }
+
+        public async Task<int> GetOrdersByReservationCountAsync(int reservationId)
+        {
+            return await _ordersRepository.GetOrdersByReservationCountAsync(reservationId);
         }
     }
 }

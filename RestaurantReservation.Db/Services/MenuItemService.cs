@@ -43,7 +43,7 @@ namespace RestaurantReservation.Db.Services
 
         public async Task<List<MenuItem>> ListOrderedMenuItemsAsync(int reservationId)
         {
-            var orders = await _orderService.ListOrdersAndMenuItemsAsync(reservationId);
+            var orders = await _orderService.ListOrdersAndMenuItemsByReservationAsync(reservationId);
             var menuItems = new List<MenuItem>();
 
             orders.SelectMany(order => order.OrderItems)

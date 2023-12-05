@@ -65,13 +65,20 @@ namespace RestaurantReservation.Db.Repositories
             await _context.SaveChangesAsync();
         }
 
-        public async Task<List<Order>> ListOrdersAndMenuItemsAsync(int reservationId)
+        public async Task<List<Order>> ListOrdersAndMenuItemsByReservationAsync(int reservationId)
         {
             return await _context.Orders
                 .Where(order => order.ReservationId == reservationId)
                 .Include(order => order.OrderItems)
                 .ThenInclude(orderItem => orderItem.MenuItem)
                 .ToListAsync();
+        }
+
+        public async Task<int> GetOrdersByReservationCountAsync(int reservationId)
+        {
+            return await _context.Orders
+                .Where(order => order.ReservationId == reservationId)
+                .CountAsync();
         }
 
         private async Task<bool> OrderExistsAsync(int orderId)
