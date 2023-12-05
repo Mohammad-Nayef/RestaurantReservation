@@ -54,5 +54,11 @@ namespace RestaurantReservation.Db.Services
 
         public async Task<int> GetReservationsCountAsync() =>
             await _reservationsRepository.GetReservationsCountAsync();
+
+        public async Task<int> GetReservationsCountByCustomerAsync(int customerId)
+        {
+            return (await GetReservationsByCustomerAsync(customerId))
+                .Count();
+        }
     }
 }

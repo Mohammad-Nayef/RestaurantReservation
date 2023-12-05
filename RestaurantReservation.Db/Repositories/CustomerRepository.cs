@@ -82,7 +82,7 @@ namespace RestaurantReservation.Db.Repositories
                 .ToListAsync();
         }
 
-        private async Task<bool> CustomerExistsAsync(int customerId)
+        public async Task<bool> CustomerExistsAsync(int customerId)
         {
             return await _context.Customers.AnyAsync(customer => customer.Id == customerId);
         }
