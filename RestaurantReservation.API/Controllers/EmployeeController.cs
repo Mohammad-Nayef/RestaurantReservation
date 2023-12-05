@@ -104,8 +104,10 @@ namespace RestaurantReservation.API.Controllers
         /// </summary>
         /// <param name="newEmployee">Properties of the new employee.</param>
         /// <response code="201">Returns the employee with a new Id and their URI is in the headers.</response>
+        /// <response code="422">There's an invalid foreign key returned in the response body.</response>
         [HttpPost]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        [ProducesResponseType(StatusCodes.Status422UnprocessableEntity)]
         [ProducesResponseType(typeof(EmployeeDTO), StatusCodes.Status201Created)]
         public async Task<IActionResult> CreateEmployeeAsync(EmployeeWithoutIdDTO newEmployee)
         {
@@ -134,10 +136,12 @@ namespace RestaurantReservation.API.Controllers
         /// <param name="employeeId">The Id of the employee to update.</param>
         /// <param name="updatedEmployee">The employee with updated value(s).</param>
         /// <response code="404">The employee with the given Id doesn't exist.</response>
+        /// <response code="422">There's an invalid foreign key returned in the response body.</response>
         /// <response code="204">The employee is updated successfully.</response>
         [HttpPut("{employeeId}")]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
+        [ProducesResponseType(StatusCodes.Status422UnprocessableEntity)]
         [ProducesResponseType(StatusCodes.Status204NoContent)]
         public async Task<IActionResult> UpdateEmployeeAsync(
             int employeeId,
@@ -153,6 +157,11 @@ namespace RestaurantReservation.API.Controllers
             catch (KeyNotFoundException)
             {
                 return NotFound();
+            }
+            catch (DbUpdateException ex)
+            {
+                return UnprocessableEntity(
+                    $"Invalid foreign key: {ex.InnerException.Message.ExtractForeignKey()}");
             }
 
             return NoContent();
