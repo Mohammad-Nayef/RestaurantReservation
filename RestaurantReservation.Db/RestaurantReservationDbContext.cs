@@ -1,5 +1,4 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using Microsoft.Extensions.Logging;
 using RestaurantReservation.Db.Entities;
 using RestaurantReservation.Db.Models;
 
@@ -21,8 +20,7 @@ namespace RestaurantReservation.Db
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
             optionsBuilder.UseSqlServer("Data Source=(localdb)\\MSSQLLocalDB;" +
-            "Initial Catalog=RestaurantReservationCore;")
-                .LogTo(Console.WriteLine, LogLevel.Information);
+            "Initial Catalog=RestaurantReservationCore;");
         }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
