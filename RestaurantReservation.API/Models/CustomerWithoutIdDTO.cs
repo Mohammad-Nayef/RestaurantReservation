@@ -1,8 +1,5 @@
 ﻿namespace RestaurantReservation.API.Models
 {
-    /// <summary>
-    /// A customer without Id property for creating a new one.
-    /// </summary>
     public class CustomerWithoutIdDTO
     {
         public string FirstName { get; set; }

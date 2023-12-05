@@ -43,8 +43,7 @@ namespace RestaurantReservation.API.Controllers
             var employees = await _employeeService.GetAllAsync(pageNumber, pageSize);
             var employeesCount = await _employeeService.GetEmployeesCountAsync();
 
-            Response.Headers.AddPaginationMetadata(
-                employeesCount, pageSize, pageNumber);
+            Response.Headers.AddPaginationMetadata(employeesCount, pageSize, pageNumber);
 
             return Ok(_mapper.Map<List<EmployeeDTO>>(employees));
         }
@@ -66,8 +65,7 @@ namespace RestaurantReservation.API.Controllers
             var managers = await _employeeService.ListManagersAsync(pageNumber, pageSize);
             var managersCount = await _employeeService.GetManagersCountAsync();
 
-            Response.Headers.AddPaginationMetadata(
-                managersCount, pageSize, pageNumber);
+            Response.Headers.AddPaginationMetadata(managersCount, pageSize, pageNumber);
 
             return Ok(_mapper.Map<List<EmployeeDTO>>(managers));
         }

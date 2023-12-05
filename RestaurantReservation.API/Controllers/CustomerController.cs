@@ -43,8 +43,7 @@ namespace RestaurantReservation.API.Controllers
             var customers = await _customerService.GetAllAsync(pageNumber, pageSize);
             var customersCount = await _customerService.GetCustomersCountAsync();
 
-            Response.Headers.AddPaginationMetadata(
-                customersCount, pageSize, pageNumber);
+            Response.Headers.AddPaginationMetadata(customersCount, pageSize, pageNumber);
 
             return Ok(_mapper.Map<List<CustomerDTO>>(customers));
         }
