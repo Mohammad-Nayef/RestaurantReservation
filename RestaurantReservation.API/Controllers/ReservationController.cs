@@ -14,17 +14,21 @@ namespace RestaurantReservation.API.Controllers
     {
         private readonly IReservationService _reservationService;
         private readonly IMapper _mapper;
+        private readonly ICustomerService _customerService;
         private readonly int _pageSizeLimit;
 
         public ReservationController(
             IReservationService reservationService,
             IConfiguration config,
-            IMapper mapper)
+            IMapper mapper,
+            ICustomerService customerService)
         {
             _reservationService = reservationService ??
                 throw new ArgumentNullException(nameof(reservationService));
             _mapper = mapper ?? throw new ArgumentNullException(nameof(mapper));
             _pageSizeLimit = config.GetValue<int>("PageSizeLimit");
+            _customerService = customerService ?? 
+                throw new ArgumentNullException(nameof(customerService));
         }
 
         /// <summary>
@@ -43,10 +47,10 @@ namespace RestaurantReservation.API.Controllers
             if (pageSize > _pageSizeLimit)
                 pageSize = _pageSizeLimit;
 
-            var reservations = await _reservationService.GetAllAsync(pageNumber, pageSize);
             var reservationsCount = await _reservationService.GetReservationsCountAsync();
-
             Response.Headers.AddPaginationMetadata(reservationsCount, pageSize, pageNumber);
+
+            var reservations = await _reservationService.GetAllAsync(pageNumber, pageSize);
 
             return Ok(_mapper.Map<List<ReservationDTO>>(reservations));
         }
@@ -78,6 +82,40 @@ namespace RestaurantReservation.API.Controllers
         }
 
         /// <summary>
+        /// Gets reservations by a specific customer.
+        /// </summary>
+        /// <param name="customerId">The Id property of the customer to get his reservations</param>
+        /// <param name="pageNumber">Number of the page that contains the needed reservations.</param>
+        /// <param name="pageSize">The size of the needed page.</param>
+        /// <response code="200">Returns the requested reservations.</response>
+        /// <response code="404">The customer with the given Id doesn't exist.</response>
+        [HttpGet("customer/{customerId}")]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
+        [ProducesResponseType(typeof(List<ReservationDTO>), StatusCodes.Status200OK)]
+        public async Task<IActionResult> GetReservationsByCustomerAsync(
+            int customerId,
+            int pageNumber = 1, 
+            int pageSize = 10)
+        {
+            if (pageSize > _pageSizeLimit)
+                pageSize = _pageSizeLimit;
+
+            if (!await _customerService.CustomerExistsAsync(customerId))
+                return NotFound();
+
+            var reservationsCountByCustomer = await _reservationService.
+                GetReservationsCountByCustomerAsync(customerId);
+            Response.Headers.AddPaginationMetadata(
+                reservationsCountByCustomer, pageSize, pageNumber);
+
+            var reservationsByCustomer = await _reservationService.
+                GetReservationsByCustomerAsync(customerId);
+
+            return Ok(_mapper.Map<List<ReservationDTO>>(reservationsByCustomer));
+        }
+
+        /// <summary>
         /// Create and store a new reservation.
         /// </summary>
         /// <param name="newReservation">Properties of the new reservation.</param>
@@ -90,7 +128,7 @@ namespace RestaurantReservation.API.Controllers
         public async Task<IActionResult> CreateReservationAsync(
             ReservationWithoutIdDTO newReservation)
         {
-            int newId = 0;
+            int newId;
 
             try
             {

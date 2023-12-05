@@ -110,6 +110,16 @@
             <response code="200">Returns the requested reservation.</response>
             <response code="404">The reservation with the given Id doesn't exist.</response>
         </member>
+        <member name="M:RestaurantReservation.API.Controllers.ReservationController.GetReservationsByCustomerAsync(System.Int32,System.Int32,System.Int32)">
+            <summary>
+            Gets reservations by a specific customer.
+            </summary>
+            <param name="customerId">The Id property of the customer to get his reservations</param>
+            <param name="pageNumber">Number of the page that contains the needed reservations.</param>
+            <param name="pageSize">The size of the needed page.</param>
+            <response code="200">Returns the requested reservations.</response>
+            <response code="404">The customer with the given Id doesn't exist.</response>
+        </member>
         <member name="M:RestaurantReservation.API.Controllers.ReservationController.CreateReservationAsync(RestaurantReservation.API.Models.ReservationWithoutIdDTO)">
             <summary>
             Create and store a new reservation.
