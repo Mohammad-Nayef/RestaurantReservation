@@ -1,5 +1,4 @@
-﻿using System.Text.Json;
-using AutoMapper;
+﻿using AutoMapper;
 using Microsoft.AspNetCore.Mvc;
 using RestaurantReservation.API.Extensions;
 using RestaurantReservation.API.Models;
@@ -36,15 +35,16 @@ namespace RestaurantReservation.API.Controllers
         [HttpGet]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [ProducesResponseType(typeof(List<CustomerDTO>), StatusCodes.Status200OK)]
-        public async Task<IActionResult> Get(int pageNumber = 1, int pageSize = 10)
+        public async Task<IActionResult> GetCustomersAsync(int pageNumber = 1, int pageSize = 10)
         {
             if (pageSize > _pageSizeLimit)
                 pageSize = _pageSizeLimit;
 
             var customers = await _customerService.GetAllAsync(pageNumber, pageSize);
+            var customersCount = await _customerService.GetCustomersCountAsync();
 
             Response.Headers.AddPaginationMetadata(
-                _customerService.GetCustomersCount(), pageSize, pageNumber);
+                customersCount, pageSize, pageNumber);
 
             return Ok(_mapper.Map<List<CustomerDTO>>(customers));
         }
@@ -98,6 +98,7 @@ namespace RestaurantReservation.API.Controllers
         /// Update a customer with a specific Id.
         /// </summary>
         /// <param name="customerId">The Id of the customer to update.</param>
+        /// <param name="updatedCustomer">The customer with updated value(s).</param>
         /// <response code="404">The customer with the given Id doesn't exist.</response>
         /// <response code="204">The customer is updated successfully.</response>
         [HttpPut("{customerId}")]
@@ -133,7 +134,7 @@ namespace RestaurantReservation.API.Controllers
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         [ProducesResponseType(StatusCodes.Status204NoContent)]
-        public async Task<IActionResult> DeleteCustomer(int customerId)
+        public async Task<IActionResult> DeleteCustomerAsync(int customerId)
         {
             try
             {
