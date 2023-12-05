@@ -47,6 +47,14 @@ namespace RestaurantReservation.Db.Repositories
             return await _context.Reservations.ToListAsync();
         }
 
+        public async Task<List<Reservation>> GetAllAsync(int skipCount, int takeCount)
+        {
+            return await _context.Reservations
+                .Skip(skipCount)
+                .Take(takeCount)
+                .ToListAsync();
+        }
+
         public async Task UpdateAsync(Reservation updatedReservation)
         {
             if (!(await ReservationExistsAsync(updatedReservation.Id)))
@@ -69,5 +77,8 @@ namespace RestaurantReservation.Db.Repositories
         {
             return await _context.Reservations.AnyAsync(reservation => reservation.Id == reservationId);
         }
+
+        public async Task<int> GetReservationsCountAsync() => 
+            await _context.Reservations.CountAsync();
     }
 }

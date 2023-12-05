@@ -29,6 +29,12 @@ namespace RestaurantReservation.Db.Services
             return await _reservationsRepository.GetAllAsync();
         }
 
+        public async Task<List<Reservation>> GetAllAsync(int pageNumber, int pageSize)
+        {
+            return await _reservationsRepository.GetAllAsync(
+                (pageNumber - 1) * pageSize, pageSize);
+        }
+
         public async Task UpdateAsync(Reservation updatedReservation)
         {
             await _reservationsRepository.UpdateAsync(updatedReservation);
@@ -45,5 +51,8 @@ namespace RestaurantReservation.Db.Services
             return reservations.Where(reservation => reservation.CustomerId == customerId)
                 .ToList();
         }
+
+        public async Task<int> GetReservationsCountAsync() =>
+            await _reservationsRepository.GetReservationsCountAsync();
     }
 }

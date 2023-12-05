@@ -9,16 +9,25 @@ namespace RestaurantReservation.Db.Repositories
         /// </summary>
         /// <param name="newReservation"></param>
         /// <returns>The ID of the added reservation.</returns>
-        public Task<int> CreateAsync(Reservation newReservation);
+        Task<int> CreateAsync(Reservation newReservation);
 
         /// <exception cref="KeyNotFoundException"></exception>
-        public Task<Reservation> GetAsync(int reservationId);
+        Task<Reservation> GetAsync(int reservationId);
 
-        public Task<List<Reservation>> GetAllAsync();
+        Task<List<Reservation>> GetAllAsync();
 
-        public Task UpdateAsync(Reservation updatedReservation);
+        /// <summary>
+        /// Gets a page of the collection.
+        /// </summary>
+        /// <param name="skipCount">Number of values to skip from the beginning of the collection.</param>
+        /// <param name="takeCount">Number of values to take after the skipped values.</param>
+        Task<List<Reservation>> GetAllAsync(int skipCount, int takeCount);
+
+        Task UpdateAsync(Reservation updatedReservation);
 
         /// <exception cref="KeyNotFoundException"></exception>
-        public Task DeleteAsync(int reservationId);
+        Task DeleteAsync(int reservationId);
+
+        Task<int> GetReservationsCountAsync();
     }
 }
