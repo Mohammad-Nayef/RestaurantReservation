@@ -4,7 +4,7 @@
         <name>RestaurantReservation.API</name>
     </assembly>
     <members>
-        <member name="M:RestaurantReservation.API.Controllers.CustomerController.Get(System.Int32,System.Int32)">
+        <member name="M:RestaurantReservation.API.Controllers.CustomerController.GetCustomersAsync(System.Int32,System.Int32)">
             <summary>
             Gets customers partitioned into pages.
             </summary>
@@ -32,10 +32,11 @@
             Update a customer with a specific Id.
             </summary>
             <param name="customerId">The Id of the customer to update.</param>
+            <param name="updatedCustomer">The customer with updated value(s).</param>
             <response code="404">The customer with the given Id doesn't exist.</response>
             <response code="204">The customer is updated successfully.</response>
         </member>
-        <member name="M:RestaurantReservation.API.Controllers.CustomerController.DeleteCustomer(System.Int32)">
+        <member name="M:RestaurantReservation.API.Controllers.CustomerController.DeleteCustomerAsync(System.Int32)">
             <summary>
             Delete a customer with a specific Id.
             </summary>
@@ -43,10 +44,97 @@
             <response code="404">The customer with the given Id doesn't exist.</response>
             <response code="204">The customer is deleted successfully.</response>
         </member>
-        <member name="T:RestaurantReservation.API.Models.CustomerWithoutIdDTO">
+        <member name="M:RestaurantReservation.API.Controllers.EmployeeController.GetEmployeesAsync(System.Int32,System.Int32)">
             <summary>
-            A customer without Id property for creating a new one.
+            Gets employees partitioned into pages.
             </summary>
+            <param name="pageNumber">Number of the page that contains the needed employees.</param>
+            <param name="pageSize">The size of the needed page.</param>
+            <response code="200">Returns list of the requested employees with pagination metadata in the headers.</response>
+        </member>
+        <member name="M:RestaurantReservation.API.Controllers.EmployeeController.GetManagersAsync(System.Int32,System.Int32)">
+            <summary>
+            Gets managers partitioned into pages.
+            </summary>
+            <param name="pageNumber">Number of the page that contains the needed managers.</param>
+            <param name="pageSize">The size of the needed page.</param>
+            <response code="200">Returns list of the requested managers with pagination metadata in the headers.</response>
+        </member>
+        <member name="M:RestaurantReservation.API.Controllers.EmployeeController.GetEmployeeAsync(System.Int32)">
+            <summary>
+            Gets an employee by their Id.
+            </summary>
+            <param name="employeeId">The Id property of the needed employee.</param>
+            <response code="200">Returns the requested employee.</response>
+            <response code="404">The employee with the given Id doesn't exist.</response>
+        </member>
+        <member name="M:RestaurantReservation.API.Controllers.EmployeeController.CreateEmployeeAsync(RestaurantReservation.API.Models.EmployeeWithoutIdDTO)">
+            <summary>
+            Create and store a new employee.
+            </summary>
+            <param name="newEmployee">Properties of the new employee.</param>
+            <response code="201">Returns the employee with a new Id and their URI is in the headers.</response>
+            <response code="422">There's an invalid foreign key returned in the response body.</response>
+        </member>
+        <member name="M:RestaurantReservation.API.Controllers.EmployeeController.UpdateEmployeeAsync(System.Int32,RestaurantReservation.API.Models.EmployeeWithoutIdDTO)">
+            <summary>
+            Update an employee with a specific Id.
+            </summary>
+            <param name="employeeId">The Id of the employee to update.</param>
+            <param name="updatedEmployee">The employee with updated value(s).</param>
+            <response code="404">The employee with the given Id doesn't exist.</response>
+            <response code="422">There's an invalid foreign key returned in the response body.</response>
+            <response code="204">The employee is updated successfully.</response>
+        </member>
+        <member name="M:RestaurantReservation.API.Controllers.EmployeeController.DeleteEmployeeAsync(System.Int32)">
+            <summary>
+            Delete an employee with a specific Id.
+            </summary>
+            <param name="employeeId">The Id of the employee to delete.</param>
+            <response code="404">The employee with the given Id doesn't exist.</response>
+            <response code="204">The employee is deleted successfully.</response>
+        </member>
+        <member name="M:RestaurantReservation.API.Controllers.ReservationController.GetReservationsAsync(System.Int32,System.Int32)">
+            <summary>
+            Gets reservations partitioned into pages.
+            </summary>
+            <param name="pageNumber">Number of the page that contains the needed reservations.</param>
+            <param name="pageSize">The size of the needed page.</param>
+            <response code="200">Returns list of the requested reservations with pagination metadata in the headers.</response>
+        </member>
+        <member name="M:RestaurantReservation.API.Controllers.ReservationController.GetReservationAsync(System.Int32)">
+            <summary>
+            Gets a reservation by its Id.
+            </summary>
+            <param name="reservationId">The Id property of the needed reservation</param>
+            <response code="200">Returns the requested reservation.</response>
+            <response code="404">The reservation with the given Id doesn't exist.</response>
+        </member>
+        <member name="M:RestaurantReservation.API.Controllers.ReservationController.CreateReservationAsync(RestaurantReservation.API.Models.ReservationWithoutIdDTO)">
+            <summary>
+            Create and store a new reservation.
+            </summary>
+            <param name="newReservation">Properties of the new reservation.</param>
+            <response code="201">Returns the reservation with a new Id and its URI is in the headers.</response>
+            <response code="422">There's an invalid foreign key returned in the response body.</response>
+        </member>
+        <member name="M:RestaurantReservation.API.Controllers.ReservationController.UpdateReservationAsync(System.Int32,RestaurantReservation.API.Models.ReservationWithoutIdDTO)">
+            <summary>
+            Update a reservation with a specific Id.
+            </summary>
+            <param name="reservationId">The Id of the reservation to update.</param>
+            <param name="updatedReservation">The reservation with updated value(s).</param>
+            <response code="404">The reservation with the given Id doesn't exist.</response>
+            <response code="422">There's an invalid foreign key returned in the response body.</response>
+            <response code="204">The reservation is updated successfully.</response>
+        </member>
+        <member name="M:RestaurantReservation.API.Controllers.ReservationController.DeleteReservationAsync(System.Int32)">
+            <summary>
+            Delete a reservation with a specific Id.
+            </summary>
+            <param name="reservationId">The Id of the reservation to delete.</param>
+            <response code="404">The reservation with the given Id doesn't exist.</response>
+            <response code="204">The reservation is deleted successfully.</response>
         </member>
     </members>
 </doc>
