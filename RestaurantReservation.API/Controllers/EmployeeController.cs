@@ -1,7 +1,5 @@
 ﻿using AutoMapper;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Mvc.ModelBinding;
-using Microsoft.Data.SqlClient;
 using Microsoft.EntityFrameworkCore;
 using RestaurantReservation.API.Extensions;
 using RestaurantReservation.API.Models;
@@ -16,16 +14,20 @@ namespace RestaurantReservation.API.Controllers
     {
         private readonly IEmployeeService _employeeService;
         private readonly IMapper _mapper;
+        private readonly IOrderService _orderService;
         private readonly int _pageSizeLimit;
 
         public EmployeeController(
             IEmployeeService employeeService,
             IConfiguration config,
-            IMapper mapper)
+            IMapper mapper,
+            IOrderService orderService)
         {
             _employeeService = employeeService ??
                 throw new ArgumentNullException(nameof(employeeService));
             _mapper = mapper ?? throw new ArgumentNullException(nameof(mapper));
+            _orderService = orderService ?? 
+                throw new ArgumentNullException(nameof(orderService));
             _pageSizeLimit = config.GetValue<int>("PageSizeLimit");
         }
 
@@ -97,6 +99,27 @@ namespace RestaurantReservation.API.Controllers
             }
 
             return Ok(_mapper.Map<EmployeeDTO>(employee));
+        }
+
+        /// <summary>
+        /// Calculates average order amount for an employee.
+        /// </summary>
+        /// <param name="employeeId">The Id property of the needed employee.</param>
+        /// <response code="200">Returns the average order amount for an employee.</response>
+        /// <response code="404">The employee with the given Id doesn't exist.</response>
+        [HttpGet("{employeeId}/average-order-amount")]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
+        [ProducesResponseType(typeof(double), StatusCodes.Status200OK)]
+        public async Task<IActionResult> AverageOrderAmountForEmployee(int employeeId)
+        {
+            if (!await _employeeService.EmployeeExistsAsync(employeeId))
+                return NotFound();
+
+            var averageOrderAmount = await _orderService.
+                CalculateAverageOrderAmountAsync(employeeId);
+
+            return Ok(averageOrderAmount);
         }
 
         /// <summary>
