@@ -121,7 +121,7 @@ namespace RestaurantReservation.API.Controllers
             catch (DbUpdateException ex)
             {
                 return UnprocessableEntity(
-                    $"Invalid foreign key: {ex.InnerException.Message.ExtractForeignKey()}");
+                    $"Invalid foreign key: {ex.ExtractForeignKey()}");
             }
 
             var responseEmployee = _mapper.Map<EmployeeDTO>(newEmployee);
@@ -161,7 +161,7 @@ namespace RestaurantReservation.API.Controllers
             catch (DbUpdateException ex)
             {
                 return UnprocessableEntity(
-                    $"Invalid foreign key: {ex.InnerException.Message.ExtractForeignKey()}");
+                    $"Invalid foreign key: {ex.ExtractForeignKey()}");
             }
 
             return NoContent();
