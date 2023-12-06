@@ -5,6 +5,9 @@ namespace RestaurantReservation.API.Extensions
 {
     public static class ForeignKeyExtensions
     {
+        /// <summary>
+        /// Extract the name of the wrong foreign key in the exception.
+        /// </summary>
         public static string ExtractForeignKey(this DbUpdateException ex)
         {
             // FK_{TableName}_{TableOfForeignKey}_{ForeignKey}
