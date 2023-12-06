@@ -68,6 +68,14 @@
             <response code="200">Returns the requested employee.</response>
             <response code="404">The employee with the given Id doesn't exist.</response>
         </member>
+        <member name="M:RestaurantReservation.API.Controllers.EmployeeController.AverageOrderAmountForEmployee(System.Int32)">
+            <summary>
+            Calculates average order amount for an employee.
+            </summary>
+            <param name="employeeId">The Id property of the needed employee.</param>
+            <response code="200">Returns the average order amount for an employee.</response>
+            <response code="404">The employee with the given Id doesn't exist.</response>
+        </member>
         <member name="M:RestaurantReservation.API.Controllers.EmployeeController.CreateEmployeeAsync(RestaurantReservation.API.Models.EmployeeWithoutIdDTO)">
             <summary>
             Create and store a new employee.
@@ -145,6 +153,29 @@
             <param name="reservationId">The Id of the reservation to delete.</param>
             <response code="404">The reservation with the given Id doesn't exist.</response>
             <response code="204">The reservation is deleted successfully.</response>
+        </member>
+        <member name="M:RestaurantReservation.API.Extensions.ForeignKeyExtensions.ExtractForeignKey(Microsoft.EntityFrameworkCore.DbUpdateException)">
+            <summary>
+            Extract the name of the wrong foreign key in the exception.
+            </summary>
+        </member>
+        <member name="M:RestaurantReservation.API.Extensions.NamesValidationExtensions.ValidateName``1(FluentValidation.IRuleBuilder{``0,System.String})">
+            <summary>
+            Validate name property using FluentValidation.
+            </summary>
+        </member>
+        <member name="M:RestaurantReservation.API.Extensions.ResponseHeadersExtensions.AddPaginationMetadata(Microsoft.AspNetCore.Http.IHeaderDictionary,System.Int32,System.Int32,System.Int32)">
+            <summary>
+            Adds the pagination metadata to the headers of the HTTP response.
+            </summary>
+            <param name="totalItems">Number of the items.</param>
+            <param name="pageSize">How many items the page contains.</param>
+            <param name="pageNumber">Number of the current page.</param>
+        </member>
+        <member name="M:RestaurantReservation.API.Extensions.ValidationResultExtensions.GetImportantProperties(FluentValidation.Results.ValidationResult)">
+            <summary>
+            Returns only the important properties contained in the errors list.
+            </summary>
         </member>
     </members>
 </doc>
