@@ -1,8 +1,10 @@
 ﻿using AutoMapper;
+using FluentValidation;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using RestaurantReservation.API.Extensions;
 using RestaurantReservation.API.Models;
+using RestaurantReservation.API.Validators;
 using RestaurantReservation.Db.Entities;
 using RestaurantReservation.Db.Services;
 
@@ -15,19 +17,22 @@ namespace RestaurantReservation.API.Controllers
         private readonly IEmployeeService _employeeService;
         private readonly IMapper _mapper;
         private readonly IOrderService _orderService;
+        private readonly IValidator<EmployeeWithoutIdDTO> _validator;
         private readonly int _pageSizeLimit;
 
         public EmployeeController(
             IEmployeeService employeeService,
             IConfiguration config,
             IMapper mapper,
-            IOrderService orderService)
+            IOrderService orderService,
+            IValidator<EmployeeWithoutIdDTO> validator)
         {
             _employeeService = employeeService ??
                 throw new ArgumentNullException(nameof(employeeService));
             _mapper = mapper ?? throw new ArgumentNullException(nameof(mapper));
             _orderService = orderService ?? 
                 throw new ArgumentNullException(nameof(orderService));
+            _validator = validator ?? throw new ArgumentNullException(nameof(validator));
             _pageSizeLimit = config.GetValue<int>("PageSizeLimit");
         }
 
@@ -134,6 +139,11 @@ namespace RestaurantReservation.API.Controllers
         [ProducesResponseType(typeof(EmployeeDTO), StatusCodes.Status201Created)]
         public async Task<IActionResult> CreateEmployeeAsync(EmployeeWithoutIdDTO newEmployee)
         {
+            var validationResult = await _validator.ValidateAsync(newEmployee);
+
+            if (!validationResult.IsValid)
+                return BadRequest(validationResult.GetImportantProperties());
+
             int newId;
 
             try
@@ -170,6 +180,11 @@ namespace RestaurantReservation.API.Controllers
             int employeeId,
             EmployeeWithoutIdDTO updatedEmployee)
         {
+            var validationResult = await _validator.ValidateAsync(updatedEmployee);
+
+            if (!validationResult.IsValid)
+                return BadRequest(validationResult.GetImportantProperties());
+
             var employeeWithId = _mapper.Map<Employee>(updatedEmployee);
             employeeWithId.Id = employeeId;
 
