@@ -1,4 +1,5 @@
 using System.Reflection;
+using FluentValidation;
 using RestaurantReservation.Db;
 using RestaurantReservation.Db.Services;
 
@@ -17,6 +18,7 @@ builder.Services.AddSwaggerGen(setup =>
     setup.IncludeXmlComments(xmlCommentsFullPath);
 });
 builder.Services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
+builder.Services.AddValidatorsFromAssembly(Assembly.GetExecutingAssembly());
 builder.Services.AddScoped<RestaurantReservationDbContext>();
 builder.Services.AddScoped<ICustomerService, CustomerService>();
 builder.Services.AddScoped<IEmployeeService, EmployeeService>();
