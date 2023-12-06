@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using FluentValidation;
 using Microsoft.AspNetCore.Mvc;
 using RestaurantReservation.API.Extensions;
 using RestaurantReservation.API.Models;
@@ -13,16 +14,20 @@ namespace RestaurantReservation.API.Controllers
     {
         private readonly ICustomerService _customerService;
         private readonly IMapper _mapper;
+        private readonly IValidator<CustomerWithoutIdDTO> _customerValidator;
         private readonly int _pageSizeLimit;
 
         public CustomerController(
             ICustomerService customerService,
             IConfiguration config,
-            IMapper mapper)
+            IMapper mapper,
+            IValidator<CustomerWithoutIdDTO> customerValidator)
         {
             _customerService = customerService ??
                 throw new ArgumentNullException(nameof(customerService));
             _mapper = mapper ?? throw new ArgumentNullException(nameof(mapper));
+            _customerValidator = customerValidator ??
+                throw new ArgumentNullException(nameof(customerValidator));
             _pageSizeLimit = config.GetValue<int>("PageSizeLimit");
         }
 
@@ -84,6 +89,11 @@ namespace RestaurantReservation.API.Controllers
         [ProducesResponseType(typeof(CustomerDTO), StatusCodes.Status201Created)]
         public async Task<IActionResult> CreateCustomerAsync(CustomerWithoutIdDTO newCustomer)
         {
+            var validationResult = await _customerValidator.ValidateAsync(newCustomer);
+
+            if (!validationResult.IsValid)
+                return BadRequest(validationResult.GetImportantProperties());
+
             var newId = await _customerService.
                 CreateAsync(_mapper.Map<Customer>(newCustomer));
 
@@ -108,6 +118,11 @@ namespace RestaurantReservation.API.Controllers
             int customerId,
             CustomerWithoutIdDTO updatedCustomer)
         {
+            var validationResult = await _customerValidator.ValidateAsync(updatedCustomer);
+
+            if (!validationResult.IsValid)
+                return BadRequest(validationResult.GetImportantProperties());
+
             var customerWithId = _mapper.Map<Customer>(updatedCustomer);
             customerWithId.Id = customerId;
 
