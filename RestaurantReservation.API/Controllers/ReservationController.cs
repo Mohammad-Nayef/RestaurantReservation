@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using FluentValidation;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using RestaurantReservation.API.Extensions;
@@ -15,13 +16,17 @@ namespace RestaurantReservation.API.Controllers
         private readonly IReservationService _reservationService;
         private readonly IMapper _mapper;
         private readonly ICustomerService _customerService;
+        private readonly IOrderService _orderService;
+        private readonly IValidator<ReservationWithoutIdDTO> _validator;
         private readonly int _pageSizeLimit;
 
         public ReservationController(
             IReservationService reservationService,
             IConfiguration config,
             IMapper mapper,
-            ICustomerService customerService)
+            ICustomerService customerService,
+            IOrderService orderService,
+            IValidator<ReservationWithoutIdDTO> validator)
         {
             _reservationService = reservationService ??
                 throw new ArgumentNullException(nameof(reservationService));
@@ -29,6 +34,8 @@ namespace RestaurantReservation.API.Controllers
             _pageSizeLimit = config.GetValue<int>("PageSizeLimit");
             _customerService = customerService ?? 
                 throw new ArgumentNullException(nameof(customerService));
+            _orderService = orderService ?? throw new ArgumentNullException(nameof(orderService));
+            _validator = validator ?? throw new ArgumentNullException(nameof(validator));
         }
 
         /// <summary>
@@ -105,7 +112,7 @@ namespace RestaurantReservation.API.Controllers
                 return NotFound();
 
             var reservationsCountByCustomer = await _reservationService.
-                GetReservationsCountByCustomerAsync(customerId);
+                GetReservationsByCustomerCountAsync(customerId);
             Response.Headers.AddPaginationMetadata(
                 reservationsCountByCustomer, pageSize, pageNumber);
 
@@ -128,6 +135,11 @@ namespace RestaurantReservation.API.Controllers
         public async Task<IActionResult> CreateReservationAsync(
             ReservationWithoutIdDTO newReservation)
         {
+            var validationResult = await _validator.ValidateAsync(newReservation);
+
+            if (!validationResult.IsValid)
+                return BadRequest(validationResult.GetImportantProperties());
+
             int newId;
 
             try
@@ -164,6 +176,11 @@ namespace RestaurantReservation.API.Controllers
             int reservationId,
             ReservationWithoutIdDTO updatedReservation)
         {
+            var validationResult = await _validator.ValidateAsync(updatedReservation);
+
+            if (!validationResult.IsValid)
+                return BadRequest(validationResult.GetImportantProperties());
+
             var reservationWithId = _mapper.Map<Reservation>(updatedReservation);
             reservationWithId.Id = reservationId;
 
