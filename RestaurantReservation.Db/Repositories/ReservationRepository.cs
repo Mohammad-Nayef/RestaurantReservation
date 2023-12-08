@@ -86,5 +86,83 @@ namespace RestaurantReservation.Db.Repositories
 
             return await _context.Reservations.CountAsync();
         }
+
+        public async Task<List<Order>> ListOrdersAndMenuItemsByReservationAsync(
+            int reservationId,
+            int skipCount, 
+            int takeCount)
+        {
+            return await _context.Reservations
+                .Where(reservation => reservation.Id == reservationId)
+                .SelectMany(reservation => reservation.Orders)
+                .Include(order => order.OrderItems)
+                .ThenInclude(orderItem => orderItem.MenuItem)
+                .Skip(skipCount)
+                .Take(takeCount)
+                .ToListAsync();
+        }
+
+        public async Task<List<MenuItem>> ListOrderedMenuItemsAsync(
+            int reservationId,
+            int skipCount,
+            int takeCount)
+        {
+            return await _context.Reservations
+                .Where(reservation => reservation.Id == reservationId)
+                .SelectMany(reservation => reservation.Orders)
+                .SelectMany(order => order.OrderItems)
+                .Select(orderItem => orderItem.MenuItem)
+                .Skip(skipCount)
+                .Take(takeCount)
+                .ToListAsync();
+        }
+
+        public async Task<int> GetOrdersByReservationCountAsync(int reservationId)
+        {
+            var orders = _context.Orders
+                .Where(order => order.ReservationId == reservationId);
+
+            if (orders.TryGetNonEnumeratedCount(out var fastCount)) 
+                return fastCount;
+
+            return await orders.CountAsync();
+        }
+
+        public async Task<List<Reservation>> GetReservationsByCustomerAsync(
+            int customerId,
+            int skipCount,
+            int takeCount)
+        {
+            return await _context.Reservations
+                .Where(reservation => reservation.CustomerId == customerId)
+                .Skip(skipCount)
+                .Take(takeCount)
+                .ToListAsync();
+        }
+
+        public async Task<int> GetReservationsByCustomerCountAsync(int customerId)
+        {
+            var reservations = _context.Reservations
+                .Where(reservation => reservation.CustomerId == customerId);
+
+            if (reservations.TryGetNonEnumeratedCount(out int fastCount))
+                return fastCount;
+
+            return await reservations.CountAsync();
+        }
+
+        public async Task<int> GetMenuItemsByReservationCountAsync(int reservationId)
+        {
+            var menuItems = _context.Reservations
+                .Where(reservation => reservation.Id == reservationId)
+                .SelectMany(reservation => reservation.Orders)
+                .SelectMany(order => order.OrderItems)
+                .Select(orderItem => orderItem.MenuItem);
+
+            if (menuItems.TryGetNonEnumeratedCount(out int fastCount))
+                return fastCount;
+
+            return  await menuItems.CountAsync();
+        }
     }
 }

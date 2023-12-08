@@ -1,4 +1,6 @@
-﻿namespace RestaurantReservation.Db.Entities
+﻿using System.Text.Json.Serialization;
+
+namespace RestaurantReservation.Db.Entities
 {
     public class Order
     {
@@ -6,10 +8,12 @@
 
         public int? ReservationId { get; set; }
 
+        [JsonIgnore]
         public Reservation? Reservation { get; set; }
 
         public int? EmployeeId { get; set; }
 
+        [JsonIgnore]
         public Employee? Employee { get; set; }
 
         public DateTime OrderDate { get; set; }

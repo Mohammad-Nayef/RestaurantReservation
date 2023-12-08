@@ -29,12 +29,29 @@ namespace RestaurantReservation.Db.Services
         /// <exception cref="KeyNotFoundException"></exception>
         Task DeleteAsync(int reservationId);
 
-        Task<List<Reservation>> GetReservationsByCustomerAsync(int customerId);
+        Task<List<Reservation>> GetReservationsByCustomerAsync(
+            int customerId, 
+            int pageNumber, 
+            int pageSize);
 
         Task<int> GetReservationsCountAsync();
 
         Task<int> GetReservationsByCustomerCountAsync(int customerId);
 
         Task<bool> ReservationExistsAsync(int reservationId);
+
+        Task<List<Order>> ListOrdersAndMenuItemsByReservationAsync(
+            int reservationId,
+            int pageNumber,
+            int pageSize);
+
+        Task<List<MenuItem>> ListOrderedMenuItemsAsync(
+            int reservationId,
+            int pageNumber,
+            int pageSize);
+
+        Task<int> GetOrdersByReservationCountAsync(int reservationId);
+
+        Task<int> GetMenuItemsByReservationCountAsync(int reservationId);
     }
 }

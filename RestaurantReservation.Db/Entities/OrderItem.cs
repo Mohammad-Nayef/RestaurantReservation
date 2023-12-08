@@ -1,10 +1,13 @@
-﻿namespace RestaurantReservation.Db.Entities
+﻿using System.Text.Json.Serialization;
+
+namespace RestaurantReservation.Db.Entities
 {
     public class OrderItem
     {
         public int Id { get; set; }
 
         public int? OrderId { get; set; }
+        [JsonIgnore]
 
         public Order? Order { get; set; }
 

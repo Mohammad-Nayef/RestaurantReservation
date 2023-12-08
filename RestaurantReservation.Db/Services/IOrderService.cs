@@ -22,9 +22,5 @@ namespace RestaurantReservation.Db.Services
         Task DeleteAsync(int orderId);
 
         Task<double> CalculateAverageOrderAmountAsync(int employeeId);
-
-        Task<List<Order>> ListOrdersAndMenuItemsByReservationAsync(int reservationId);
-
-        Task<int> GetOrdersByReservationCountAsync(int reservationId);
     }
 }

@@ -20,7 +20,5 @@ namespace RestaurantReservation.Db.Services
 
         /// <exception cref="KeyNotFoundException"></exception>
         public Task DeleteAsync(int menuItemId);
-
-        public Task<List<MenuItem>> ListOrderedMenuItemsAsync(int reservationId);
     }
 }

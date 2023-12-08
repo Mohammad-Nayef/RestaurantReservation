@@ -45,25 +45,48 @@ namespace RestaurantReservation.Db.Services
             await _reservationsRepository.DeleteAsync(reservationId);
         }
 
-        public async Task<List<Reservation>> GetReservationsByCustomerAsync(int customerId)
+        public async Task<List<Reservation>> GetReservationsByCustomerAsync(
+            int customerId,
+            int pageNumber, 
+            int pageSize)
         {
-            var reservations = await GetAllAsync();
-            return reservations.Where(reservation => reservation.CustomerId == customerId)
-                .ToList();
+            return await _reservationsRepository.GetReservationsByCustomerAsync(
+                customerId, (pageNumber - 1) * pageSize, pageSize);
         }
 
         public async Task<int> GetReservationsCountAsync() =>
             await _reservationsRepository.GetReservationsCountAsync();
 
-        public async Task<int> GetReservationsByCustomerCountAsync(int customerId)
-        {
-            return (await GetReservationsByCustomerAsync(customerId))
-                .Count();
-        }
+        public async Task<int> GetReservationsByCustomerCountAsync(int customerId) =>
+            await _reservationsRepository.GetReservationsByCustomerCountAsync(customerId);
 
         public async Task<bool> ReservationExistsAsync(int reservationId)
         {
             return await _reservationsRepository.ReservationExistsAsync(reservationId);
         }
+
+        public async Task<List<Order>> ListOrdersAndMenuItemsByReservationAsync(
+            int reservationId,
+            int pageNumber,
+            int pageSize)
+        {
+            return await _reservationsRepository.ListOrdersAndMenuItemsByReservationAsync(
+                reservationId, (pageNumber - 1) * pageSize, pageSize);
+        }
+
+        public async Task<List<MenuItem>> ListOrderedMenuItemsAsync(
+            int reservationId,
+            int pageNumber,
+            int pageSize)
+        {
+            return await _reservationsRepository.ListOrderedMenuItemsAsync(
+                reservationId, (pageNumber - 1) * pageSize, pageSize);
+        }
+
+        public async Task<int> GetOrdersByReservationCountAsync(int reservationId) =>
+            await _reservationsRepository.GetOrdersByReservationCountAsync(reservationId);
+
+        public async Task<int> GetMenuItemsByReservationCountAsync(int reservationId) =>
+            await _reservationsRepository.GetMenuItemsByReservationCountAsync(reservationId);
     }
 }
