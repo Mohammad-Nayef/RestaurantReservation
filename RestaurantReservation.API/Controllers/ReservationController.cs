@@ -128,6 +128,44 @@ namespace RestaurantReservation.API.Controllers
         }
 
         /// <summary>
+        /// List orders and menu items for a reservation.
+        /// </summary>
+        /// <param name="reservationId">The Id of the needed reservation</param>
+        /// <param name="pageNumber">Number of the page that contains the needed orders.</param>
+        /// <param name="pageSize">The size of the needed page.</param>
+        /// <response code="200">Returns the requested orders.</response>
+        /// <response code="404">The reservation with the given Id doesn't exist.</response>
+        [HttpGet("{reservationId}/orders")]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
+        [ProducesResponseType(typeof(List<Order>), StatusCodes.Status200OK)]
+        public async Task<IActionResult> OrdersAndMenuItemsByReservation(
+            int reservationId,
+            int pageNumber = 1,
+            int pageSize = 10)
+        {
+            if (pageNumber < 1 || pageSize < 1)
+                return BadRequest(
+                    $"'{nameof(pageNumber)}' and '{nameof(pageSize)}' must be greater than 0.");
+
+            if (pageSize > _pageSizeLimit)
+                pageSize = _pageSizeLimit;
+
+            if (!await _reservationService.ReservationExistsAsync(reservationId))
+                return NotFound();
+
+            var ordersOfReservationCount = await _reservationService.
+                GetOrdersByReservationCountAsync(reservationId);
+            Response.Headers.AddPaginationMetadata(
+                ordersOfReservationCount, pageSize, pageNumber);
+
+            var ordersAndMenuItems = await _reservationService.
+                ListOrdersAndMenuItemsByReservationAsync(reservationId, pageNumber, pageSize);
+
+            return Ok(ordersAndMenuItems);
+        }
+
+        /// <summary>
         /// Create and store a new reservation.
         /// </summary>
         /// <param name="newReservation">Properties of the new reservation.</param>
