@@ -4,7 +4,6 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using RestaurantReservation.API.Extensions;
 using RestaurantReservation.API.Models;
-using RestaurantReservation.API.Validators;
 using RestaurantReservation.Db.Entities;
 using RestaurantReservation.Db.Services;
 
@@ -30,7 +29,7 @@ namespace RestaurantReservation.API.Controllers
             _employeeService = employeeService ??
                 throw new ArgumentNullException(nameof(employeeService));
             _mapper = mapper ?? throw new ArgumentNullException(nameof(mapper));
-            _orderService = orderService ?? 
+            _orderService = orderService ??
                 throw new ArgumentNullException(nameof(orderService));
             _validator = validator ?? throw new ArgumentNullException(nameof(validator));
             _pageSizeLimit = config.GetValue<int>("PageSizeLimit");
@@ -47,6 +46,10 @@ namespace RestaurantReservation.API.Controllers
         [ProducesResponseType(typeof(List<EmployeeDTO>), StatusCodes.Status200OK)]
         public async Task<IActionResult> GetEmployeesAsync(int pageNumber = 1, int pageSize = 10)
         {
+            if (pageNumber < 1 || pageSize < 1)
+                return BadRequest(
+                    $"'{nameof(pageNumber)}' and '{nameof(pageSize)}' must be greater than 0.");
+
             if (pageSize > _pageSizeLimit)
                 pageSize = _pageSizeLimit;
 
@@ -69,6 +72,10 @@ namespace RestaurantReservation.API.Controllers
         [ProducesResponseType(typeof(List<EmployeeDTO>), StatusCodes.Status200OK)]
         public async Task<IActionResult> GetManagersAsync(int pageNumber = 1, int pageSize = 10)
         {
+            if (pageNumber < 1 || pageSize < 1)
+                return BadRequest(
+                    $"'{nameof(pageNumber)}' and '{nameof(pageSize)}' must be greater than 0.");
+
             if (pageSize > _pageSizeLimit)
                 pageSize = _pageSizeLimit;
 

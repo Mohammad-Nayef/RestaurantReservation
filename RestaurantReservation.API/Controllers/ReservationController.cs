@@ -16,7 +16,6 @@ namespace RestaurantReservation.API.Controllers
         private readonly IReservationService _reservationService;
         private readonly IMapper _mapper;
         private readonly ICustomerService _customerService;
-        private readonly IOrderService _orderService;
         private readonly IValidator<ReservationWithoutIdDTO> _validator;
         private readonly int _pageSizeLimit;
 
@@ -25,16 +24,14 @@ namespace RestaurantReservation.API.Controllers
             IConfiguration config,
             IMapper mapper,
             ICustomerService customerService,
-            IOrderService orderService,
             IValidator<ReservationWithoutIdDTO> validator)
         {
             _reservationService = reservationService ??
                 throw new ArgumentNullException(nameof(reservationService));
             _mapper = mapper ?? throw new ArgumentNullException(nameof(mapper));
             _pageSizeLimit = config.GetValue<int>("PageSizeLimit");
-            _customerService = customerService ?? 
+            _customerService = customerService ??
                 throw new ArgumentNullException(nameof(customerService));
-            _orderService = orderService ?? throw new ArgumentNullException(nameof(orderService));
             _validator = validator ?? throw new ArgumentNullException(nameof(validator));
         }
 
@@ -48,9 +45,13 @@ namespace RestaurantReservation.API.Controllers
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [ProducesResponseType(typeof(List<ReservationDTO>), StatusCodes.Status200OK)]
         public async Task<IActionResult> GetReservationsAsync(
-            int pageNumber = 1, 
+            int pageNumber = 1,
             int pageSize = 10)
         {
+            if (pageNumber < 1 || pageSize < 1)
+                return BadRequest(
+                    $"'{nameof(pageNumber)}' and '{nameof(pageSize)}' must be greater than 0.");
+
             if (pageSize > _pageSizeLimit)
                 pageSize = _pageSizeLimit;
 
@@ -102,9 +103,13 @@ namespace RestaurantReservation.API.Controllers
         [ProducesResponseType(typeof(List<ReservationDTO>), StatusCodes.Status200OK)]
         public async Task<IActionResult> GetReservationsByCustomerAsync(
             int customerId,
-            int pageNumber = 1, 
+            int pageNumber = 1,
             int pageSize = 10)
         {
+            if (pageNumber < 1 || pageSize < 1)
+                return BadRequest(
+                    $"'{nameof(pageNumber)}' and '{nameof(pageSize)}' must be greater than 0.");
+
             if (pageSize > _pageSizeLimit)
                 pageSize = _pageSizeLimit;
 
@@ -117,7 +122,7 @@ namespace RestaurantReservation.API.Controllers
                 reservationsCountByCustomer, pageSize, pageNumber);
 
             var reservationsByCustomer = await _reservationService.
-                GetReservationsByCustomerAsync(customerId);
+                GetReservationsByCustomerAsync(customerId, pageNumber, pageSize);
 
             return Ok(_mapper.Map<List<ReservationDTO>>(reservationsByCustomer));
         }

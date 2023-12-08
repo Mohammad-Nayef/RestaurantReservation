@@ -42,6 +42,10 @@ namespace RestaurantReservation.API.Controllers
         [ProducesResponseType(typeof(List<CustomerDTO>), StatusCodes.Status200OK)]
         public async Task<IActionResult> GetCustomersAsync(int pageNumber = 1, int pageSize = 10)
         {
+            if (pageNumber < 1 || pageSize < 1)
+                return BadRequest(
+                    $"'{nameof(pageNumber)}' and '{nameof(pageSize)}' must be greater than 0.");
+
             if (pageSize > _pageSizeLimit)
                 pageSize = _pageSizeLimit;
 
