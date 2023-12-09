@@ -4,9 +4,9 @@ using RestaurantReservation.API.Extensions;
 
 namespace RestaurantReservation.API.Validators
 {
-    public class CustomerValidator : AbstractValidator<CustomerWithoutIdDTO>
+    public class CustomerWithoutIdValidator : AbstractValidator<CustomerWithoutIdDTO>
     {
-        public CustomerValidator()
+        public CustomerWithoutIdValidator()
         {
             RuleFor(customer => customer.FirstName)
                 .ValidateName();

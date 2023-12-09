@@ -3,9 +3,9 @@ using RestaurantReservation.API.Models;
 
 namespace RestaurantReservation.API.Validators
 {
-    public class ReservationValidator : AbstractValidator<ReservationWithoutIdDTO>
+    public class ReservationWithoutIdValidator : AbstractValidator<ReservationWithoutIdDTO>
     {
-        public ReservationValidator()
+        public ReservationWithoutIdValidator()
         {
             RuleFor(reservation => reservation.PartySize)
                 .GreaterThanOrEqualTo(0);

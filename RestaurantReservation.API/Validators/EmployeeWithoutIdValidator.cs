@@ -4,9 +4,9 @@ using RestaurantReservation.API.Models;
 
 namespace RestaurantReservation.API.Validators
 {
-    public class EmployeeValidator : AbstractValidator<EmployeeWithoutIdDTO>
+    public class EmployeeWithoutIdValidator : AbstractValidator<EmployeeWithoutIdDTO>
     {
-        public EmployeeValidator()
+        public EmployeeWithoutIdValidator()
         {
             RuleFor(employee => employee.FirstName)
                 .ValidateName();
