@@ -26,12 +26,10 @@ namespace RestaurantReservation.API.Controllers
             IOrderService orderService,
             IValidator<EmployeeWithoutIdDTO> validator)
         {
-            _employeeService = employeeService ??
-                throw new ArgumentNullException(nameof(employeeService));
-            _mapper = mapper ?? throw new ArgumentNullException(nameof(mapper));
-            _orderService = orderService ??
-                throw new ArgumentNullException(nameof(orderService));
-            _validator = validator ?? throw new ArgumentNullException(nameof(validator));
+            _employeeService = employeeService;
+            _mapper = mapper;
+            _orderService = orderService;
+            _validator = validator;
             _pageSizeLimit = config.GetValue<int>("PageSizeLimit");
         }
 

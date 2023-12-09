@@ -23,11 +23,9 @@ namespace RestaurantReservation.API.Controllers
             IMapper mapper,
             IValidator<CustomerWithoutIdDTO> customerValidator)
         {
-            _customerService = customerService ??
-                throw new ArgumentNullException(nameof(customerService));
-            _mapper = mapper ?? throw new ArgumentNullException(nameof(mapper));
-            _customerValidator = customerValidator ??
-                throw new ArgumentNullException(nameof(customerValidator));
+            _customerService = customerService;
+            _mapper = mapper;
+            _customerValidator = customerValidator;
             _pageSizeLimit = config.GetValue<int>("PageSizeLimit");
         }
 
