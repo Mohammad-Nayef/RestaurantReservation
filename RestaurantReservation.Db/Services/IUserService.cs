@@ -1,4 +1,5 @@
 ﻿using RestaurantReservation.Db.Entities;
+using RestaurantReservation.Db.Exceptions;
 
 namespace RestaurantReservation.Db.Services
 {
@@ -9,6 +10,7 @@ namespace RestaurantReservation.Db.Services
         /// </summary>
         /// <param name="newUser"></param>
         /// <returns>The ID of the added user.</returns>
+        /// <exception cref="UsernameDuplicateException"></exception>
         Task<int> CreateAsync(User newUser);
 
         /// <exception cref="KeyNotFoundException"></exception>
@@ -33,5 +35,7 @@ namespace RestaurantReservation.Db.Services
         Task<int> GetUsersCountAsync();
 
         Task<bool> UserExistsAsync(int userId);
+
+        Task<User> AuthenticateUserAsync(string username, string password);
     }
 }

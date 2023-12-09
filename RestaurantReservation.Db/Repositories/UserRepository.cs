@@ -88,5 +88,11 @@ namespace RestaurantReservation.Db.Repositories
 
             return await _context.Users.CountAsync();
         }
+
+        public async Task<bool> ContainsUsernameAsync(string username) =>
+            await _context.Users.AnyAsync(user => user.Username == username);
+
+        public async Task<User> GetUserByUsernameAsync(string username) =>
+            await _context.Users.SingleOrDefaultAsync(user => user.Username == username);
     }
 }

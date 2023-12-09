@@ -1,12 +1,15 @@
-﻿using RestaurantReservation.Db.Entities;
+﻿using Microsoft.AspNet.Identity;
+using RestaurantReservation.Db.Entities;
+using RestaurantReservation.Db.Exceptions;
 using RestaurantReservation.Db.Repositories;
 
 namespace RestaurantReservation.Db.Services
 {
     public class UserService : IUserService
     {
-        private RestaurantReservationDbContext _context;
-        private UserRepository _userRepository;
+        private readonly RestaurantReservationDbContext _context;
+        private readonly PasswordHasher _passwordHasher = new();
+        private readonly UserRepository _userRepository;
 
         public UserService(RestaurantReservationDbContext context)
         {
@@ -16,6 +19,11 @@ namespace RestaurantReservation.Db.Services
 
         public async Task<int> CreateAsync(User newUser)
         {
+            if (await _userRepository.ContainsUsernameAsync(newUser.Username))
+                throw new UsernameDuplicateException(newUser.Username);
+
+            newUser.Password = _passwordHasher.HashPassword(newUser.Password);
+
             return await _userRepository.CreateAsync(newUser);
         }
 
@@ -51,6 +59,22 @@ namespace RestaurantReservation.Db.Services
         public async Task<bool> UserExistsAsync(int userId)
         {
             return await _userRepository.UserExistsAsync(userId);
+        }
+
+        public async Task<User> AuthenticateUserAsync(string username, string password)
+        {
+            var storedUser = await _userRepository.GetUserByUsernameAsync(username);
+
+            if (storedUser == null)
+                return null;
+
+            var passwordVerificationResult = _passwordHasher.
+                VerifyHashedPassword(storedUser.Password, password);
+
+            if (passwordVerificationResult == PasswordVerificationResult.Failed)
+                return null;
+
+            return storedUser;
         }
     }
 }

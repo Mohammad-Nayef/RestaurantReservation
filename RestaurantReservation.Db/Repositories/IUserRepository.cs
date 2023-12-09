@@ -30,5 +30,7 @@ namespace RestaurantReservation.Db.Repositories
         Task DeleteAsync(int userId);
 
         Task<int> GetUsersCountAsync();
+
+        Task<User> GetUserByUsernameAsync(string username);
     }
 }
