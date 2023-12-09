@@ -13,6 +13,17 @@ public static class DatabaseSeeding
         SeedReservations(modelBuilder);
         SeedRestaurants(modelBuilder);
         SeedTables(modelBuilder);
+        SeedUsers(modelBuilder);
+    }
+
+    private static void SeedUsers(ModelBuilder modelBuilder)
+    {
+        modelBuilder.Entity<User>().HasData(
+                        new User { Id = 1, FirstName = "Mohammad", LastName = "Nayef", Username = "moha", Password = "21321321321321" },
+                        new User { Id = 2, FirstName = "Mohammad", LastName = "Ali", Username = "moha2", Password = "21321321321321" },
+                        new User { Id = 3, FirstName = "Ayman", LastName = "Ahmad", Username = "ayman", Password = "21321321321321" },
+                        new User { Id = 4, FirstName = "Omar", LastName = "Qusai", Username = "omar", Password = "21321321321321" },
+                        new User { Id = 5, FirstName = "Mohammad", LastName = "Fareed", Username = "moha3", Password = "21321321321321" });
     }
 
     private static void SeedTables(ModelBuilder modelBuilder)

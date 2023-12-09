@@ -14,6 +14,7 @@ namespace RestaurantReservation.Db
         public DbSet<Restaurant> Restaurants { get; set; }
         public DbSet<Table> Tables { get; set; }
         public DbSet<Reservation> Reservations { get; set; }
+        public DbSet<User> Users { get; set; }
         public DbSet<ReservationsWithCustomerAndRestaurant> ReservationsWithCustomerAndRestaurant { get; set; }
         public DbSet<EmployeesWithRestaurant> EmployeesWithRestaurant { get; set; }
 
@@ -45,6 +46,12 @@ namespace RestaurantReservation.Db
             modelBuilder.HasDbFunction(typeof(RestaurantReservationDbContext)
                 .GetMethod(nameof(TotalRevenueByRestaurant), new[] { typeof(int) }))
                 .HasName("fn_TotalRevenue");
+
+            modelBuilder.Entity<User>(entity =>
+            {
+                entity.HasIndex(user => user.Id)
+                    .IncludeProperties(user => user.Username);
+            });
         }
 
         public int TotalRevenueByRestaurant(int restaurantId)
