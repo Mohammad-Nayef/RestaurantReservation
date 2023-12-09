@@ -4,6 +4,20 @@
         <name>RestaurantReservation.API</name>
     </assembly>
     <members>
+        <member name="M:RestaurantReservation.API.Controllers.AuthorizationController.RegisterAsync(RestaurantReservation.API.Models.UserWithoutIdDTO)">
+            <summary>
+            Register a new user
+            </summary>
+            <param name="userRegister"></param>
+            <response code="200">Token for authorization</response>
+        </member>
+        <member name="M:RestaurantReservation.API.Controllers.AuthorizationController.LoginAsync(RestaurantReservation.API.Models.UserLoginDTO)">
+            <summary>
+            Login to an existing user account
+            </summary>
+            <param name="userLogin"></param>
+            <response code="200">Token for authorization</response>
+        </member>
         <member name="M:RestaurantReservation.API.Controllers.CustomerController.GetCustomersAsync(System.Int32,System.Int32)">
             <summary>
             Gets customers partitioned into pages.
@@ -128,6 +142,26 @@
             <response code="200">Returns the requested reservations.</response>
             <response code="404">The customer with the given Id doesn't exist.</response>
         </member>
+        <member name="M:RestaurantReservation.API.Controllers.ReservationController.OrdersAndMenuItemsByReservation(System.Int32,System.Int32,System.Int32)">
+            <summary>
+            List orders and menu items for a reservation.
+            </summary>
+            <param name="reservationId">The Id of the needed reservation</param>
+            <param name="pageNumber">Number of the page that contains the needed orders.</param>
+            <param name="pageSize">The size of the needed page.</param>
+            <response code="200">Returns the requested orders.</response>
+            <response code="404">The reservation with the given Id doesn't exist.</response>
+        </member>
+        <member name="M:RestaurantReservation.API.Controllers.ReservationController.OrderedMenuItemsByReservation(System.Int32,System.Int32,System.Int32)">
+            <summary>
+            List ordered menu items for a reservation.
+            </summary>
+            <param name="reservationId">The Id of the needed reservation</param>
+            <param name="pageNumber">Number of the page that contains the needed menu items.</param>
+            <param name="pageSize">The size of the needed page.</param>
+            <response code="200">Returns the requested menu items.</response>
+            <response code="404">The reservation with the given Id doesn't exist.</response>
+        </member>
         <member name="M:RestaurantReservation.API.Controllers.ReservationController.CreateReservationAsync(RestaurantReservation.API.Models.ReservationWithoutIdDTO)">
             <summary>
             Create and store a new reservation.
@@ -175,6 +209,22 @@
         <member name="M:RestaurantReservation.API.Extensions.ValidationResultExtensions.GetImportantProperties(FluentValidation.Results.ValidationResult)">
             <summary>
             Returns only the important properties contained in the errors list.
+            </summary>
+        </member>
+        <member name="T:RestaurantReservation.API.Services.ITokenGenerator">
+            <summary>
+            Responsible for dealing with web tokens for authorizing requests.
+            </summary>
+        </member>
+        <member name="M:RestaurantReservation.API.Services.ITokenGenerator.GenerateToken(RestaurantReservation.API.Models.UserWithoutPasswordDTO)">
+            <summary>
+            Generates a web token based on the user.
+            </summary>
+            <returns>String value of the token.</returns>
+        </member>
+        <member name="T:RestaurantReservation.API.Services.JwtTokenGenerator">
+            <summary>
+            Responsible for dealing with JWT as an authorization token.
             </summary>
         </member>
     </members>
