@@ -1,5 +1,4 @@
-﻿using Microsoft.EntityFrameworkCore;
-using RestaurantReservation.Db.Entities;
+﻿using RestaurantReservation.Db.Entities;
 using RestaurantReservation.Db.Repositories;
 
 namespace RestaurantReservation.Db.Services
@@ -53,7 +52,7 @@ namespace RestaurantReservation.Db.Services
                 GetCustomersWithPartySizeGreaterThanValueAsync(value);
         }
 
-        public async Task<int> GetCustomersCountAsync() => 
+        public async Task<int> GetCustomersCountAsync() =>
             await _customersRepository.GetCustomersCountAsync();
 
         public async Task<bool> CustomerExistsAsync(int customerId)
