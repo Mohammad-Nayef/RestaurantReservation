@@ -1,5 +1,6 @@
 ﻿using AutoMapper;
 using FluentValidation;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using RestaurantReservation.API.Extensions;
@@ -9,6 +10,8 @@ using RestaurantReservation.Db.Services;
 
 namespace RestaurantReservation.API.Controllers
 {
+    [Authorize]
+    [ProducesResponseType(StatusCodes.Status401Unauthorized)]
     [Route("api/reservations")]
     [ApiController]
     public class ReservationController : Controller
