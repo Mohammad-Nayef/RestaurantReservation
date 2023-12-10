@@ -27,39 +27,27 @@ namespace RestaurantReservation.Db.Services
             return await _userRepository.CreateAsync(newUser);
         }
 
-        public async Task<User> GetAsync(int userId)
-        {
-            return await _userRepository.GetAsync(userId);
-        }
+        public async Task<User> GetAsync(int userId) => 
+            await _userRepository.GetAsync(userId);
 
-        public async Task<List<User>> GetAllAsync()
-        {
-            return await _userRepository.GetAllAsync();
-        }
+        public async Task<List<User>> GetAllAsync() =>
+            await _userRepository.GetAllAsync();
 
-        public async Task<List<User>> GetAllAsync(int pageNumber, int pageSize)
-        {
-            return await _userRepository.GetAllAsync(
+        public async Task<List<User>> GetAllAsync(int pageNumber, int pageSize) =>
+            await _userRepository.GetAllAsync(
                 (pageNumber - 1) * pageSize, pageSize);
-        }
 
-        public async Task UpdateAsync(User updatedUser)
-        {
+        public async Task UpdateAsync(User updatedUser) =>
             await _userRepository.UpdateAsync(updatedUser);
-        }
 
-        public async Task DeleteAsync(int userId)
-        {
+        public async Task DeleteAsync(int userId) =>
             await _userRepository.DeleteAsync(userId);
-        }
 
         public async Task<int> GetUsersCountAsync() =>
             await _userRepository.GetUsersCountAsync();
 
-        public async Task<bool> UserExistsAsync(int userId)
-        {
-            return await _userRepository.UserExistsAsync(userId);
-        }
+        public async Task<bool> UserExistsAsync(int userId) =>
+            await _userRepository.UserExistsAsync(userId);
 
         public async Task<User> AuthenticateUserAsync(string username, string password)
         {

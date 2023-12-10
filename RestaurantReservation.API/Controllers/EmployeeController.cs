@@ -18,7 +18,6 @@ namespace RestaurantReservation.API.Controllers
     {
         private readonly IEmployeeService _employeeService;
         private readonly IMapper _mapper;
-        private readonly IOrderService _orderService;
         private readonly IValidator<EmployeeWithoutIdDTO> _validator;
         private readonly int _pageSizeLimit;
 
@@ -26,12 +25,10 @@ namespace RestaurantReservation.API.Controllers
             IEmployeeService employeeService,
             IConfiguration config,
             IMapper mapper,
-            IOrderService orderService,
             IValidator<EmployeeWithoutIdDTO> validator)
         {
             _employeeService = employeeService;
             _mapper = mapper;
-            _orderService = orderService;
             _validator = validator;
             _pageSizeLimit = config.GetValue<int>("PageSizeLimit");
         }
@@ -63,32 +60,6 @@ namespace RestaurantReservation.API.Controllers
         }
 
         /// <summary>
-        /// Gets managers partitioned into pages.
-        /// </summary>
-        /// <param name="pageNumber">Number of the page that contains the needed managers.</param>
-        /// <param name="pageSize">The size of the needed page.</param>
-        /// <response code="200">Returns list of the requested managers with pagination metadata in the headers.</response>
-        [HttpGet("managers")]
-        [ProducesResponseType(StatusCodes.Status400BadRequest)]
-        [ProducesResponseType(typeof(List<EmployeeDTO>), StatusCodes.Status200OK)]
-        public async Task<IActionResult> GetManagersAsync(int pageNumber = 1, int pageSize = 10)
-        {
-            if (pageNumber < 1 || pageSize < 1)
-                return BadRequest(
-                    $"'{nameof(pageNumber)}' and '{nameof(pageSize)}' must be greater than 0.");
-
-            if (pageSize > _pageSizeLimit)
-                pageSize = _pageSizeLimit;
-
-            var managersCount = await _employeeService.GetManagersCountAsync();
-            Response.Headers.AddPaginationMetadata(managersCount, pageSize, pageNumber);
-
-            var managers = await _employeeService.ListManagersAsync(pageNumber, pageSize);
-
-            return Ok(_mapper.Map<List<EmployeeDTO>>(managers));
-        }
-
-        /// <summary>
         /// Gets an employee by their Id.
         /// </summary>
         /// <param name="employeeId">The Id property of the needed employee.</param>
@@ -112,27 +83,6 @@ namespace RestaurantReservation.API.Controllers
             }
 
             return Ok(_mapper.Map<EmployeeDTO>(employee));
-        }
-
-        /// <summary>
-        /// Calculates average order amount for an employee.
-        /// </summary>
-        /// <param name="employeeId">The Id property of the needed employee.</param>
-        /// <response code="200">Returns the average order amount for an employee.</response>
-        /// <response code="404">The employee with the given Id doesn't exist.</response>
-        [HttpGet("{employeeId}/average-order-amount")]
-        [ProducesResponseType(StatusCodes.Status400BadRequest)]
-        [ProducesResponseType(StatusCodes.Status404NotFound)]
-        [ProducesResponseType(typeof(double), StatusCodes.Status200OK)]
-        public async Task<IActionResult> AverageOrderAmountForEmployee(int employeeId)
-        {
-            if (!await _employeeService.EmployeeExistsAsync(employeeId))
-                return NotFound();
-
-            var averageOrderAmount = await _orderService.
-                CalculateAverageOrderAmountAsync(employeeId);
-
-            return Ok(averageOrderAmount);
         }
 
         /// <summary>

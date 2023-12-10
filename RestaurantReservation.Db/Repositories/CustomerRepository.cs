@@ -42,10 +42,8 @@ namespace RestaurantReservation.Db.Repositories
             return customer;
         }
 
-        public async Task<List<Customer>> GetAllAsync()
-        {
-            return await _context.Customers.ToListAsync();
-        }
+        public async Task<List<Customer>> GetAllAsync() =>
+            await _context.Customers.ToListAsync();
 
         public async Task<List<Customer>> GetAllAsync(int skipCount, int takeCount)
         {
@@ -76,17 +74,16 @@ namespace RestaurantReservation.Db.Repositories
             await _context.SaveChangesAsync();
         }
 
-        public async Task<List<Customer>> GetCustomersWithPartySizeGreaterThanValueAsync(int value)
+        public async Task<List<Customer>> GetCustomersWithPartySizeGreaterThanValueAsync(
+            int value)
         {
             return await _context.Customers
                 .FromSql($"EXEC sp_GetCustomersWithPartySizeGreaterThanValue {value}")
                 .ToListAsync();
         }
 
-        public async Task<bool> CustomerExistsAsync(int customerId)
-        {
-            return await _context.Customers.AnyAsync(customer => customer.Id == customerId);
-        }
+        public async Task<bool> CustomerExistsAsync(int customerId) =>
+            await _context.Customers.AnyAsync(customer => customer.Id == customerId);
 
         public async Task<int> GetCustomersCountAsync()
         {

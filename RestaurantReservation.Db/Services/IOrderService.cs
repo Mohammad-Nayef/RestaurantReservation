@@ -20,7 +20,5 @@ namespace RestaurantReservation.Db.Services
 
         /// <exception cref="KeyNotFoundException"></exception>
         Task DeleteAsync(int orderId);
-
-        Task<double> CalculateAverageOrderAmountAsync(int employeeId);
     }
 }

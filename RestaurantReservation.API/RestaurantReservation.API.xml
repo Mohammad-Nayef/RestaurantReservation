@@ -66,28 +66,12 @@
             <param name="pageSize">The size of the needed page.</param>
             <response code="200">Returns list of the requested employees with pagination metadata in the headers.</response>
         </member>
-        <member name="M:RestaurantReservation.API.Controllers.EmployeeController.GetManagersAsync(System.Int32,System.Int32)">
-            <summary>
-            Gets managers partitioned into pages.
-            </summary>
-            <param name="pageNumber">Number of the page that contains the needed managers.</param>
-            <param name="pageSize">The size of the needed page.</param>
-            <response code="200">Returns list of the requested managers with pagination metadata in the headers.</response>
-        </member>
         <member name="M:RestaurantReservation.API.Controllers.EmployeeController.GetEmployeeAsync(System.Int32)">
             <summary>
             Gets an employee by their Id.
             </summary>
             <param name="employeeId">The Id property of the needed employee.</param>
             <response code="200">Returns the requested employee.</response>
-            <response code="404">The employee with the given Id doesn't exist.</response>
-        </member>
-        <member name="M:RestaurantReservation.API.Controllers.EmployeeController.AverageOrderAmountForEmployee(System.Int32)">
-            <summary>
-            Calculates average order amount for an employee.
-            </summary>
-            <param name="employeeId">The Id property of the needed employee.</param>
-            <response code="200">Returns the average order amount for an employee.</response>
             <response code="404">The employee with the given Id doesn't exist.</response>
         </member>
         <member name="M:RestaurantReservation.API.Controllers.EmployeeController.CreateEmployeeAsync(RestaurantReservation.API.Models.EmployeeWithoutIdDTO)">
@@ -116,6 +100,22 @@
             <response code="404">The employee with the given Id doesn't exist.</response>
             <response code="204">The employee is deleted successfully.</response>
         </member>
+        <member name="M:RestaurantReservation.API.Controllers.EmployeeOrdersController.AverageOrderAmountForEmployee(System.Int32)">
+            <summary>
+            Calculates average order amount for an employee.
+            </summary>
+            <param name="employeeId">The Id property of the needed employee.</param>
+            <response code="200">Returns the average order amount for an employee.</response>
+            <response code="404">The employee with the given Id doesn't exist.</response>
+        </member>
+        <member name="M:RestaurantReservation.API.Controllers.ManagerController.GetManagersAsync(System.Int32,System.Int32)">
+            <summary>
+            Gets managers partitioned into pages.
+            </summary>
+            <param name="pageNumber">Number of the page that contains the needed managers.</param>
+            <param name="pageSize">The size of the needed page.</param>
+            <response code="200">Returns list of the requested managers with pagination metadata in the headers.</response>
+        </member>
         <member name="M:RestaurantReservation.API.Controllers.ReservationController.GetReservationsAsync(System.Int32,System.Int32)">
             <summary>
             Gets reservations partitioned into pages.
@@ -130,36 +130,6 @@
             </summary>
             <param name="reservationId">The Id property of the needed reservation</param>
             <response code="200">Returns the requested reservation.</response>
-            <response code="404">The reservation with the given Id doesn't exist.</response>
-        </member>
-        <member name="M:RestaurantReservation.API.Controllers.ReservationController.GetReservationsByCustomerAsync(System.Int32,System.Int32,System.Int32)">
-            <summary>
-            Gets reservations by a specific customer.
-            </summary>
-            <param name="customerId">The Id property of the customer to get his reservations</param>
-            <param name="pageNumber">Number of the page that contains the needed reservations.</param>
-            <param name="pageSize">The size of the needed page.</param>
-            <response code="200">Returns the requested reservations.</response>
-            <response code="404">The customer with the given Id doesn't exist.</response>
-        </member>
-        <member name="M:RestaurantReservation.API.Controllers.ReservationController.OrdersAndMenuItemsByReservation(System.Int32,System.Int32,System.Int32)">
-            <summary>
-            List orders and menu items for a reservation.
-            </summary>
-            <param name="reservationId">The Id of the needed reservation</param>
-            <param name="pageNumber">Number of the page that contains the needed orders.</param>
-            <param name="pageSize">The size of the needed page.</param>
-            <response code="200">Returns the requested orders.</response>
-            <response code="404">The reservation with the given Id doesn't exist.</response>
-        </member>
-        <member name="M:RestaurantReservation.API.Controllers.ReservationController.OrderedMenuItemsByReservation(System.Int32,System.Int32,System.Int32)">
-            <summary>
-            List ordered menu items for a reservation.
-            </summary>
-            <param name="reservationId">The Id of the needed reservation</param>
-            <param name="pageNumber">Number of the page that contains the needed menu items.</param>
-            <param name="pageSize">The size of the needed page.</param>
-            <response code="200">Returns the requested menu items.</response>
             <response code="404">The reservation with the given Id doesn't exist.</response>
         </member>
         <member name="M:RestaurantReservation.API.Controllers.ReservationController.CreateReservationAsync(RestaurantReservation.API.Models.ReservationWithoutIdDTO)">
@@ -188,6 +158,36 @@
             <response code="404">The reservation with the given Id doesn't exist.</response>
             <response code="204">The reservation is deleted successfully.</response>
         </member>
+        <member name="M:RestaurantReservation.API.Controllers.ReservationCustomerController.GetReservationsByCustomerAsync(System.Int32,System.Int32,System.Int32)">
+            <summary>
+            Gets reservations by a specific customer.
+            </summary>
+            <param name="customerId">The Id property of the customer to get his reservations</param>
+            <param name="pageNumber">Number of the page that contains the needed reservations.</param>
+            <param name="pageSize">The size of the needed page.</param>
+            <response code="200">Returns the requested reservations.</response>
+            <response code="404">The customer with the given Id doesn't exist.</response>
+        </member>
+        <member name="M:RestaurantReservation.API.Controllers.ReservationOrdersController.OrdersAndMenuItemsByReservation(System.Int32,System.Int32,System.Int32)">
+            <summary>
+            List orders and menu items for a reservation.
+            </summary>
+            <param name="reservationId">The Id of the needed reservation</param>
+            <param name="pageNumber">Number of the page that contains the needed orders.</param>
+            <param name="pageSize">The size of the needed page.</param>
+            <response code="200">Returns the requested orders.</response>
+            <response code="404">The reservation with the given Id doesn't exist.</response>
+        </member>
+        <member name="M:RestaurantReservation.API.Controllers.ReservationOrdersController.OrderedMenuItemsByReservation(System.Int32,System.Int32,System.Int32)">
+            <summary>
+            List ordered menu items for a reservation.
+            </summary>
+            <param name="reservationId">The Id of the needed reservation</param>
+            <param name="pageNumber">Number of the page that contains the needed menu items.</param>
+            <param name="pageSize">The size of the needed page.</param>
+            <response code="200">Returns the requested menu items.</response>
+            <response code="404">The reservation with the given Id doesn't exist.</response>
+        </member>
         <member name="M:RestaurantReservation.API.Extensions.ForeignKeyExtensions.ExtractForeignKey(Microsoft.EntityFrameworkCore.DbUpdateException)">
             <summary>
             Extract the name of the wrong foreign key in the exception.
@@ -209,6 +209,56 @@
         <member name="M:RestaurantReservation.API.Extensions.ValidationResultExtensions.GetImportantProperties(FluentValidation.Results.ValidationResult)">
             <summary>
             Returns only the important properties contained in the errors list.
+            </summary>
+        </member>
+        <member name="P:RestaurantReservation.API.Models.CustomerWithoutIdDTO.FirstName">
+            <summary>
+            Only letters and spaces are allowed with length of 3 to 30 characters.
+            </summary>
+        </member>
+        <member name="P:RestaurantReservation.API.Models.CustomerWithoutIdDTO.LastName">
+            <summary>
+            Only letters and spaces are allowed with length of 3 to 30 characters.
+            </summary>
+        </member>
+        <member name="P:RestaurantReservation.API.Models.EmployeeWithoutIdDTO.FirstName">
+            <summary>
+            Only letters and spaces are allowed with length of 3 to 30 characters.
+            </summary>
+        </member>
+        <member name="P:RestaurantReservation.API.Models.EmployeeWithoutIdDTO.LastName">
+            <summary>
+            Only letters and spaces are allowed with length of 3 to 30 characters.
+            </summary>
+        </member>
+        <member name="P:RestaurantReservation.API.Models.UserLoginDTO.Username">
+            <summary>
+            Only letters and underscores are allowed with length of 1 to 50 characters.
+            </summary>
+        </member>
+        <member name="P:RestaurantReservation.API.Models.UserLoginDTO.Password">
+            <summary>
+            Length must be from 8 to 50 characters.
+            </summary>
+        </member>
+        <member name="P:RestaurantReservation.API.Models.UserWithoutIdDTO.FirstName">
+            <summary>
+            Only letters and spaces are allowed with length of 3 to 30 characters.
+            </summary>
+        </member>
+        <member name="P:RestaurantReservation.API.Models.UserWithoutIdDTO.LastName">
+            <summary>
+            Only letters and spaces are allowed with length of 3 to 30 characters.
+            </summary>
+        </member>
+        <member name="P:RestaurantReservation.API.Models.UserWithoutIdDTO.Username">
+            <summary>
+            Only letters and underscores are allowed with length of 1 to 50 characters.
+            </summary>
+        </member>
+        <member name="P:RestaurantReservation.API.Models.UserWithoutIdDTO.Password">
+            <summary>
+            Length must be from 8 to 50 characters.
             </summary>
         </member>
         <member name="T:RestaurantReservation.API.Services.ITokenGenerator">

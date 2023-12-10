@@ -30,9 +30,7 @@ namespace RestaurantReservation.Db.Services
         Task DeleteAsync(int reservationId);
 
         Task<List<Reservation>> GetReservationsByCustomerAsync(
-            int customerId, 
-            int pageNumber, 
-            int pageSize);
+            int customerId, int pageNumber, int pageSize);
 
         Task<int> GetReservationsCountAsync();
 
@@ -41,9 +39,7 @@ namespace RestaurantReservation.Db.Services
         Task<bool> ReservationExistsAsync(int reservationId);
 
         Task<List<Order>> ListOrdersAndMenuItemsByReservationAsync(
-            int reservationId,
-            int pageNumber,
-            int pageSize);
+            int reservationId, int pageNumber, int pageSize);
 
         Task<List<MenuItem>> ListOrderedMenuItemsAsync(
             int reservationId,

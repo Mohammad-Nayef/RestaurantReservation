@@ -42,10 +42,8 @@ namespace RestaurantReservation.Db.Repositories
             return employee;
         }
 
-        public async Task<List<Employee>> GetAllAsync()
-        {
-            return await _context.Employees.ToListAsync();
-        }
+        public async Task<List<Employee>> GetAllAsync() =>
+            await _context.Employees.ToListAsync();
 
         public async Task<List<Employee>> GetAllAsync(int skipCount, int takeCount)
         {
@@ -86,10 +84,8 @@ namespace RestaurantReservation.Db.Repositories
             await _context.SaveChangesAsync();
         }
 
-        public async Task<bool> EmployeeExistsAsync(int employeeId)
-        {
-            return await _context.Employees.AnyAsync(employee => employee.Id == employeeId);
-        }
+        public async Task<bool> EmployeeExistsAsync(int employeeId) =>
+            await _context.Employees.AnyAsync(employee => employee.Id == employeeId);
 
         public async Task<int> GetEmployeesCountAsync()
         {

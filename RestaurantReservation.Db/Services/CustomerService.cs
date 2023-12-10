@@ -14,50 +14,34 @@ namespace RestaurantReservation.Db.Services
             _customersRepository = new(_context);
         }
 
-        public async Task<int> CreateAsync(Customer newCustomer)
-        {
-            return await _customersRepository.CreateAsync(newCustomer);
-        }
+        public async Task<int> CreateAsync(Customer newCustomer) =>
+            await _customersRepository.CreateAsync(newCustomer);
 
-        public async Task<Customer> GetAsync(int customerId)
-        {
-            return await _customersRepository.GetAsync(customerId);
-        }
+        public async Task<Customer> GetAsync(int customerId) =>
+            await _customersRepository.GetAsync(customerId);
 
-        public async Task<List<Customer>> GetAllAsync()
-        {
-            return await _customersRepository.GetAllAsync();
-        }
+        public async Task<List<Customer>> GetAllAsync() =>
+            await _customersRepository.GetAllAsync();
 
-        public async Task<List<Customer>> GetAllAsync(int pageNumber, int pageSize)
-        {
-            return await _customersRepository.GetAllAsync(
+        public async Task<List<Customer>> GetAllAsync(int pageNumber, int pageSize) =>
+            await _customersRepository.GetAllAsync(
                 (pageNumber - 1) * pageSize, pageSize);
-        }
 
-        public async Task UpdateAsync(Customer updatedCustomer)
-        {
+        public async Task UpdateAsync(Customer updatedCustomer) =>
             await _customersRepository.UpdateAsync(updatedCustomer);
-        }
 
-        public async Task DeleteAsync(int customerId)
-        {
+        public async Task DeleteAsync(int customerId) =>
             await _customersRepository.DeleteAsync(customerId);
-        }
 
         public async Task<List<Customer>> GetCustomersWithPartySizeGreaterThanValueAsync(
-            int value)
-        {
-            return await _customersRepository.
+            int value) =>
+            await _customersRepository.
                 GetCustomersWithPartySizeGreaterThanValueAsync(value);
-        }
 
         public async Task<int> GetCustomersCountAsync() =>
             await _customersRepository.GetCustomersCountAsync();
 
-        public async Task<bool> CustomerExistsAsync(int customerId)
-        {
-            return await _customersRepository.CustomerExistsAsync(customerId);
-        }
+        public async Task<bool> CustomerExistsAsync(int customerId) =>
+            await _customersRepository.CustomerExistsAsync(customerId);
     }
 }

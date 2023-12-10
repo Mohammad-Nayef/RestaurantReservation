@@ -43,5 +43,7 @@ namespace RestaurantReservation.Db.Services
         Task<int> GetEmployeesCountAsync();
 
         Task<int> GetManagersCountAsync();
+
+        Task<double> CalculateAverageOrderAmountAsync(int employeeId);
     }
 }

@@ -33,21 +33,15 @@ namespace RestaurantReservation.Db.Repositories
         Task<bool> ReservationExistsAsync(int reservationId);
 
         Task<List<Order>> ListOrdersAndMenuItemsByReservationAsync(
-            int reservationId,
-            int skipCount,
-            int takeCount);
+            int reservationId, int skipCount, int takeCount);
 
         Task<List<MenuItem>> ListOrderedMenuItemsAsync(
-            int reservationId,
-            int skipCount,
-            int takeCount);
+            int reservationId, int skipCount, int takeCount);
 
         Task<int> GetOrdersByReservationCountAsync(int reservationId);
 
         Task<List<Reservation>> GetReservationsByCustomerAsync(
-            int customerId, 
-            int skipCount, 
-            int takeCount);
+            int customerId, int skipCount, int takeCount);
 
         Task<int> GetReservationsByCustomerCountAsync(int customerId);
 

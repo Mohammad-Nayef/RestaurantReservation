@@ -38,19 +38,5 @@ namespace RestaurantReservation.Db.Services
         {
             await _ordersRepository.DeleteAsync(orderId);
         }
-
-        public async Task<double> CalculateAverageOrderAmountAsync(int employeeId)
-        {
-            var orders = await GetAllAsync();
-            orders = orders.Where(order => order.EmployeeId == employeeId)
-                .ToList();
-
-            if (orders.Count > 0)
-            {
-                return orders.Average(order => order.TotalAmount);
-            }
-
-            return 0;
-        }
     }
 }

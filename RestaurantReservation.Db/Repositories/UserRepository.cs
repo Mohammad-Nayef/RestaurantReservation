@@ -76,10 +76,8 @@ namespace RestaurantReservation.Db.Repositories
             await _context.SaveChangesAsync();
         }
 
-        public async Task<bool> UserExistsAsync(int userId)
-        {
-            return await _context.Users.AnyAsync(user => user.Id == userId);
-        }
+        public async Task<bool> UserExistsAsync(int userId) =>
+            await _context.Users.AnyAsync(user => user.Id == userId);
 
         public async Task<int> GetUsersCountAsync()
         {
