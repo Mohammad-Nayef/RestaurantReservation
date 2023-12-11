@@ -1,4 +1,5 @@
 ﻿using FluentValidation.Results;
+using RestaurantReservation.API.Models;
 
 namespace RestaurantReservation.API.Extensions
 {
@@ -7,14 +8,15 @@ namespace RestaurantReservation.API.Extensions
         /// <summary>
         /// Returns only the important properties contained in the errors list.
         /// </summary>
-        public static object GetImportantProperties(this ValidationResult validationResult)
+        public static List<ValidationResultDTO> GetImportantProperties(
+            this ValidationResult validationResult)
         {
-            return validationResult.Errors.Select(error => new
+            return validationResult.Errors.Select(error => new ValidationResultDTO
             {
-                error.ErrorMessage,
-                error.PropertyName,
-                error.AttemptedValue
-            });
+                ErrorMessage = error.ErrorMessage,
+                PropertyName = error.PropertyName,
+                AttemptedValue = (string)error.AttemptedValue
+            }).ToList();
         }
     }
 }
