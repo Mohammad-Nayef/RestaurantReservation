@@ -1,6 +1,7 @@
 ﻿using FluentValidation;
 using RestaurantReservation.API.Models;
 using RestaurantReservation.API.Extensions;
+using RestaurantReservation.API.Constants;
 
 namespace RestaurantReservation.API.Validators
 {
@@ -18,7 +19,8 @@ namespace RestaurantReservation.API.Validators
                 .EmailAddress();
 
             RuleFor(customer => customer.PhoneNumber)
-                .Matches(@"^[\+]?[(]?[0-9]{3}[)]?[-\s\.]?[0-9]{3}[-\s\.]?[0-9]{4,6}$");
+                .Matches(Regex.PhoneNumberPattern)
+                .WithMessage(ErrorMessages.InvalidPhoneNumber);
         }
     }
 }

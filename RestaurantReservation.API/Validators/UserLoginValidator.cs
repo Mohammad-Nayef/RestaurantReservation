@@ -1,4 +1,5 @@
 ﻿using FluentValidation;
+using RestaurantReservation.API.Constants;
 using RestaurantReservation.API.Models;
 
 namespace RestaurantReservation.API.Validators
@@ -8,11 +9,12 @@ namespace RestaurantReservation.API.Validators
         public UserLoginValidator()
         {
             RuleFor(user => user.Username)
-                .Matches(@"[A-Za-z_]+").WithMessage("Only letters and underscores are allowed.")
-                .Length(1, 50);
+                .Matches(Regex.Username)
+                .WithMessage(ErrorMessages.InvalidUsername)
+                .Length(Username.MinimumLength, Username.MaximumLength);
 
             RuleFor(user => user.Password)
-                .Length(8, 50);
+                .Length(Password.MinimumLength, Password.MaximumLength);
         }
     }
 }

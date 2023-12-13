@@ -5,6 +5,8 @@ namespace RestaurantReservation.API.Extensions
 {
     public static class ResponseHeadersExtensions
     {
+        public const string PaginationKeyName = "X-Pagination";
+
         /// <summary>
         /// Adds the pagination metadata to the headers of the HTTP response.
         /// </summary>
@@ -20,7 +22,7 @@ namespace RestaurantReservation.API.Extensions
             var paginationMetadata = new PaginationMetadataDTO(totalItems, pageSize, pageNumber);
             var jsonPaginationMetadata = JsonSerializer.Serialize(paginationMetadata);
 
-            headers.Add("X-Pagination", jsonPaginationMetadata);
+            headers.Add(PaginationKeyName, jsonPaginationMetadata);
         }
     }
 }

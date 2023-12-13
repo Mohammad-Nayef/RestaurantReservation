@@ -1,9 +1,13 @@
 ﻿using FluentValidation;
+using RestaurantReservation.API.Constants;
 
 namespace RestaurantReservation.API.Extensions
 {
     public static class NamesValidationExtensions
     {
+        public const int MinimumNameLength = 3;
+        public const int MaximumNameLength = 30;
+
         /// <summary>
         /// Validate name property using FluentValidation.
         /// </summary>
@@ -11,9 +15,9 @@ namespace RestaurantReservation.API.Extensions
             this IRuleBuilder<T, string> rule)
         {
             return rule
-                .Matches(@"^[A-Za-z\s]+$").WithMessage(
-                     "'{PropertyName}' should only contain letters and spaces.")
-                .Length(3, 30);
+                .Matches(Regex.NamePattern)
+                .WithMessage(ErrorMessages.InvalidName)
+                .Length(MinimumNameLength, MaximumNameLength);
         }
     }
 }
