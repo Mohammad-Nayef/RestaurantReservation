@@ -3,6 +3,7 @@ using FluentValidation;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using RestaurantReservation.API.Constants;
 using RestaurantReservation.API.Extensions;
 using RestaurantReservation.API.Models;
 using RestaurantReservation.Db.Entities;
@@ -109,10 +110,13 @@ namespace RestaurantReservation.API.Controllers
                 newId = await _employeeService.
                     CreateAsync(_mapper.Map<Employee>(newEmployee));
             }
-            catch (DbUpdateException ex)
+            catch (DbUpdateException)
             {
-                return UnprocessableEntity(
-                    $"Invalid foreign key: {ex.ExtractForeignKey()}");
+                return BadRequest(ErrorMessages.DbUpdateError);
+            }
+            catch
+            {
+                return StatusCode(StatusCodes.Status500InternalServerError);
             }
 
             var responseEmployee = _mapper.Map<EmployeeDTO>(newEmployee);
@@ -154,10 +158,13 @@ namespace RestaurantReservation.API.Controllers
             {
                 return NotFound();
             }
-            catch (DbUpdateException ex)
+            catch (DbUpdateException)
             {
-                return UnprocessableEntity(
-                    $"Invalid foreign key: {ex.ExtractForeignKey()}");
+                return BadRequest(ErrorMessages.DbUpdateError);
+            }
+            catch
+            {
+                return StatusCode(StatusCodes.Status500InternalServerError);
             }
 
             return NoContent();

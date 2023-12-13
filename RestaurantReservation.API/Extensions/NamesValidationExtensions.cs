@@ -15,7 +15,7 @@ namespace RestaurantReservation.API.Extensions
             this IRuleBuilder<T, string> rule)
         {
             return rule
-                .Matches(Regex.NamePattern)
+                .Matches(RegexPatterns.Name)
                 .WithMessage(ErrorMessages.InvalidName)
                 .Length(MinimumNameLength, MaximumNameLength);
         }

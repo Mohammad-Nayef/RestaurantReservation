@@ -188,11 +188,6 @@
             <response code="200">Returns the requested menu items.</response>
             <response code="404">The reservation with the given Id doesn't exist.</response>
         </member>
-        <member name="M:RestaurantReservation.API.Extensions.ForeignKeyExtensions.ExtractForeignKey(Microsoft.EntityFrameworkCore.DbUpdateException)">
-            <summary>
-            Extract the name of the wrong foreign key in the exception.
-            </summary>
-        </member>
         <member name="M:RestaurantReservation.API.Extensions.NamesValidationExtensions.ValidateName``1(FluentValidation.IRuleBuilder{``0,System.String})">
             <summary>
             Validate name property using FluentValidation.

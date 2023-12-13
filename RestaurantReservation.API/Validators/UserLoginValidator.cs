@@ -9,7 +9,7 @@ namespace RestaurantReservation.API.Validators
         public UserLoginValidator()
         {
             RuleFor(user => user.Username)
-                .Matches(Regex.Username)
+                .Matches(RegexPatterns.Username)
                 .WithMessage(ErrorMessages.InvalidUsername)
                 .Length(Username.MinimumLength, Username.MaximumLength);
 

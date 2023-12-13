@@ -1,9 +1,9 @@
 ﻿namespace RestaurantReservation.API.Constants
 {
-    public class Regex
+    public class RegexPatterns
     {
-        public const string NamePattern = @"^[A-Za-z\s]+$";
-        public const string PhoneNumberPattern = 
+        public const string Name = @"^[A-Za-z\s]+$";
+        public const string PhoneNumber = 
             @"^[\+]?[(]?[0-9]{3}[)]?[-\s\.]?[0-9]{3}[-\s\.]?[0-9]{4,6}$";
         public const string Username = @"[A-Za-z_]+";
     }

@@ -19,7 +19,7 @@ namespace RestaurantReservation.API.Validators
                 .EmailAddress();
 
             RuleFor(customer => customer.PhoneNumber)
-                .Matches(Regex.PhoneNumberPattern)
+                .Matches(RegexPatterns.PhoneNumber)
                 .WithMessage(ErrorMessages.InvalidPhoneNumber);
         }
     }
