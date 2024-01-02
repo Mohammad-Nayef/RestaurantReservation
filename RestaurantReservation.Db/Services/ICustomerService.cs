@@ -1,4 +1,4 @@
-﻿using RestaurantReservation.Db.Models;
+﻿using RestaurantReservation.Db.Entities;
 
 namespace RestaurantReservation.Db.Services
 {
@@ -9,18 +9,31 @@ namespace RestaurantReservation.Db.Services
         /// </summary>
         /// <param name="newCustomer"></param>
         /// <returns>The ID of the added customer.</returns>
-        public Task<int> CreateAsync(CustomerDTO newCustomer);
+        Task<int> CreateAsync(Customer newCustomer);
 
         /// <exception cref="KeyNotFoundException"></exception>
-        public Task<CustomerDTO> GetAsync(int customerId);
+        Task<Customer> GetAsync(int customerId);
 
-        public Task<List<CustomerDTO>> GetAllAsync();
-
-        public Task UpdateAsync(CustomerDTO updatedCustomer);
+        Task<List<Customer>> GetAllAsync();
+        
+        /// <summary>
+        /// Gets a page of the collection ordered by the name.
+        /// </summary>
+        /// <param name="pageNumber">Number of the needed page.</param>
+        /// <param name="pageSize">Number of elements the page contains.</param>
+        /// <returns></returns>
+        Task<List<Customer>> GetAllAsync(int pageNumber, int pageSize);
 
         /// <exception cref="KeyNotFoundException"></exception>
-        public Task DeleteAsync(int customerId);
+        Task UpdateAsync(Customer updatedCustomer);
 
-        public Task<List<CustomerDTO>> GetCustomersWithPartySizeGreaterThanValueAsync(int value);
+        /// <exception cref="KeyNotFoundException"></exception>
+        Task DeleteAsync(int customerId);
+
+        Task<List<Customer>> GetCustomersWithPartySizeGreaterThanValueAsync(int value);
+
+        Task<int> GetCustomersCountAsync();
+
+        Task<bool> CustomerExistsAsync(int customerId);
     }
 }

@@ -1,18 +1,20 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using RestaurantReservation.Db.Entities;
 using RestaurantReservation.Db.Models;
 
 namespace RestaurantReservation.Db
 {
     public class RestaurantReservationDbContext : DbContext
     {
-        public DbSet<CustomerDTO> Customers { get; set; }
-        public DbSet<EmployeeDTO> Employees { get; set; }
-        public DbSet<MenuItemDTO> MenuItems { get; set; }
-        public DbSet<OrderDTO> Orders { get; set; }
-        public DbSet<OrderItemDTO> OrderItems { get; set; }
-        public DbSet<RestaurantDTO> Restaurants { get; set; }
-        public DbSet<TableDTO> Tables { get; set; }
-        public DbSet<ReservationDTO> Reservations { get; set; }
+        public DbSet<Customer> Customers { get; set; }
+        public DbSet<Employee> Employees { get; set; }
+        public DbSet<MenuItem> MenuItems { get; set; }
+        public DbSet<Order> Orders { get; set; }
+        public DbSet<OrderItem> OrderItems { get; set; }
+        public DbSet<Restaurant> Restaurants { get; set; }
+        public DbSet<Table> Tables { get; set; }
+        public DbSet<Reservation> Reservations { get; set; }
+        public DbSet<User> Users { get; set; }
         public DbSet<ReservationsWithCustomerAndRestaurant> ReservationsWithCustomerAndRestaurant { get; set; }
         public DbSet<EmployeesWithRestaurant> EmployeesWithRestaurant { get; set; }
 
@@ -44,6 +46,12 @@ namespace RestaurantReservation.Db
             modelBuilder.HasDbFunction(typeof(RestaurantReservationDbContext)
                 .GetMethod(nameof(TotalRevenueByRestaurant), new[] { typeof(int) }))
                 .HasName("fn_TotalRevenue");
+
+            modelBuilder.Entity<User>(entity =>
+            {
+                entity.HasIndex(user => user.Id)
+                    .IncludeProperties(user => user.Username);
+            });
         }
 
         public int TotalRevenueByRestaurant(int restaurantId)

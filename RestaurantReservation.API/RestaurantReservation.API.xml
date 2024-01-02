@@ -1,0 +1,276 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>RestaurantReservation.API</name>
+    </assembly>
+    <members>
+        <member name="M:RestaurantReservation.API.Controllers.AuthorizationController.RegisterAsync(RestaurantReservation.API.Models.UserWithoutIdDTO)">
+            <summary>
+            Register a new user
+            </summary>
+            <param name="userRegister"></param>
+            <response code="200">Token for authorization</response>
+        </member>
+        <member name="M:RestaurantReservation.API.Controllers.AuthorizationController.LoginAsync(RestaurantReservation.API.Models.UserLoginDTO)">
+            <summary>
+            Login to an existing user account
+            </summary>
+            <param name="userLogin"></param>
+            <response code="200">Token for authorization</response>
+        </member>
+        <member name="M:RestaurantReservation.API.Controllers.CustomerController.GetCustomersAsync(System.Int32,System.Int32)">
+            <summary>
+            Gets customers partitioned into pages.
+            </summary>
+            <param name="pageNumber">Number of the page that contains the needed customers.</param>
+            <param name="pageSize">The size of the needed page.</param>
+            <response code="200">Returns list of the requested customers with pagination metadata in the headers.</response>
+        </member>
+        <member name="M:RestaurantReservation.API.Controllers.CustomerController.GetCustomerAsync(System.Int32)">
+            <summary>
+            Gets a customer by his Id.
+            </summary>
+            <param name="customerId">The Id property of the needed customer</param>
+            <response code="200">Returns the requested customer.</response>
+            <response code="404">The customer with the given Id doesn't exist.</response>
+        </member>
+        <member name="M:RestaurantReservation.API.Controllers.CustomerController.CreateCustomerAsync(RestaurantReservation.API.Models.CustomerWithoutIdDTO)">
+            <summary>
+            Create and store a new customer.
+            </summary>
+            <param name="newCustomer">Properties of the new customer.</param>
+            <response code="201">Returns the customer with a new Id and his URI is in the headers.</response>
+        </member>
+        <member name="M:RestaurantReservation.API.Controllers.CustomerController.UpdateCustomerAsync(System.Int32,RestaurantReservation.API.Models.CustomerWithoutIdDTO)">
+            <summary>
+            Update a customer with a specific Id.
+            </summary>
+            <param name="customerId">The Id of the customer to update.</param>
+            <param name="updatedCustomer">The customer with updated value(s).</param>
+            <response code="404">The customer with the given Id doesn't exist.</response>
+            <response code="204">The customer is updated successfully.</response>
+        </member>
+        <member name="M:RestaurantReservation.API.Controllers.CustomerController.DeleteCustomerAsync(System.Int32)">
+            <summary>
+            Delete a customer with a specific Id.
+            </summary>
+            <param name="customerId">The Id of the customer to delete.</param>
+            <response code="404">The customer with the given Id doesn't exist.</response>
+            <response code="204">The customer is deleted successfully.</response>
+        </member>
+        <member name="M:RestaurantReservation.API.Controllers.EmployeeController.GetEmployeesAsync(System.Int32,System.Int32)">
+            <summary>
+            Gets employees partitioned into pages.
+            </summary>
+            <param name="pageNumber">Number of the page that contains the needed employees.</param>
+            <param name="pageSize">The size of the needed page.</param>
+            <response code="200">Returns list of the requested employees with pagination metadata in the headers.</response>
+        </member>
+        <member name="M:RestaurantReservation.API.Controllers.EmployeeController.GetEmployeeAsync(System.Int32)">
+            <summary>
+            Gets an employee by their Id.
+            </summary>
+            <param name="employeeId">The Id property of the needed employee.</param>
+            <response code="200">Returns the requested employee.</response>
+            <response code="404">The employee with the given Id doesn't exist.</response>
+        </member>
+        <member name="M:RestaurantReservation.API.Controllers.EmployeeController.CreateEmployeeAsync(RestaurantReservation.API.Models.EmployeeWithoutIdDTO)">
+            <summary>
+            Create and store a new employee.
+            </summary>
+            <param name="newEmployee">Properties of the new employee.</param>
+            <response code="201">Returns the employee with a new Id and their URI is in the headers.</response>
+            <response code="422">There's an invalid foreign key returned in the response body.</response>
+        </member>
+        <member name="M:RestaurantReservation.API.Controllers.EmployeeController.UpdateEmployeeAsync(System.Int32,RestaurantReservation.API.Models.EmployeeWithoutIdDTO)">
+            <summary>
+            Update an employee with a specific Id.
+            </summary>
+            <param name="employeeId">The Id of the employee to update.</param>
+            <param name="updatedEmployee">The employee with updated value(s).</param>
+            <response code="404">The employee with the given Id doesn't exist.</response>
+            <response code="422">There's an invalid foreign key returned in the response body.</response>
+            <response code="204">The employee is updated successfully.</response>
+        </member>
+        <member name="M:RestaurantReservation.API.Controllers.EmployeeController.DeleteEmployeeAsync(System.Int32)">
+            <summary>
+            Delete an employee with a specific Id.
+            </summary>
+            <param name="employeeId">The Id of the employee to delete.</param>
+            <response code="404">The employee with the given Id doesn't exist.</response>
+            <response code="204">The employee is deleted successfully.</response>
+        </member>
+        <member name="M:RestaurantReservation.API.Controllers.EmployeeOrdersController.AverageOrderAmountForEmployee(System.Int32)">
+            <summary>
+            Calculates average order amount for an employee.
+            </summary>
+            <param name="employeeId">The Id property of the needed employee.</param>
+            <response code="200">Returns the average order amount for an employee.</response>
+            <response code="404">The employee with the given Id doesn't exist.</response>
+        </member>
+        <member name="M:RestaurantReservation.API.Controllers.ManagerController.GetManagersAsync(System.Int32,System.Int32)">
+            <summary>
+            Gets managers partitioned into pages.
+            </summary>
+            <param name="pageNumber">Number of the page that contains the needed managers.</param>
+            <param name="pageSize">The size of the needed page.</param>
+            <response code="200">Returns list of the requested managers with pagination metadata in the headers.</response>
+        </member>
+        <member name="M:RestaurantReservation.API.Controllers.ReservationController.GetReservationsAsync(System.Int32,System.Int32)">
+            <summary>
+            Gets reservations partitioned into pages.
+            </summary>
+            <param name="pageNumber">Number of the page that contains the needed reservations.</param>
+            <param name="pageSize">The size of the needed page.</param>
+            <response code="200">Returns list of the requested reservations with pagination metadata in the headers.</response>
+        </member>
+        <member name="M:RestaurantReservation.API.Controllers.ReservationController.GetReservationAsync(System.Int32)">
+            <summary>
+            Gets a reservation by its Id.
+            </summary>
+            <param name="reservationId">The Id property of the needed reservation</param>
+            <response code="200">Returns the requested reservation.</response>
+            <response code="404">The reservation with the given Id doesn't exist.</response>
+        </member>
+        <member name="M:RestaurantReservation.API.Controllers.ReservationController.CreateReservationAsync(RestaurantReservation.API.Models.ReservationWithoutIdDTO)">
+            <summary>
+            Create and store a new reservation.
+            </summary>
+            <param name="newReservation">Properties of the new reservation.</param>
+            <response code="201">Returns the reservation with a new Id and its URI is in the headers.</response>
+            <response code="422">There's an invalid foreign key returned in the response body.</response>
+        </member>
+        <member name="M:RestaurantReservation.API.Controllers.ReservationController.UpdateReservationAsync(System.Int32,RestaurantReservation.API.Models.ReservationWithoutIdDTO)">
+            <summary>
+            Update a reservation with a specific Id.
+            </summary>
+            <param name="reservationId">The Id of the reservation to update.</param>
+            <param name="updatedReservation">The reservation with updated value(s).</param>
+            <response code="404">The reservation with the given Id doesn't exist.</response>
+            <response code="422">There's an invalid foreign key returned in the response body.</response>
+            <response code="204">The reservation is updated successfully.</response>
+        </member>
+        <member name="M:RestaurantReservation.API.Controllers.ReservationController.DeleteReservationAsync(System.Int32)">
+            <summary>
+            Delete a reservation with a specific Id.
+            </summary>
+            <param name="reservationId">The Id of the reservation to delete.</param>
+            <response code="404">The reservation with the given Id doesn't exist.</response>
+            <response code="204">The reservation is deleted successfully.</response>
+        </member>
+        <member name="M:RestaurantReservation.API.Controllers.ReservationCustomerController.GetReservationsByCustomerAsync(System.Int32,System.Int32,System.Int32)">
+            <summary>
+            Gets reservations by a specific customer.
+            </summary>
+            <param name="customerId">The Id property of the customer to get his reservations</param>
+            <param name="pageNumber">Number of the page that contains the needed reservations.</param>
+            <param name="pageSize">The size of the needed page.</param>
+            <response code="200">Returns the requested reservations.</response>
+            <response code="404">The customer with the given Id doesn't exist.</response>
+        </member>
+        <member name="M:RestaurantReservation.API.Controllers.ReservationOrdersController.OrdersAndMenuItemsByReservation(System.Int32,System.Int32,System.Int32)">
+            <summary>
+            List orders and menu items for a reservation.
+            </summary>
+            <param name="reservationId">The Id of the needed reservation</param>
+            <param name="pageNumber">Number of the page that contains the needed orders.</param>
+            <param name="pageSize">The size of the needed page.</param>
+            <response code="200">Returns the requested orders.</response>
+            <response code="404">The reservation with the given Id doesn't exist.</response>
+        </member>
+        <member name="M:RestaurantReservation.API.Controllers.ReservationOrdersController.OrderedMenuItemsByReservation(System.Int32,System.Int32,System.Int32)">
+            <summary>
+            List ordered menu items for a reservation.
+            </summary>
+            <param name="reservationId">The Id of the needed reservation</param>
+            <param name="pageNumber">Number of the page that contains the needed menu items.</param>
+            <param name="pageSize">The size of the needed page.</param>
+            <response code="200">Returns the requested menu items.</response>
+            <response code="404">The reservation with the given Id doesn't exist.</response>
+        </member>
+        <member name="M:RestaurantReservation.API.Extensions.NamesValidationExtensions.ValidateName``1(FluentValidation.IRuleBuilder{``0,System.String})">
+            <summary>
+            Validate name property using FluentValidation.
+            </summary>
+        </member>
+        <member name="M:RestaurantReservation.API.Extensions.ResponseHeadersExtensions.AddPaginationMetadata(Microsoft.AspNetCore.Http.IHeaderDictionary,System.Int32,System.Int32,System.Int32)">
+            <summary>
+            Adds the pagination metadata to the headers of the HTTP response.
+            </summary>
+            <param name="totalItems">Number of the items.</param>
+            <param name="pageSize">How many items the page contains.</param>
+            <param name="pageNumber">Number of the current page.</param>
+        </member>
+        <member name="M:RestaurantReservation.API.Extensions.ValidationResultExtensions.GetImportantProperties(FluentValidation.Results.ValidationResult)">
+            <summary>
+            Returns only the important properties contained in the errors list.
+            </summary>
+        </member>
+        <member name="P:RestaurantReservation.API.Models.CustomerWithoutIdDTO.FirstName">
+            <summary>
+            Only letters and spaces are allowed with length of 3 to 30 characters.
+            </summary>
+        </member>
+        <member name="P:RestaurantReservation.API.Models.CustomerWithoutIdDTO.LastName">
+            <summary>
+            Only letters and spaces are allowed with length of 3 to 30 characters.
+            </summary>
+        </member>
+        <member name="P:RestaurantReservation.API.Models.EmployeeWithoutIdDTO.FirstName">
+            <summary>
+            Only letters and spaces are allowed with length of 3 to 30 characters.
+            </summary>
+        </member>
+        <member name="P:RestaurantReservation.API.Models.EmployeeWithoutIdDTO.LastName">
+            <summary>
+            Only letters and spaces are allowed with length of 3 to 30 characters.
+            </summary>
+        </member>
+        <member name="P:RestaurantReservation.API.Models.UserLoginDTO.Username">
+            <summary>
+            Only letters and underscores are allowed with length of 1 to 50 characters.
+            </summary>
+        </member>
+        <member name="P:RestaurantReservation.API.Models.UserLoginDTO.Password">
+            <summary>
+            Length must be from 8 to 50 characters.
+            </summary>
+        </member>
+        <member name="P:RestaurantReservation.API.Models.UserWithoutIdDTO.FirstName">
+            <summary>
+            Only letters and spaces are allowed with length of 3 to 30 characters.
+            </summary>
+        </member>
+        <member name="P:RestaurantReservation.API.Models.UserWithoutIdDTO.LastName">
+            <summary>
+            Only letters and spaces are allowed with length of 3 to 30 characters.
+            </summary>
+        </member>
+        <member name="P:RestaurantReservation.API.Models.UserWithoutIdDTO.Username">
+            <summary>
+            Only letters and underscores are allowed with length of 1 to 50 characters.
+            </summary>
+        </member>
+        <member name="P:RestaurantReservation.API.Models.UserWithoutIdDTO.Password">
+            <summary>
+            Length must be from 8 to 50 characters.
+            </summary>
+        </member>
+        <member name="T:RestaurantReservation.API.Services.ITokenGenerator">
+            <summary>
+            Responsible for dealing with web tokens for authorizing requests.
+            </summary>
+        </member>
+        <member name="M:RestaurantReservation.API.Services.ITokenGenerator.GenerateToken(RestaurantReservation.API.Models.UserWithoutPasswordDTO)">
+            <summary>
+            Generates a web token based on the user.
+            </summary>
+            <returns>String value of the token.</returns>
+        </member>
+        <member name="T:RestaurantReservation.API.Services.JwtTokenGenerator">
+            <summary>
+            Responsible for dealing with JWT as an authorization token.
+            </summary>
+        </member>
+    </members>
+</doc>

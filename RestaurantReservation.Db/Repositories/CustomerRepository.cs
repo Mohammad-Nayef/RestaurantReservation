@@ -1,5 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using RestaurantReservation.Db.Models;
+using RestaurantReservation.Db.Entities;
 
 namespace RestaurantReservation.Db.Repositories
 {
@@ -13,7 +13,7 @@ namespace RestaurantReservation.Db.Repositories
             _context.Database.EnsureCreatedAsync().Wait();
         }
 
-        public async Task<int> CreateAsync(CustomerDTO newCustomer)
+        public async Task<int> CreateAsync(Customer newCustomer)
         {
             if (newCustomer.Id < 0)
             {
@@ -29,7 +29,7 @@ namespace RestaurantReservation.Db.Repositories
             return customer.Entity.Id;
         }
 
-        public async Task<CustomerDTO> GetAsync(int customerId)
+        public async Task<Customer> GetAsync(int customerId)
         {
             var customer = await _context.Customers
                 .SingleOrDefaultAsync(customer => customer.Id == customerId);
@@ -42,16 +42,25 @@ namespace RestaurantReservation.Db.Repositories
             return customer;
         }
 
-        public async Task<List<CustomerDTO>> GetAllAsync()
+        public async Task<List<Customer>> GetAllAsync() =>
+            await _context.Customers.ToListAsync();
+
+        public async Task<List<Customer>> GetAllAsync(int skipCount, int takeCount)
         {
-            return await _context.Customers.ToListAsync();
+            return await _context.Customers
+                .OrderBy(customer => customer.FirstName)
+                .ThenBy(customer => customer.LastName)
+                .Skip(skipCount)
+                .Take(takeCount)
+                .ToListAsync();
         }
 
-        public async Task UpdateAsync(CustomerDTO updatedCustomer)
+        public async Task UpdateAsync(Customer updatedCustomer)
         {
             if (!(await CustomerExistsAsync(updatedCustomer.Id)))
             {
-                throw new KeyNotFoundException($"Customer with ID = {updatedCustomer.Id} does not exist.");
+                throw new KeyNotFoundException(
+                    $"Customer with ID = {updatedCustomer.Id} does not exist.");
             }
 
             _context.Customers.Update(updatedCustomer);
@@ -65,16 +74,23 @@ namespace RestaurantReservation.Db.Repositories
             await _context.SaveChangesAsync();
         }
 
-        public async Task<List<CustomerDTO>> GetCustomersWithPartySizeGreaterThanValueAsync(int value)
+        public async Task<List<Customer>> GetCustomersWithPartySizeGreaterThanValueAsync(
+            int value)
         {
             return await _context.Customers
                 .FromSql($"EXEC sp_GetCustomersWithPartySizeGreaterThanValue {value}")
                 .ToListAsync();
         }
 
-        private async Task<bool> CustomerExistsAsync(int customerId)
+        public async Task<bool> CustomerExistsAsync(int customerId) =>
+            await _context.Customers.AnyAsync(customer => customer.Id == customerId);
+
+        public async Task<int> GetCustomersCountAsync()
         {
-            return await _context.Customers.AnyAsync(customer => customer.Id == customerId);
+            if (_context.Customers.TryGetNonEnumeratedCount(out var fastCount))
+                return fastCount;
+
+            return await _context.Customers.CountAsync();
         }
     }
 }

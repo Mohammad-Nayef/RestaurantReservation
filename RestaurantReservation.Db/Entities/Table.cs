@@ -1,16 +1,16 @@
-﻿namespace RestaurantReservation.Db.Models
+﻿namespace RestaurantReservation.Db.Entities
 {
-    public class TableDTO
+    public class Table
     {
         public int Id { get; set; }
 
         public int? RestaurantId { get; set; }
 
-        public RestaurantDTO? Restaurant { get; set; }
+        public Restaurant? Restaurant { get; set; }
 
         public int Capacity { get; set; }
 
-        public List<ReservationDTO> Reservations { get; set; } = new List<ReservationDTO>();
+        public List<Reservation> Reservations { get; set; } = new List<Reservation>();
 
         public override string ToString()
         {

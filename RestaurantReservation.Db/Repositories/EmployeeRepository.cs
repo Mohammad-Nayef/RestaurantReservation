@@ -1,5 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using RestaurantReservation.Db.Models;
+using RestaurantReservation.Db.Entities;
 
 namespace RestaurantReservation.Db.Repositories
 {
@@ -13,7 +13,7 @@ namespace RestaurantReservation.Db.Repositories
             _context.Database.EnsureCreatedAsync().Wait();
         }
         
-        public async Task<int> CreateAsync(EmployeeDTO newEmployee)
+        public async Task<int> CreateAsync(Employee newEmployee)
         {
             if (newEmployee.Id < 0)
             {
@@ -29,7 +29,7 @@ namespace RestaurantReservation.Db.Repositories
             return employee.Entity.Id;
         }
 
-        public async Task<EmployeeDTO> GetAsync(int employeeId)
+        public async Task<Employee> GetAsync(int employeeId)
         {
             var employee = await _context.Employees
                 .SingleOrDefaultAsync(e => e.Id == employeeId);
@@ -42,12 +42,31 @@ namespace RestaurantReservation.Db.Repositories
             return employee;
         }
 
-        public async Task<List<EmployeeDTO>> GetAllAsync()
+        public async Task<List<Employee>> GetAllAsync() =>
+            await _context.Employees.ToListAsync();
+
+        public async Task<List<Employee>> GetAllAsync(int skipCount, int takeCount)
         {
-            return await _context.Employees.ToListAsync();
+            return await _context.Employees
+                .OrderBy(employee => employee.FirstName)
+                .ThenBy(employee => employee.LastName)
+                .Skip(skipCount)
+                .Take(takeCount)
+                .ToListAsync();
         }
 
-        public async Task UpdateAsync(EmployeeDTO updatedEmployee)
+        public async Task<List<Employee>> ListManagersAsync(int skipCount, int takeCount)
+        {
+            return await _context.Employees
+                .Where(employee => employee.Position == EmployeePositions.Manager)
+                .OrderBy(employee => employee.FirstName)
+                .ThenBy(employee => employee.LastName)
+                .Skip(skipCount)
+                .Take(takeCount)
+                .ToListAsync();
+        }
+
+        public async Task UpdateAsync(Employee updatedEmployee)
         {
             if (!(await EmployeeExistsAsync(updatedEmployee.Id)))
             {
@@ -65,9 +84,26 @@ namespace RestaurantReservation.Db.Repositories
             await _context.SaveChangesAsync();
         }
 
-        private async Task<bool> EmployeeExistsAsync(int employeeId)
+        public async Task<bool> EmployeeExistsAsync(int employeeId) =>
+            await _context.Employees.AnyAsync(employee => employee.Id == employeeId);
+
+        public async Task<int> GetEmployeesCountAsync()
         {
-            return await _context.Employees.AnyAsync(employee => employee.Id == employeeId);
+            if (_context.Employees.TryGetNonEnumeratedCount(out var fastCount))
+                return fastCount;
+
+            return await _context.Employees.CountAsync();
+        }
+
+        public async Task<int> GetManagersCountAsync()
+        {
+            var managers = _context.Employees
+                .Where(employee => employee.Position == EmployeePositions.Manager);
+
+            if (managers.TryGetNonEnumeratedCount(out var fastCount))
+                return fastCount;
+
+            return await managers.CountAsync();
         }
     }
 }

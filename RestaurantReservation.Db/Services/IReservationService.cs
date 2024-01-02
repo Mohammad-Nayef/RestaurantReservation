@@ -1,4 +1,4 @@
-﻿using RestaurantReservation.Db.Models;
+﻿using RestaurantReservation.Db.Entities;
 
 namespace RestaurantReservation.Db.Services
 {
@@ -9,18 +9,45 @@ namespace RestaurantReservation.Db.Services
         /// </summary>
         /// <param name="newReservation"></param>
         /// <returns>The ID of the added reservation.</returns>
-        public Task<int> CreateAsync(ReservationDTO newReservation);
+        Task<int> CreateAsync(Reservation newReservation);
 
         /// <exception cref="KeyNotFoundException"></exception>
-        public Task<ReservationDTO> GetAsync(int reservationId);
+        Task<Reservation> GetAsync(int reservationId);
 
-        public Task<List<ReservationDTO>> GetAllAsync();
+        Task<List<Reservation>> GetAllAsync();
 
-        public Task UpdateAsync(ReservationDTO updatedReservation);
+        /// <summary>
+        /// Gets a page of the collection.
+        /// </summary>
+        /// <param name="pageNumber">Number of the needed page.</param>
+        /// <param name="pageSize">Number of elements the page contains.</param>
+        /// <returns></returns>
+        Task<List<Reservation>> GetAllAsync(int pageNumber, int pageSize);
+
+        Task UpdateAsync(Reservation updatedReservation);
 
         /// <exception cref="KeyNotFoundException"></exception>
-        public Task DeleteAsync(int reservationId);
+        Task DeleteAsync(int reservationId);
 
-        public Task<List<ReservationDTO>> GetReservationsByCustomerAsync(int customerId);
+        Task<List<Reservation>> GetReservationsByCustomerAsync(
+            int customerId, int pageNumber, int pageSize);
+
+        Task<int> GetReservationsCountAsync();
+
+        Task<int> GetReservationsByCustomerCountAsync(int customerId);
+
+        Task<bool> ReservationExistsAsync(int reservationId);
+
+        Task<List<Order>> ListOrdersAndMenuItemsByReservationAsync(
+            int reservationId, int pageNumber, int pageSize);
+
+        Task<List<MenuItem>> ListOrderedMenuItemsAsync(
+            int reservationId,
+            int pageNumber,
+            int pageSize);
+
+        Task<int> GetOrdersByReservationCountAsync(int reservationId);
+
+        Task<int> GetMenuItemsByReservationCountAsync(int reservationId);
     }
 }
