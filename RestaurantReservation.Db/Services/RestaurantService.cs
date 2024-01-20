@@ -1,4 +1,4 @@
-﻿using RestaurantReservation.Db.Models;
+﻿using RestaurantReservation.Db.Entities;
 using RestaurantReservation.Db.Repositories;
 
 namespace RestaurantReservation.Db.Services
@@ -14,22 +14,22 @@ namespace RestaurantReservation.Db.Services
             _restaurantsRepository = new(_context);
         }
 
-        public async Task<int> CreateAsync(RestaurantDTO newRestaurant)
+        public async Task<int> CreateAsync(Restaurant newRestaurant)
         {
             return await _restaurantsRepository.CreateAsync(newRestaurant);
         }
 
-        public async Task<RestaurantDTO> GetAsync(int restaurantId)
+        public async Task<Restaurant> GetAsync(int restaurantId)
         {
             return await _restaurantsRepository.GetAsync(restaurantId);
         }
 
-        public async Task<List<RestaurantDTO>> GetAllAsync()
+        public async Task<List<Restaurant>> GetAllAsync()
         {
             return await _restaurantsRepository.GetAllAsync();
         }
 
-        public async Task UpdateAsync(RestaurantDTO updatedRestaurant)
+        public async Task UpdateAsync(Restaurant updatedRestaurant)
         {
             await _restaurantsRepository.UpdateAsync(updatedRestaurant);
         }

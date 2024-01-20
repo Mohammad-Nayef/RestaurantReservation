@@ -1,5 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using RestaurantReservation.Db.Models;
+using RestaurantReservation.Db.Entities;
 
 public static class OnDeleteSetNullForDatabaseForeignKeys
 {
@@ -19,7 +19,7 @@ public static class OnDeleteSetNullForDatabaseForeignKeys
 
     private static void OnDeleteSetNullForCustomerInReservations(ModelBuilder modelBuilder)
     {
-        modelBuilder.Entity<CustomerDTO>()
+        modelBuilder.Entity<Customer>()
             .HasMany(customer => customer.Reservations)
             .WithOne(reservation => reservation.Customer)
             .HasForeignKey(reservation => reservation.CustomerId)
@@ -28,7 +28,7 @@ public static class OnDeleteSetNullForDatabaseForeignKeys
 
     private static void OnDeleteSetNullForTableInReservations(ModelBuilder modelBuilder)
     {
-        modelBuilder.Entity<TableDTO>()
+        modelBuilder.Entity<Table>()
             .HasMany(table => table.Reservations)
             .WithOne(reservation => reservation.Table)
             .HasForeignKey(reservation => reservation.TableId)
@@ -37,7 +37,7 @@ public static class OnDeleteSetNullForDatabaseForeignKeys
 
     private static void OnDeleteSetNullForReservationInOrders(ModelBuilder modelBuilder)
     {
-        modelBuilder.Entity<ReservationDTO>()
+        modelBuilder.Entity<Reservation>()
             .HasMany(reservation => reservation.Orders)
             .WithOne(order => order.Reservation)
             .HasForeignKey(order => order.ReservationId)
@@ -46,7 +46,7 @@ public static class OnDeleteSetNullForDatabaseForeignKeys
 
     private static void OnDeleteSetNullForEmployeeInOrders(ModelBuilder modelBuilder)
     {
-        modelBuilder.Entity<EmployeeDTO>()
+        modelBuilder.Entity<Employee>()
             .HasMany(employee => employee.Orders)
             .WithOne(order => order.Employee)
             .HasForeignKey(order => order.EmployeeId)
@@ -55,7 +55,7 @@ public static class OnDeleteSetNullForDatabaseForeignKeys
 
     private static void OnDeleteSetNullForOrderInOrderItems(ModelBuilder modelBuilder)
     {
-        modelBuilder.Entity<OrderDTO>()
+        modelBuilder.Entity<Order>()
             .HasMany(order => order.OrderItems)
             .WithOne(orderItem => orderItem.Order)
             .HasForeignKey(orderItem => orderItem.OrderId)
@@ -64,7 +64,7 @@ public static class OnDeleteSetNullForDatabaseForeignKeys
 
     private static void OnDeleteSetNullForMenuItemInOrderItems(ModelBuilder modelBuilder)
     {
-        modelBuilder.Entity<MenuItemDTO>()
+        modelBuilder.Entity<MenuItem>()
             .HasMany(menuItem => menuItem.OrderItems)
             .WithOne(orderItem => orderItem.MenuItem)
             .HasForeignKey(orderItem => orderItem.MenuItemId)
@@ -73,7 +73,7 @@ public static class OnDeleteSetNullForDatabaseForeignKeys
 
     private static void OnDeleteSetNullForRestaurantInMenuItems(ModelBuilder modelBuilder)
     {
-        modelBuilder.Entity<RestaurantDTO>()
+        modelBuilder.Entity<Restaurant>()
             .HasMany(restaurant => restaurant.MenuItems)
             .WithOne(menuItem => menuItem.Restaurant)
             .HasForeignKey(menuItem => menuItem.RestaurantId)
@@ -82,7 +82,7 @@ public static class OnDeleteSetNullForDatabaseForeignKeys
 
     private static void OnDeleteSetNullForRestaurantInEmployees(ModelBuilder modelBuilder)
     {
-        modelBuilder.Entity<RestaurantDTO>()
+        modelBuilder.Entity<Restaurant>()
             .HasMany(restaurant => restaurant.Employees)
             .WithOne(employee => employee.Restaurant)
             .HasForeignKey(employee => employee.RestaurantId)
@@ -91,7 +91,7 @@ public static class OnDeleteSetNullForDatabaseForeignKeys
 
     private static void OnDeleteSetNullForRestaurantInTables(ModelBuilder modelBuilder)
     {
-        modelBuilder.Entity<RestaurantDTO>()
+        modelBuilder.Entity<Restaurant>()
             .HasMany(restaurant => restaurant.Tables)
             .WithOne(table => table.Restaurant)
             .HasForeignKey(table => table.RestaurantId)
@@ -100,7 +100,7 @@ public static class OnDeleteSetNullForDatabaseForeignKeys
 
     private static void OnDeleteSetNullForRestaurantInReservations(ModelBuilder modelBuilder)
     {
-        modelBuilder.Entity<RestaurantDTO>()
+        modelBuilder.Entity<Restaurant>()
             .HasMany(restaurant => restaurant.Reservations)
             .WithOne(reservation => reservation.Restaurant)
             .HasForeignKey(reservation => reservation.RestaurantId)

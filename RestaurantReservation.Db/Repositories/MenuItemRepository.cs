@@ -1,5 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using RestaurantReservation.Db.Models;
+using RestaurantReservation.Db.Entities;
 
 namespace RestaurantReservation.Db.Repositories
 {
@@ -13,7 +13,7 @@ namespace RestaurantReservation.Db.Repositories
             _context.Database.EnsureCreatedAsync().Wait();
         }
 
-        public async Task<int> CreateAsync(MenuItemDTO newMenuItem)
+        public async Task<int> CreateAsync(MenuItem newMenuItem)
         {
             if (newMenuItem.Id < 0)
             {
@@ -29,7 +29,7 @@ namespace RestaurantReservation.Db.Repositories
             return menuItem.Entity.Id;
         }
 
-        public async Task<MenuItemDTO> GetAsync(int menuItemId)
+        public async Task<MenuItem> GetAsync(int menuItemId)
         {
             var menuItem = await _context.MenuItems
                 .SingleOrDefaultAsync(item => item.Id == menuItemId);
@@ -42,12 +42,12 @@ namespace RestaurantReservation.Db.Repositories
             return menuItem;
         }
 
-        public async Task<List<MenuItemDTO>> GetAllAsync()
+        public async Task<List<MenuItem>> GetAllAsync()
         {
             return await _context.MenuItems.ToListAsync();
         }
 
-        public async Task UpdateAsync(MenuItemDTO updatedMenuItem)
+        public async Task UpdateAsync(MenuItem updatedMenuItem)
         {
             if (!(await MenuItemExistsAsync(updatedMenuItem.Id)))
             {

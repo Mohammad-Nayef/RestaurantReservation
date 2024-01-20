@@ -1,4 +1,4 @@
-﻿using RestaurantReservation.Db.Models;
+﻿using RestaurantReservation.Db.Entities;
 using RestaurantReservation.Db.Repositories;
 
 namespace RestaurantReservation.Db.Services
@@ -14,22 +14,22 @@ namespace RestaurantReservation.Db.Services
             _ordersRepository = new(_context);
         }
 
-        public async Task<int> CreateAsync(OrderDTO newOrder)
+        public async Task<int> CreateAsync(Order newOrder)
         {
             return await _ordersRepository.CreateAsync(newOrder);
         }
 
-        public async Task<OrderDTO> GetAsync(int orderId)
+        public async Task<Order> GetAsync(int orderId)
         {
             return await _ordersRepository.GetAsync(orderId);
         }
 
-        public async Task<List<OrderDTO>> GetAllAsync()
+        public async Task<List<Order>> GetAllAsync()
         {
             return await _ordersRepository.GetAllAsync();
         }
 
-        public async Task UpdateAsync(OrderDTO updatedOrder)
+        public async Task UpdateAsync(Order updatedOrder)
         {
             await _ordersRepository.UpdateAsync(updatedOrder);
         }
@@ -37,25 +37,6 @@ namespace RestaurantReservation.Db.Services
         public async Task DeleteAsync(int orderId)
         {
             await _ordersRepository.DeleteAsync(orderId);
-        }
-
-        public async Task<double> CalculateAverageOrderAmountAsync(int employeeId)
-        {
-            var orders = await GetAllAsync();
-            orders = orders.Where(order => order.EmployeeId == employeeId)
-                .ToList();
-
-            if (orders.Count > 0)
-            {
-                return orders.Average(order => order.TotalAmount);
-            }
-
-            return 0;
-        }
-
-        public async Task<List<OrderDTO>> ListOrdersAndMenuItemsAsync(int reservationId)
-        {
-            return await _ordersRepository.ListOrdersAndMenuItemsAsync(reservationId);
         }
     }
 }
